@@ -1,0 +1,46 @@
+﻿<table class="table table-striped" ng-repeat="section in exam.AnswersPerSection">
+	<tr style="cursor:pointer">
+		<td colspan="3" ng-click="collapsed=!collapsed">
+			<b style="font-size:large" ng-show="!collapsed">
+				&#x025B4;
+			</b>
+			<b style="font-size:large" ng-show="collapsed">
+				&#x025BE;
+			</b>
+			<b style="width:100%;font-size:large">
+				{{section.SectionName}}
+			</b>
+		</td>
+	</tr>
+	<tr ng-hide="collapsed">
+		<th>
+			<p class="exam-questions">
+				Question:
+			</p>
+		</th>
+		<th>
+			<p class="exam-answer">
+				Correct answer:
+			</p>
+		</th>
+		<th>
+			<p class="exam-answer">
+				Candidate's answer:
+			</p>
+		</th>
+	</tr>
+	<tr ng-repeat="answer in section.Answers track by $index" ng-hide="collapsed">
+		<td>
+			<p class="exam-questions" ng-bind-html="answer.Question.QuestionText">
+			</p>
+		</td>
+		<td class="success">
+			<p ng-repeat="option in answer.CorrectOptions track by $index" class="exam-answer" ng-bind-html="option">
+			</p>
+		</td>
+		<td ng-class="{'danger': answer.AnsweredCorrectly===false, 'success': answer.AnsweredCorrectly===true}">
+			<p ng-repeat="option in answer.SelectedOptions track by $index" class="exam-answer" ng-bind-html="option">
+			</p>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,53 @@
+﻿<div id="step1" ng-show="Status=='start'">
+    <h4>{{Test.Title}}</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="padding-top:10px;">Questions:</dt>
+        <dd style="padding-top:10px;">{{Test.NumberOfQuestions}}</dd>
+        <dt style="padding-top:10px;">Duration(minute):</dt>
+        <dd style="padding-top:10px;">{{Test.MinutesAllowed}}</dd>
+        <dt style="padding-top:15px;">Candidate:</dt>
+        <dd style="padding-top:10px;"><input type="text" style="width:30%;" ng-model="CandidateName" placeholder="Enter your name" class="form-control" /></dd>
+    </dl>
+    <center style="margin-bottom: 25px;">
+        <button class="btn btn-primary" ng-show="CandidateName!=null" ng-click="StartExam()"><span class="glyphicon glyphicon-play"></span> Start</button>
+    </center>
+</div>
+<div id="step2" ng-show="Status=='progress'" style="padding-bottom:0; margin-bottom:0;">
+    <div style="padding-bottom:25px;">
+        <div class="progress" style="margin:0;">
+            <div class="progress-bar" role="progressbar" style="width: {{progressBar}}%">
+            </div>
+        </div>
+        <center><strong>{{clock | formatTimer}}</strong></center>
+    </div>
+    <h4>Question {{Exam.QuestionIndex+1}}/{{Exam.Answers.length}}</h4>
+    <div ng-bind-html="Question.QuestionText"></div>
+    <hr style="margin-bottom:25px" />
+    <div class="form-group" ng-repeat="option in Question.Options" >
+        <div class="row">
+            <div class="col-md-2" style="margin-left:15px; vertical-align:middle;float:left; padding:0;width:1%;" ng-click="SetCorrectOption(option, Question)">
+                <radio-checkbox name="answerSelector" property-to-bind="IsSelected" option="option" all-options="Question.Options" type="Question.Type" option-id="option.ID" />
+            </div>
+            <div class="col-md-10" style="float:right; width:97%;">
+				<label for="id_{{option.ID}}" ng-bind-html="option.Answer"></label>
+			</div>
+        </div>
+    </div>
+    <center style="margin-bottom: 15px; margin-top:15px;">
+        <button ng-show="Exam.QuestionIndex!=0" class="btn btn-primary" ng-click="StepToQuestion(-1)"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+        <button class="btn btn-primary" ng-show="Exam.QuestionIndex+1<Exam.Answers.length" ng-click="StepToQuestion(1)">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button class="btn btn-primary" ng-show="Exam.QuestionIndex+1==Exam.Answers.length" ng-click="SubmitExam()"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+    </center>
+</div>
+<div id="step1" style="padding:25px;" ng-show="Status=='finish'">
+    <div class="alert alert-success">
+        <div class="row">
+            <center>
+                <h4><strong>Well done!</strong><br /><br /> You successfully finished our <strong>{{Test.Title}}</strong> test!</h4>
+                <h5><span ng-show="Test.ShowScoreWhenCompleted">Your score is: <strong>{{ExamResult}}</strong></span></h5><br />
+                <a class="btn btn-success" href="#/Tests/"><span class="glyphicon glyphicon-chevron-left"></span> Return To Tests</a>
+            </center>
+        </div>
+    </div>
+</div>

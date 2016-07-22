@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html ng-app="quizApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/Tests">Qubiz Quiz</a>               
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/Tests">Tests</a></li>
+                    <li><a href="#/Exams">Exams</a></li>
+                    <li><a href="#/Questions">Questions</a></li>
+                    <li><a href="#/Sections">Sections</a></li>
+                    <li><a href="#/Admins">Administrators</a></li>
+                </ul>
+                <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
+            </div>
+        </div>
+        </header>
+
+    <div id="body" class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="container body-content">
+        <hr />
+        <p>&copy; @DateTime.Now.Year - Qubiz</p>
+    </footer>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/linq.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/angular-resource.js"></script>
+    <script src="~/Scripts/angular-cookies.js"></script>
+	<script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/App/controllers/admin.controller.js"></script>
+    <script src="~/Scripts/App/controllers/exam-list.controller.js"></script>
+    <script src="~/Scripts/App/controllers/dropdown.controller.js"></script>
+    <script src="~/Scripts/App/controllers/exam.controller.js"></script>
+    <script src="~/Scripts/App/controllers/question-detail.controller.js"></script>
+    <script src="~/Scripts/App/controllers/question-list.controller.js"></script>
+    <script src="~/Scripts/App/controllers/question-selector.controller.js"></script>
+    <script src="~/Scripts/App/controllers/section.controller.js"></script>
+    <script src="~/Scripts/App/controllers/section-selector.controller.js"></script>
+    <script src="~/Scripts/App/controllers/test-detail.controller.js"></script>
+    <script src="~/Scripts/App/controllers/test-list.controller.js"></script>
+    <script src="~/Scripts/App/directives/answers-details.directive.js"></script>
+    <script src="~/Scripts/App/directives/ck-editor.directive.js"></script>
+    <script src="~/Scripts/App/directives/dropdown.directive.js"></script>
+    <script src="~/Scripts/App/directives/exam-detail.directive.js"></script>
+    <script src="~/Scripts/App/directives/question-editor.directive.js"></script>
+    <script src="~/Scripts/App/directives/question-selector.directive.js"></script>
+    <script src="~/Scripts/App/directives/section-selector.directive.js"></script>
+    <script src="~/Scripts/App/directives/radio-checkbox.directive.js"></script>
+    <script src="~/Scripts/App/directives/test-editor.directive.js"></script>
+    <script src="~/Scripts/App/filters/formatTimer.js"></script>
+    <script src="~/Scripts/App/filters/padding.js"></script>
+    <script src="~/Scripts/App/filters/questionType.js"></script>
+    <script src="~/Scripts/App/services/admin-data.service.js"></script>
+    <script src="~/Scripts/App/services/dropdown-data.service.js"></script>
+    <script src="~/Scripts/App/services/exam-data.service.js"></script>
+    <script src="~/Scripts/App/services/feature-flag.service.js"></script>
+    <script src="~/Scripts/App/services/question-data.service.js"></script>
+    <script src="~/Scripts/App/services/guid.service.js"></script>
+    <script src="~/Scripts/App/services/question-type.service.js"></script>
+    <script src="~/Scripts/App/services/test-data.service.js"></script>
+    <script src="~/Scripts/App/services/section-data.service.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckeditor/config.js"></script>
+</body>
+</html>

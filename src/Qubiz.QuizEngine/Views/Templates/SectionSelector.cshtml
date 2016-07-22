@@ -1,0 +1,14 @@
+﻿<div ng-show="visible">
+    <div id="content">
+        <div class="group">
+            <div class="item form-group" ng-repeat="section in Sections" ng-class-even="'even'">
+                <input type="checkbox" name="isPublished" ng-model="section.IsSelected" ng-change="SelectionChanged(section)" /> {{section.Name}}
+            </div>
+        </div>
+        <div class="group">
+            <div class="item form-group" ng-repeat="section in Sections" ng-class-odd="'odd'">
+                <input type="checkbox" name="isPublished" ng-model="section.IsSelected" ng-change="SelectionChanged(section)" /> {{section.Name}}
+            </div>
+        </div>
+    </div>
+</div>

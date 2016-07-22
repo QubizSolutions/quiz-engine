@@ -1,0 +1,81 @@
+﻿<div class="col-md-5">
+    <div class="row">
+        <div class="input-group">
+            <input class="form-control" ng-model="Filter"/>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" ng-click="getQuestions()"><span class="glyphicon glyphicon-search"></span> Search</button>
+                <button class="btn btn-primary" ng-click="CreateQuestion()"><span class="glyphicon glyphicon-edit"></span> Create</button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="row">
+        <p class="text-success col-md-12"><b>{{Questions.Items.length}}</b> of <b>{{Questions.TotalCount}}</b> items displayed.    You are on page <b>{{pageNumber+1}}</b> of <b>{{maxPages+1}}</b></p>
+    </div>
+    <div class="col-md-3">
+        <div class="row" ng-repeat="question in Questions.Items" ng-if="Questions.Items.length!=0">
+            <div class="btn btn-default button-container" ng-click="SelectedQuestionChanged(question)">
+                <div class="col-md-12" style="padding-bottom:10px;">
+                    <div class="col-md-10" style="text-align:left; padding-left:0;">
+                        <b>
+                            {{question.Number | padding:4}}
+                        </b>
+                            - ({{question.Section}})
+                    </div>
+                    <div class="col-md-2" style="text-align:right; float:right; padding-right:0;">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="Questions.Items.length==0">
+            <p class="text-success"><b>
+                No items found!
+            </b></p>
+        </div>
+        <div class="col-md-12" style="margin-top:5px; width: 130%; margin-left: -30px" ng-show="Questions.TotalCount >= 20">
+            <input type="number" style="width:50px; height:37px; margin-top:5px; margin-right:5px" ng-model="page" /><button class="btn btn-default" ng-click="goToPage(-pageNumber + page-1)"><span class="glyphicon glyphicon-search"></span></button>            
+            <button type="button" id="FrstBtn" class="btn btn-default" ng-click="goToPage(-pageNumber + 0)" ng-class="{'disabled': pageNumber <= 0}"><span class="glyphicon glyphicon-backward"></span></button>
+            <button type="button" id="PrevBtn" class="btn btn-default" ng-click="goToPage(-1)" ng-class="{'disabled': pageNumber <= 0}"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            <button type="button" id="NextBtn" class="btn btn-default" ng-click="goToPage(+1)" ng-class="{'disabled': pageNumber >= maxPages}"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            <button type="button" id="LastBtn" class="btn btn-default" ng-click="goToPage(-pageNumber + maxPages)" ng-class="{'disabled': pageNumber >= maxPages}"><span class="glyphicon glyphicon-forward"></span></button>            
+        </div>
+    </div>   
+    <div class="col-md-9">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="text-success col-md-3 " for="Section">By Section: </label>
+                <div class="col-md-9">
+                    <dropdown selecteditem="SectionId" items="sections" event="onFilterChanged" />
+                </div>
+            </div>
+        </div>
+        <div class="text-success col-md-4">
+            <div class="form-group">
+                <label for="Complexity" class="col-md-4">By Complexity: </label>
+                <div class="col-md-7">
+                    <dropdown selecteditem="complexity" items="Complexities" event="onFilterChanged" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Type" class="text-success col-md-2">By Type: </label>
+                <div class="col-md-9">
+                    <dropdown selecteditem="type" items="Types" event="onFilterChanged" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editor" class="col-md-9" ng-if="Questions.Items.length!=0">
+        <div ng-if=" SelectedQuestion !=null">
+            <question-editor question="SelectedQuestion"></question-editor>
+        </div>
+    </div>
+    <div id="editor" class="col-md-9 col-md-offset-3" ng-if="Questions.Items.length==0">
+        <div ng-if=" SelectedQuestion != null">
+			<question-editor question="SelectedQuestion"></question-editor>
+		</div>
+    </div>
+</div>

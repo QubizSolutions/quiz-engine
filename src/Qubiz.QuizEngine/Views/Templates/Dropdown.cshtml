@@ -1,0 +1,11 @@
+﻿<div class="btn-group {{cssClass}}">
+    <div class="btn-group" style="float:none">
+        <a aria-expanded="false" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width: 155px; height: 30px;">
+            <p style="margin-top:-5px">{{selectedItem}}</p>
+            <span class="caret dropdownSelectorNullContent" ></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="" ng-repeat="item in items" ng-class="{'active': selectedItem == item.content}"><a aria-expanded="false" href="" data-toggle="tab" ng-click="Clicked(item)">{{item.content}}</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿<div ng-show="question">
+    <div class="form-horizontal">
+        <fieldset style="padding-bottom:5px;">
+            <h4><span>Question: <b>#{{question.Number | padding:4}}</b></span></h4>
+            <hr style="margin-bottom:15px;" />
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="QuestionText" class="col-md-1">Text: </label>
+                    <div class="col-md-11 editor-font-size">
+                        <textarea name="QuestionText" ck-editor ng-model="question.QuestionText" style="width:500px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-md-3" for="Section">Section: </label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="Section" ng-model="question.SectionID" ng-options="section.ID as section.Name for section in Sections">
+                            <option value="">-- Select one --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Complexity" class="col-md-3">Complexity: </label>
+                    <div class="col-md-9">
+                        <input id="Complexity" type="number" class="form-control" min="0" max="10" ng-model="question.Complexity">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Type" class="col-md-3">Type: </label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="Type" ng-model="question.Type" ng-change="TypeChanged()">
+                            <option value="0">Single select</option>
+                            <option value="1">Multi select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-horizontal">
+            <h4>Options:</h4>
+            <div class="row" style="padding:20px;">
+                <div class="col-md-12" style="border: solid 1px #cccccc">
+                    <div ng-repeat="option in question.Options" style="margin-top:35px; margin-bottom:15px;">
+                        <div class="question-option form-group" style="min-height:50px;">
+                            <div class="col-md-2" style="margin-left:15px; vertical-align:middle;float:left; padding:0;width:1%;" ng-click="SetCorrectOption(option)">
+                                <radio-checkbox name="answerSelector" property-to-bind="IsCorrectAnswer" option="option" all-options="question.Options" type="question.Type" />
+                            </div>
+                            <div id="QuestionStyle" style="float:right; width:97%;">
+                                <div class="col-md-12">
+                                    <div class="input-group editor-font-size">
+                                        <textarea id="QuestionAnswers{{option.Order}}" name="QuestionAnswers{{option.Order}}" ck-editor ng-model="option.Answer"></textarea>
+                                        <span class="input-group-btn section-btn">
+                                            <button class="btn btn-primary" ng-click="RemoveOption(option)"><span class=" glyphicon glyphicon-trash"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <center style="margin-bottom: 5px;">
+                        <button class="btn btn-primary" ng-click="AddOption()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                    </center>
+                </div>
+            </div>
+            <div style="margin-top: 5px;">
+                <center>
+                    <button class="btn btn-primary" ng-click="Delete()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    <button class="btn btn-primary" ng-click="Preview()"><span class="glyphicon glyphicon-eye-open"></span> Preview</button>
+                    <button class="btn btn-primary" ng-click="Submit()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>

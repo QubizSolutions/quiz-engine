@@ -1,0 +1,57 @@
+﻿<div ng-show="exam">
+    <div class="form-horizontal">         
+        <div class="form-group">
+            <label style="padding-top:4px;" for="ExamTitle" class="control-label col-md-2">Exam name: </label>
+            <div class="col-md-10">
+                <b>{{exam.Title}}</b>
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="padding-top:4px;" class="control-label col-md-2" for="Candidate">Candidate: </label>
+            <div class="col-md-10">
+                <b>{{exam.CandidateName}}</b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="padding-top:4px;" for="Score" class="control-label col-md-2">Score: </label>
+            <div class="col-md-10">
+               {{exam.TotalScore}} / {{exam.AllQuestions}}
+               <div class="progress" style="margin:0;">
+                    <div class="progress-bar" role="progressbar" style="width:{{ exam.TotalScore / exam.AllQuestions *100}}%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="padding-top:4px;" for="StartDate" class="control-label col-md-2">Exam Started At: </label>
+            <div class="col-md-10">
+                {{exam.StartDate | date:'yyyy-MM-dd HH:mm:ss'}}         
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="padding-top:4px;" for="StartDate" class="control-label col-md-2">Exam Ended At: </label>
+            <div class="col-md-10">
+                {{exam.EndDate | date:'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="padding-top:4px;" for="StartDate" class="control-label col-md-2">Exam Duration: </label>
+            <div class="col-md-10">
+                {{exam.ExamDuration}}
+            </div>
+        </div>      
+        <div class="form-group">
+            <div class="col-md-10" ng-repeat="examSection in exam.ExamAnswers">
+                <label style="padding-top:4px;"> {{examSection.SectionName}}</label>
+
+                {{examSection.CorrectAnswers}}/{{examSection.AllQuestions}}
+
+                <div class="progress" style="margin:0;">
+                    <div class="progress-bar" role="progressbar" style="width:{{examSection.CorrectAnswers / examSection.AllQuestions*100}}%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

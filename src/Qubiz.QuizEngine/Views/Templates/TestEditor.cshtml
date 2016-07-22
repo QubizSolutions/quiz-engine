@@ -1,0 +1,57 @@
+﻿<div ng-show="test">
+    <div class="form-horizontal">
+        <fieldset>
+            <h4>Test:</h4> <b>{{test.Title}}</b>
+            <hr style="margin-bottom:15px;" />
+            <div class="form-group">
+                <label for="title" class="control-label col-md-2">Title</label>
+                <div class="col-md-9 editor-font-size">
+                    <input class="form-control" type="text" name="title" ng-model="test.Title" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="isPublished" style="padding-top:2px;" class="control-label col-md-2">Published</label>
+                <div class="col-md-9 editor-font-size">
+                    <input style="vertical-align:middle; margin:0;" type="checkbox" name="isPublished" ng-model="test.IsPublished" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="showScoreWhenCompleted" style="padding-top:2px;" class="control-label col-md-2">Show score</label>
+                <div class="col-md-9 editor-font-size">
+                    <input style="vertical-align:middle; margin:0;" type="checkbox" name="showScoreWhenCompleted" ng-model="test.ShowScoreWhenCompleted" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="numberOfQuestions" class="control-label col-md-2">Number of questions</label>
+                <div class="col-md-9 editor-font-size">
+                    <input class="form-control" type="number" name="numberOfQuestions" ng-model="test.NumberOfQuestions" min="1" max="100" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="minutesAllowed" class="control-label col-md-2">Minutes allowed</label>
+                <div class="col-md-9 editor-font-size">
+                    <input class="form-control" type="number" name="numberOfQuestions" ng-model="test.MinutesAllowed" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="questionsSelectedRandomly" style="padding-top:2px;" class="control-label col-md-2">Random questions</label>
+                <div class="col-md-9 editor-font-size">
+                    <input style="vertical-align:middle; margin:0;" type="checkbox" name="questionsSelectedRandomly" ng-model="test.QuestionsSelectedRandomly" />
+                </div>
+            </div>
+        </fieldset>
+        <div>
+            <section-selector selected-sections="test.Sections" visible="test.QuestionsSelectedRandomly" />
+        </div>
+        <div>
+            <question-selector selected-questions="test.Questions" visible="!test.QuestionsSelectedRandomly" />
+        </div>
+        <hr style="margin-top:5px;" />
+        <div class="form-group">
+            <center style="margin-top: 5px;">
+                <button class="btn btn-primary" ng-click="Delete()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                <button class="btn btn-primary" ng-click="Submit()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+            </center>
+        </div>
+    </div>
+</div>

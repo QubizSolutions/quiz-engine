@@ -1,0 +1,59 @@
+﻿<div class="row">
+	<div class="col-md-5">
+		<div class="input-group">
+            <input class="form-control" ng-model="nameFilter" />
+			<span class="input-group-btn">
+                <button class="btn btn-primary" ng-click="onItemChanged()"><span class="glyphicon glyphicon-search"></span> Search</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="row">
+        <p class="text-success col-md-3"><b>{{examsCount}} of {{TotalExamsCount}}</b> sections in the system.</p> 
+        <p class="text-success col-md-3" style="margin-left:-4%">You are on page <b>{{pageNumber}} of {{maxPage}}</b></p>
+	</div>
+    <div style="display:inline;">
+        <div class="baseDivDropdown">
+            <p class="text-success dropdownBase">Date: </p>
+            <dropdown selecteditem="selectedItemDate" items="dateSortDropdown" event="onItemChanged" class="dropdownDate dropdownBase"></dropdown>
+        </div>
+        <div class="baseDivDropdown">
+            <p class="text-success dropdownBase">Score: </p>
+            <dropdown selecteditem="selectedItemScore" items="scoreSortDropdown" event="onItemChanged" class="dropdownDate dropdownBase"></dropdown>
+        </div>
+        <div class="baseDivDropdown">
+            <p class="text-success dropdownBase">Exam Name: </p>
+            <dropdown selecteditem="selectedItemTitle" items="examNameDropdown" event="onItemChanged" class="dropdownDate dropdownBase"></dropdown>
+        </div>
+    </div>
+	<div class="exam-list">
+		<div class="row" ng-repeat="exam in Exams">
+			<div style="width:100%; height:100%;" class="btn btn-default" ng-click="SelectedExamChanged(exam)">
+				<div class="col-md-9" style="text-align:left; padding:0;">
+					<b>
+						{{exam.CandidateName}}
+					</b>
+					- ({{exam.Title}})
+				</div>
+				<div class="col-md-3" style="text-align:right; padding:0;">
+					{{exam.TotalScore}} / {{exam.AllQuestions}}
+				</div>
+			</div>
+		</div>
+        <div style="margin-top: 1%; margin-bottom:3%;" ng-show="examsCount >= 20">
+            <button class="btn btn-default" ng-click="getExams()" style="display: inline-block; margin-left: 1%"><i class="glyphicon glyphicon-search"></i> </button>
+            <button class="btn btn-default" ng-click="goToPage(-pageNumber + 1)" ng-class="{'disabled': pageNumber <= 1}"><i class="glyphicon glyphicon-backward"></i></button>
+            <button class="btn btn-default" ng-click="goToPage(-1)" ng-class="{'disabled': pageNumber <= 1}"><i class="glyphicon glyphicon-chevron-left"></i></button>
+            <button class="btn btn-default" ng-click="goToPage(1)" ng-class="{'disabled': pageNumber >= maxPage}"><i class="glyphicon glyphicon-chevron-right"></i></button>
+            <button class="btn btn-default" ng-click="goToPage(maxPage - pageNumber)" ng-class="{'disabled': pageNumber >= maxPage}"><i class="glyphicon glyphicon-forward"></i></button>
+            <input class="form-control" type="number" ng-model ="pageNumber" placeholder="Page Number" style="display:block; width:20%; float: left;"/>
+            
+        </div>
+	</div>
+    
+	<div id="detail" class="col-md-8" style="padding-bottom:50px">
+		<exam-detail exam="SelectedExam"></exam-detail>
+	</div>
+	<answers-details exam="SelectedExam" expanded="expanded"></answers-details>
+</div>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2D10802-A03B-4231-A9F8-C0A757740869}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Qubiz.QuizEngine.Database</RootNamespace>
+    <AssemblyName>Qubiz.QuizEngine.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Admin.cs" />
+    <Compile Include="Entities\Exam.cs" />
+    <Compile Include="Entities\ExamAnswer.cs" />
+    <Compile Include="Entities\FeatureFlag.cs" />
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\OptionDefinition.cs" />
+    <Compile Include="Entities\QuestionDefinition.cs" />
+    <Compile Include="Entities\Section.cs" />
+    <Compile Include="Entities\TestDefinition.cs" />
+    <Compile Include="Entities\TestQuestion.cs" />
+    <Compile Include="Entities\TestSection.cs" />
+    <Compile Include="Migrations\201508131437164_InitialCreate.cs" />
+    <Compile Include="Migrations\201508131437164_InitialCreate.Designer.cs">
+      <DependentUpon>201508131437164_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509020904036_113_Add_FeatureFlag_Table.cs" />
+    <Compile Include="Migrations\201509020904036_113_Add_FeatureFlag_Table.Designer.cs">
+      <DependentUpon>201509020904036_113_Add_FeatureFlag_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuizEngineDataContext.cs" />
+    <Compile Include="Repositories\Admin\AdminRepository.cs" />
+    <Compile Include="Repositories\Admin\IAdminRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Exam\ExamRepository.cs" />
+    <Compile Include="Repositories\Exam\IExamRepository.cs" />
+    <Compile Include="Repositories\FeatureFlag\FeatureFlagRepository.cs" />
+    <Compile Include="Repositories\FeatureFlag\IFeatureFlagRepository.cs" />
+    <Compile Include="Repositories\IBaseRepository.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\Question\IOptionRepository.cs" />
+    <Compile Include="Repositories\Question\OptionRepository.cs" />
+    <Compile Include="Repositories\Question\IQuestionRepository.cs" />
+    <Compile Include="Repositories\Question\QuestionRepository.cs" />
+    <Compile Include="Repositories\Question\ISectionRepository.cs" />
+    <Compile Include="Repositories\Question\SectionRepository.cs" />
+    <Compile Include="Repositories\Test\ITestQuestionRepository.cs" />
+    <Compile Include="Repositories\Test\ITestSectionRepository.cs" />
+    <Compile Include="Repositories\Test\ITestRepository.cs" />
+    <Compile Include="Repositories\Test\TestQuestionRepository.cs" />
+    <Compile Include="Repositories\Test\TestSectionRepository.cs" />
+    <Compile Include="Repositories\Test\TestRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Qubiz.QuizEngine.Infrastructure.csproj">
+      <Project>{B80C7772-2868-4AA9-9127-A01B607D47E3}</Project>
+      <Name>Qubiz.QuizEngine.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508131437164_InitialCreate.resx">
+      <DependentUpon>201508131437164_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509020904036_113_Add_FeatureFlag_Table.resx">
+      <DependentUpon>201509020904036_113_Add_FeatureFlag_Table.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

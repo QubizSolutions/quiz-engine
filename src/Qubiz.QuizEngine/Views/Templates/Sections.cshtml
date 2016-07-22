@@ -1,0 +1,19 @@
+﻿@model IEnumerable< Qubiz.QuizEngine.Database.Entities.Section>
+<h4>Sections</h4>
+<hr />
+<div id="Sections" style="margin-left:25px;">
+    <p class="text-success">There are <b>{{Sections.length}}</b> sections in the system.</p>
+    <div ng-repeat="section in Sections" class="row section-spacing">
+        {{section.Name}}
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="section.Name" required />
+                <span class="input-group-btn section-btn">
+                    <button class="btn btn-primary" ng-click="RemoveSection(section)" type="button"><span class="glyphicon glyphicon-trash"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary section-spacing" ng-click="AddSection()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+    <button class="btn btn-primary section-spacing" ng-click="SubmitSections()" ng-disabled='Sections.length == 0'><span class="glyphicon glyphicon-floppy-disk"></span> Submit</button>
+</div>

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Qubiz.QuizEngine.Database.Entities.Admin>
+<h4>Admins</h4>
+<hr />
+<div id="Admins" style="margin-left:25px;">
+    <p class="text-success">There are <b>{{Admins.length}}</b> administrators in the system.</p>
+    <div ng-repeat="admin in Admins" class="row section-spacing">
+        <div class="col-md-3">
+            <div class="input-group">
+                <input class="required form-control" ng-model="admin.Name" />
+                <span class="input-group-btn section-btn">
+                    <button class="btn btn-primary" ng-click="RemoveAdmin(admin)" type="button"><span class="glyphicon glyphicon-trash"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary section-spacing" ng-click="AddAdmin()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+    <button class="btn btn-primary section-spacing" ng-click="SubmitAdmins()" ng-disabled='Admins.length == 0'><span class="glyphicon glyphicon-floppy-disk"></span> Submit</button>
+</div>
