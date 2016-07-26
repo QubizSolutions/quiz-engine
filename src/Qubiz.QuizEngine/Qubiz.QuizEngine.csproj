@@ -155,8 +155,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\M\App_StartUp\BundleConfig.cs" />
-    <Compile Include="Areas\M\Controllers\TestsController.cs" />
+    <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
+    <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
+    <Compile Include="Areas\M\Controllers\HomeController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -193,8 +194,21 @@
     <Compile Include="ViewModels\QuestionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
+    <Content Include="Areas\M\Content\angular-material\angular-material.css" />
+    <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
+    <Content Include="Areas\M\Scripts\angular-animate.js" />
+    <Content Include="Areas\M\Scripts\angular-animate.min.js" />
+    <Content Include="Areas\M\Scripts\angular-aria.js" />
+    <Content Include="Areas\M\Scripts\angular-aria.min.js" />
+    <Content Include="Areas\M\Scripts\angular-material.js" />
+    <Content Include="Areas\M\Scripts\angular-material.min.js" />
+    <Content Include="Areas\M\Scripts\angular-route.js" />
+    <Content Include="Areas\M\Scripts\angular.js" />
+    <Content Include="Areas\M\Scripts\angular.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -673,7 +687,9 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Areas\M\Views\web.config" />
-    <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\Views\Home\Index.cshtml" />
+    <Content Include="Areas\M\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\M\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -746,7 +762,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\M\Models\" />
-    <Folder Include="Areas\M\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
