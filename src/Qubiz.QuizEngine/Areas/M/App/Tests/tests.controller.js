@@ -12,7 +12,7 @@
             .then(function (result) {
                 vm.message = result.data;
             })
-            .catch(function (error) {
+            .catch(function (error) { 
                 console.log('Error: ' + error.statusText);
             })
 

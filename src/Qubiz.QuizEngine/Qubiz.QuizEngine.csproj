@@ -156,6 +156,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
+    <Compile Include="Areas\M\Controllers\TemplatesController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
@@ -690,6 +691,7 @@
     <Content Include="Areas\M\Views\Home\Index.cshtml" />
     <Content Include="Areas\M\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\M\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\M\Views\Templates\Test.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
