@@ -278,6 +278,7 @@
     <Content Include="Scripts\App\controllers\section.controller.js" />
     <Content Include="Scripts\App\controllers\test-detail.controller.js" />
     <Content Include="Scripts\App\controllers\test-list.controller.js" />
+    <Content Include="Scripts\App\directives\answers-details-print.directive.js" />
     <Content Include="Scripts\App\directives\answers-details.directive.js" />
     <Content Include="Scripts\App\directives\dropdown.directive.js" />
     <Content Include="Scripts\App\filters\formatTimer.js" />
@@ -761,6 +762,7 @@
     <Content Include="Views\Templates\AnswersDetails.cshtml" />
     <Content Include="Views\Templates\Dropdown.cshtml" />
     <Content Include="Views\Templates\PrintPreview.cshtml" />
+    <Content Include="Views\Templates\AnswersDetailsPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\M\Models\" />
