@@ -4,16 +4,50 @@
     <title>QuizEngine1</title>
     <meta charset="utf-8" />
     @Styles.Render("~/Areas/M/angular-material")
+	<link href="~/Areas/M/Content/bootstrap.css" rel="stylesheet" />
+	<link href="~/Areas/M/App/MenuBar.StyleSheet.css" rel="stylesheet" />
 </head>
 <body>
-    
-    <div id="body" class="container body-content">
-        @RenderBody()
-    </div>
 
-    @Scripts.Render("~/Areas/M/angular")
-    @Scripts.Render("~/Areas/M/module")
-    @Scripts.Render("~/Areas/M/tests")
+	<md-toolbar id="mainMenu" class="md-hue-2">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="Logo" ng-disabled="true">
+				<h2 id="textLogo">Qubiz Quiz</h2>
+			</md-button>
+			<span flex></span>
+			
+			<h3 class="md-icon-button pull-right">Hello!</h3>	
+		</div>
+	</md-toolbar>
 
+	<div ng-cloak>
+		<md-content style="align-self:center center; align-content:center">
+			<md-tabs  md-dynamic-height md-border-bottom>
+				<md-tab  label="Tests"><a href="#/Tests"></a>
+				</md-tab>
+				<md-tab label="Exams">
+					<a href="#/Exams"></a>
+				</md-tab>
+				<md-tab label="Questions">
+					<a href="#/Questions"></a>
+				</md-tab>
+				<md-tab label="Sections">
+					<a href="#/Sections"></a>
+				</md-tab>
+				<md-tab label="Administrators">
+					<a href="#/Admins"></a>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+	</div>
+
+
+
+	<div id="body" class="container body-content">
+		@RenderBody()
+	</div>
+	@Scripts.Render("~/Areas/M/angular")
+	@Scripts.Render("~/Areas/M/module")
+	@Scripts.Render("~/Areas/M/tests")
 </body>
 </html>
