@@ -28,7 +28,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
             var query = from t in dbSet select t;
             return query;
         }
-
+        
         public async Task<TModel> GetByIDAsync(int? id)
         {
             return await dbSet.FindAsync(id);

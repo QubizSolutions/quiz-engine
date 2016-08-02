@@ -1,4 +1,5 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
@@ -6,6 +7,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
     public interface IAdminRepository
     {
         Task<Admin[]> GetAllAdmins();
-        void UpdateAdmins(Admin[] admins);
+        Task<Admin> GetByID(Guid id);
+        Task<Admin> GetByName(string Name);
     }
 }
