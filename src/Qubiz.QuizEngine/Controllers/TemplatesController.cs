@@ -15,6 +15,12 @@ namespace Qubiz.QuizEngine.Controllers
             return PartialView();
         }
 
+        [OutputCache(Duration = 60)]
+        public ActionResult AnswersDetailsPrint()
+        {
+            return PartialView();
+        }
+
         [OutputCache(Duration=60)]
         public ActionResult Sections()
         {
