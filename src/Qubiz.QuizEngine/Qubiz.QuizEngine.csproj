@@ -270,6 +270,7 @@
     <Content Include="Scripts\App\controllers\dropdown.controller.js" />
     <Content Include="Scripts\App\controllers\exam-list.controller.js" />
     <Content Include="Scripts\App\controllers\exam.controller.js" />
+    <Content Include="Scripts\App\controllers\print.controller.js" />
     <Content Include="Scripts\App\controllers\question-detail.controller.js" />
     <Content Include="Scripts\App\controllers\question-list.controller.js" />
     <Content Include="Scripts\App\controllers\question-selector.controller.js" />
@@ -759,6 +760,7 @@
     <Content Include="Views\Templates\Admins.cshtml" />
     <Content Include="Views\Templates\AnswersDetails.cshtml" />
     <Content Include="Views\Templates\Dropdown.cshtml" />
+    <Content Include="Views\Templates\PrintPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\M\Models\" />

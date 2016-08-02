@@ -31,6 +31,12 @@
                templateUrl: 'Templates/TakeExam',
                controller: 'ExamController'
            })
+            .when('/PrintPreview/:examID',
+           {
+               templateUrl: 'Templates/PrintPreview',
+               controller: 'PrintController',
+               controllerAs: 'vm'
+           })
             .otherwise(
             {
                 redirectTo: '/Tests'

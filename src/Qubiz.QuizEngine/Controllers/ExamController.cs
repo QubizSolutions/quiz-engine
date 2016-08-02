@@ -34,7 +34,7 @@ namespace Qubiz.QuizEngine.Controllers
 
                 TimeSpan duration = exam.EndDate - exam.StartDate;
                 //var examPercentage = Regex.Match(exam.TotalScore ?? "", @"[\d\d]+%").Value;
-                return Ok(new { ExamDuration = duration.ToString(@"hh\:mm\:ss"), Title = exam.Title, CandidateName = exam.CandidateName, AllQuestions = exam.AllQuestions, TotalScore = exam.TotalScore, StartDate = exam.StartDate, EndDate = exam.EndDate, ExamAnswers = exam.ResultsPerSection, AnswersPerSection = exam.AnswersPerSection });
+                return Ok(new { ExamID = id, ExamDuration = duration.ToString(@"hh\:mm\:ss"), Title = exam.Title, CandidateName = exam.CandidateName, AllQuestions = exam.AllQuestions, TotalScore = exam.TotalScore, StartDate = exam.StartDate, EndDate = exam.EndDate, ExamAnswers = exam.ResultsPerSection, AnswersPerSection = exam.AnswersPerSection });
         }
 
         [HttpPost]
