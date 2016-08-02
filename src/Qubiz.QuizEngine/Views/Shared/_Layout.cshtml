@@ -27,6 +27,7 @@
                     <li><a href="#/Questions">Questions</a></li>
                     <li><a href="#/Sections">Sections</a></li>
                     <li><a href="#/Admins">Administrators</a></li>
+					<!--ng-if ="Authorizer.IsAdmin(HttpContext.Current.User.Identity.Name)"-->
                 </ul>
                 <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
             </div>
@@ -44,6 +45,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
+
     <script src="~/Scripts/linq.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
