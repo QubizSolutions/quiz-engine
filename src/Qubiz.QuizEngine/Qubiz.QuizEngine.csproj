@@ -158,6 +158,7 @@
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
+    <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -196,6 +197,7 @@
   <ItemGroup>
     <Content Include="Areas\M\App\app.module.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
+    <Content Include="Areas\M\App\Sections\sections.controller.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
@@ -692,6 +694,11 @@
     <Content Include="Areas\M\Views\Home\Index.cshtml" />
     <Content Include="Areas\M\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\M\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\M\Views\Template\Test.cshtml" />
+    <Content Include="Areas\M\Views\Template\Exams.cshtml" />
+    <Content Include="Areas\M\Views\Template\Questions.cshtml" />
+    <Content Include="Areas\M\Views\Template\Sections.cshtml" />
+    <Content Include="Areas\M\Views\Template\Administrators.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -763,6 +770,9 @@
     <Content Include="Views\Templates\Dropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\M\App\Administrators\" />
+    <Folder Include="Areas\M\App\Exams\" />
+    <Folder Include="Areas\M\App\Questions\" />
     <Folder Include="Areas\M\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

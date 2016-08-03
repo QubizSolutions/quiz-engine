@@ -23,23 +23,24 @@
 	<div ng-cloak>
 		<md-content style="align-self:center center; align-content:center">
 			<md-tabs  md-dynamic-height md-border-bottom>
-				<md-tab  label="Tests"><a href="#/Tests"></a>
+				<md-tab  label="Tests"><a href="#/tests"></a>
 				</md-tab>
 				<md-tab label="Exams">
-					<a href="#/Exams"></a>
+					<a href="#/exams"></a>
 				</md-tab>
-				<md-tab label="Questions">
-					<a href="#/Questions"></a>
-				</md-tab>
+                <md-tab label="Questions" href="#/questions">
+
+                </md-tab>
 				<md-tab label="Sections">
-					<a href="#/Sections"></a>
+					<a href="#/sections"></a>
 				</md-tab>
 				<md-tab label="Administrators">
-					<a href="#/Admins"></a>
+					<a href="#/admins"></a>
 				</md-tab>
 			</md-tabs>
 		</md-content>
 	</div>
+
 
 
 
@@ -49,5 +50,6 @@
 	@Scripts.Render("~/Areas/M/angular")
 	@Scripts.Render("~/Areas/M/module")
 	@Scripts.Render("~/Areas/M/tests")
+    
 </body>
 </html>
