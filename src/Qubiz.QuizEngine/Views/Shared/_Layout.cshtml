@@ -9,7 +9,6 @@
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -18,26 +17,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/Tests">Qubiz Quiz</a>               
+                <a class="navbar-brand" href="#/Tests">Qubiz Quiz</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/Tests">Tests</a></li>                   
+                    <li><a href="#/Tests">Tests</a></li>
                     <li><a href="#/Exams">Exams</a></li>
                     <li><a href="#/Questions">Questions</a></li>
                     <li><a href="#/Sections">Sections</a></li>
                     <li><a href="#/Admins">Administrators</a></li>
-					<!--ng-if ="Authorizer.IsAdmin(HttpContext.Current.User.Identity.Name)"-->
                 </ul>
                 <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
             </div>
         </div>
-        </header>
-
+    </header>
     <div id="body" class="container body-content">
         @RenderBody()
     </div>
-
     <footer class="container body-content">
         <hr />
         <p>&copy; @DateTime.Now.Year - Qubiz</p>
@@ -45,13 +41,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
-
     <script src="~/Scripts/linq.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
     <script src="~/Scripts/angular-resource.js"></script>
     <script src="~/Scripts/angular-cookies.js"></script>
-	<script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.min.js"></script>
     <script src="~/Scripts/app.js"></script>
     <script src="~/Scripts/App/controllers/admin.controller.js"></script>
     <script src="~/Scripts/App/controllers/exam-list.controller.js"></script>

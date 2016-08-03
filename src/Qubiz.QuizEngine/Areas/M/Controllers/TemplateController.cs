@@ -8,38 +8,31 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
     public class TemplateController : Controller
     {
-
         // GET: M/TemplateName
-
-
-
         public ActionResult Test()
         {
             return PartialView();
         }
 
         public ActionResult Exams()
-        { 
+        {
 
-			return PartialView();
+            return PartialView();
         }
-        
+
         public ActionResult Questions()
         {
             return PartialView();
         }
-        
+
         public ActionResult Sections()
         {
             return PartialView();
         }
-        
+
         public ActionResult Administrators()
         {
             return PartialView();
         }
-
-
-
     }
 }

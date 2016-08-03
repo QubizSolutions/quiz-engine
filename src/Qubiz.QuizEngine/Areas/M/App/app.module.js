@@ -1,26 +1,22 @@
-﻿
-(function () {
-	'use strict'
-
-	angular.module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial']);
-
-	angular.module('quizEngineMaterial').config(function ($routeProvider) {
-
-		$routeProvider.when("/tests", {
-			templateUrl: "Template/Test"
-		})
+﻿(function () {
+    'use strict'
+    angular.module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial']);
+    angular.module('quizEngineMaterial').config(function ($routeProvider) {
+        $routeProvider.when("/tests", {
+            templateUrl: "Template/Test"
+        })
             .when("/exams", {
-                templateUrl:"Template/Exams"
+                templateUrl: "Template/Exams"
             })
             .when("/questions", {
-                templateUrl:"Template/Questions"
+                templateUrl: "Template/Questions"
             })
             .when("/sections", {
-                templateUrl:"Template/Sections"
+                templateUrl: "Template/Sections"
             })
             .when("/administrators", {
-                templateUrl:"Template/Administrators"
+                templateUrl: "Template/Administrators"
             })
 		.otherwise({ redirectTo: "/tests" });
-	});
+    });
 })();
