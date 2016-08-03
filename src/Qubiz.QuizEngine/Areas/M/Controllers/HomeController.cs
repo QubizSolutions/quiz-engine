@@ -2,8 +2,8 @@
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
         [AllowAnonymous]
         public ActionResult Index()
         {

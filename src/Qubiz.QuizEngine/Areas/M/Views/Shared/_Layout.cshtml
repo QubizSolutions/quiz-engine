@@ -4,14 +4,57 @@
     <title>QuizEngine1</title>
     <meta charset="utf-8" />
     @Styles.Render("~/Areas/M/angular-material")
+    <link href="~/Areas/M/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Areas/M/App/MenuBar.StyleSheet.css" rel="stylesheet" />
 </head>
 <body>
+    <md-toolbar class="md-hue-2">
+        <div class="mainMenu">
+            <div style="padding-left: 5%" class="md-toolbar-tools">
+                <div class="textLogo">
+                    <h2>Qubiz Quiz</h2>
+                </div>
+                <span flex></span>
+
+                <h4 style="padding-right: 5%" class="md-icon-button pull-right">
+                    @(((User.Identity.Name == System.String.Empty) || !Authorizer.IsAdmin(User.Identity.Name)) ? "Hello, Guest" : string.Format("Hello, {0}", User.Identity.Name)) !
+                </h4>
+
+            </div>
+        </div>
+    </md-toolbar>
+
+    <div ng-cloak ng-controller="MainBarTabsController">
+        <md-content style="align-self:center center; align-content:center">
+            <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
+                <md-tab md-on-select="testsTabClick()">
+                    <div class="menuItem">
+                        Tests
+                    </div>
+                </md-tab>
+                <md-tab md-on-select="examsTabClick()">
+                    <div class="menuItem">Exams</div>
+                </md-tab>
+                <md-tab md-on-select="questionsTabClick()">
+                    <div class="menuItem">Questions</div>
+                </md-tab>
+
+                <md-tab md-on-select="sectionsTabClick()">
+                    <div class="menuItem">Sections</div>
+                </md-tab>
+                <md-tab md-on-select="administratorsTabClick()">
+                    <div class="menuItem">Administrators</div>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+
     <div id="body" class="container body-content">
         @RenderBody()
     </div>
-
     @Scripts.Render("~/Areas/M/angular")
     @Scripts.Render("~/Areas/M/module")
     @Scripts.Render("~/Areas/M/tests")
+    @Scripts.Render("~/Areas/M/MainBarController")
 </body>
 </html>
