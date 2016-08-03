@@ -1,23 +1,18 @@
 ﻿(function () {
     'use strict';
 
-   angular
-      .module('quizEngineMaterial')
-      .controller('AdminsController', AdminsController)
-   AdminsController.$inject = ['adminsService'];
-   function AdminsController(adminsService)
-   {
-          var vm = this;
-          vm.getAllAdmins = getAllAdmins;
+    angular
+       .module('quizEngineMaterial')
+       .controller('AdminsController', AdminsController);
 
-          //getAllAdmins();
+    AdminsController.$inject = ['adminsService'];
 
+    function AdminsController(adminsService) {
+        var vm = this;
 
+        adminsService.getAllAdmins().then(function (result) {
+            vm.admins = result;
+        }).catch();
 
-          function getAllAdmins() {
-              return adminsService.getAllAdmins();
-          }
-          
-     }
-
+    }
 })();
