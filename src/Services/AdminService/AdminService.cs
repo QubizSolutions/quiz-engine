@@ -47,7 +47,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public Task<Admin[]> GetAllAdmins()
         {
-            return UnitOfWork.AdminRepository.GetAllAdmins();
+            return UnitOfWork.AdminRepository.GetAllAdminsAsync();
             
         }
 
