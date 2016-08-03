@@ -22,5 +22,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
 			}
 			return Name;
 		}
+
     }
 }
