@@ -14,6 +14,7 @@
 	    }
 	    $scope.questionsTabClick = function () {
 	        $location.path('/questions');
+
 	    }
 	    $scope.sectionsTabClick = function () {
 	        $location.path('/sections');
