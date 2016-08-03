@@ -198,7 +198,6 @@
     <Content Include="Areas\M\App\app.module.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
-    <Content Include="Areas\M\App\Sections\sections.controller.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
@@ -771,9 +770,6 @@
     <Content Include="Views\Templates\Dropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\M\App\Administrators\" />
-    <Folder Include="Areas\M\App\Exams\" />
-    <Folder Include="Areas\M\App\Questions\" />
     <Folder Include="Areas\M\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
