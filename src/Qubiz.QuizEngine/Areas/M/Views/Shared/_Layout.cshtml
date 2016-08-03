@@ -13,10 +13,11 @@
 		<div style="padding-left: 5%" class="md-toolbar-tools">
 				<h2 id="textLogo">Qubiz Quiz</h2>
 			<span flex></span>
-			
-			<h4 style="padding-right: 5%" class="md-icon-button pull-right">Hello, 
-			@Qubiz.QuizEngine.Areas.M.Controllers.AdminCheckController.getUserName(User.Identity.Name) !
-			</h4>	
+
+			<h4 style="padding-right: 5%" class="md-icon-button pull-right">
+				@(((User.Identity.Name == System.String.Empty) || !Authorizer.IsAdmin(User.Identity.Name)) ? "Hello, Guest" : string.Format("Hello, {0}",User.Identity.Name.Substring(6))) !
+			</h4>
+
 		</div>
 	</md-toolbar>
 
