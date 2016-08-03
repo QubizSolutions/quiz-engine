@@ -20,6 +20,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
 
         public ActionResult Exams()
         { 
+
 			return PartialView();
         }
         

@@ -1,6 +1,6 @@
 ﻿(function () {
 	'use strict'
-	angular.module('quizEngineMaterial').controller('mainController', function ($location, $scope) {
+	angular.module('quizEngineMaterial').controller('MainBarTabsController', function ($location, $scope) {
 
 	    $scope.testsTabClick = function () {
 	        $location.path('/tests');
