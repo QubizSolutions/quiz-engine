@@ -9,8 +9,8 @@ namespace Qubiz.QuizEngine.Services.AdminService
 {
     public interface IAdminService
     {
-        void AddAdminAsync(Admin admin);
-        bool DeleteAdminAsync(Guid id);
+        Task AddAdminAsync(Admin admin);
+        Task<bool> DeleteAdminAsync(Guid id);
         void UpdateAdminAsync(Admin admin);
         Task<Admin[]> GetAllAdminsAsync();
         Task<Admin> GetAdminAsync(Guid id);

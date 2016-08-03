@@ -1,53 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
+using System;
+using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Services.AdminService
 {
-    class AdminService : IAdminService
-    {
+    public class AdminService : IAdminService
+    {  
+        private readonly IUnitOfWork unitOfWork;
 
-        /*
-         * 
-         * IAdmin repository will be replaced with unit of work
-         * 
-         */
-         
-
-        private readonly IUnitOfWork UnitOfWork;
-
-        public AdminService(IUnitOfWork UnitOfWork)
+        public AdminService(IUnitOfWork unitOfWork)
         {
-            this.UnitOfWork = UnitOfWork;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async void AddAdminAsync(Admin admin)
+        public async Task AddAdminAsync(Admin admin)
         {
-            //await UnitOfWork.AdminRepository.AddAdmin(admin);
+            //await unitOfWork.AdminRepository.AddAdmin(admin);
 
-                throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public bool DeleteAdminAsync(Guid id)
+        public async Task<bool> DeleteAdminAsync(Guid id)
         {
-            //await UnitOfWork.AdminRepository.DeleteAdmin(id);
+         //   await UnitOfWork.AdminRepository.DeleteAdmin(id);
             return false;
         }
 
-        public Task<Admin> GetAdminAsync(Guid id)
+        public async Task<Admin> GetAdminAsync(Guid id)
         {
             //return UnitOfWork.AdminRepository.GetAllAdmins(id);
 
             throw new NotImplementedException();
         }
 
-        public Task<Admin[]> GetAllAdminsAsync()
+        public async Task<Admin[]> GetAllAdminsAsync()
         {
-            return UnitOfWork.AdminRepository.GetAllAdminsAsync();
+            return await unitOfWork.AdminRepository.GetAllAdminsAsync();
             
         }
 

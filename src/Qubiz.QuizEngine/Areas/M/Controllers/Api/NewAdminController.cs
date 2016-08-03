@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -23,37 +24,36 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         }
 
         [HttpGet]
-        [Route("M/api/admin/getAdmins")]
-        public IHttpActionResult GetAdmins()
+        public async Task<IHttpActionResult> GetAdmins()
         {
-            Admin[] admin = adminService.GetAllAdminsAsync().Result;
+            Admin[] admin = await adminService.GetAllAdminsAsync();
             return Ok(admin);
         }
 
         [HttpGet]
-        public IHttpActionResult GetLoggedIn()
+        public async Task<IHttpActionResult> GetLoggedIn()
         {
             string Logged = HttpContext.Current.User.Identity.Name;
             return Ok(Logged);
         }
 
         [HttpPost]
-        public void AddAdmin([FromBody]Admin admin)
+        public async Task AddAdmin([FromBody]Admin admin)
         {
-            adminService.AddAdminAsync(admin);
+            await adminService.AddAdminAsync(admin);
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteAdmin(Guid id)
+        public async Task<IHttpActionResult> DeleteAdmin(Guid id)
         {
-            if (adminService.DeleteAdminAsync(id))
+            if (await adminService.DeleteAdminAsync(id))
                 return Ok();
 
             return NotFound();
         }
 
         [HttpPut]
-        public void UpdateAdmin([FromBody]Admin admin)
+        public async void UpdateAdmin([FromBody]Admin admin)
         {
             adminService.UpdateAdminAsync(admin);
         }
