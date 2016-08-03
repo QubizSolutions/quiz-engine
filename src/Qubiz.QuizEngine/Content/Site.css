@@ -42,6 +42,16 @@ textarea {
 
 }
 
+.success-print{
+    background-color: #dff0d8 !important;
+    color: black !important;
+}
+
+.danger-print{
+    background-color: #f2dede !important;
+    color: black !important;
+}
+
 .exam-list{
   float: left;
   position: relative;
