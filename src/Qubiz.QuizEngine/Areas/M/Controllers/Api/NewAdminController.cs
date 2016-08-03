@@ -13,8 +13,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     public class NewAdminController : ApiController
     {
-        public static List<Admin> admins = new List<Admin> { new Admin() { Name = "Jim Carrey" }, new Admin { Name = "Bruce Lee" } };
-
         private readonly IAdminService adminService;
 
         public NewAdminController(IAdminService adminService)
