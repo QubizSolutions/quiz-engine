@@ -14,27 +14,27 @@
 				<h2 id="textLogo">Qubiz Quiz</h2>
 			<span flex></span>
 			
-			<h3 class="md-icon-button pull-right">Hello!</h3>	
+			<h4 class="md-icon-button pull-right">Hello!</h4>	
 		</div>
 	</md-toolbar>
 
-	<div ng-cloak >
+	<div ng-cloak ng-controller="mainController">
 		<md-content style="align-self:center center; align-content:center">
 			<md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
-				<md-tab>
+				<md-tab md-on-select="testsTabClick()">
 					<a href="#/tests">Tests</a>
 				</md-tab>
-				<md-tab>
+				<md-tab md-on-select="examsTabClick()">
 					<a href="#/exams">Exams</a>
 				</md-tab>
-				<md-tab>
+				<md-tab md-on-select="questionsTabClick()">
 					<a href="#/questions">Questions</a>
 				</md-tab>
 						
-				<md-tab>
+				<md-tab md-on-select="sectionsTabClick()">
 					<a href="#/sections">Sections</a>
 				</md-tab>
-				<md-tab>
+				<md-tab md-on-select="administratorsTabClick()">
 					<a href="#/administrators">Administrators</a>
 				</md-tab>
 			</md-tabs>
@@ -49,5 +49,6 @@
 	@Scripts.Render("~/Areas/M/angular")
 	@Scripts.Render("~/Areas/M/module")
 	@Scripts.Render("~/Areas/M/tests")
+    
 </body>
 </html>
