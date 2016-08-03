@@ -15,15 +15,7 @@
 			<span flex></span>
 			
 			<h4 style="padding-right: 5%" class="md-icon-button pull-right">Hello, 
-			@if(User.Identity.Name == System.String.Empty)
-			{
-				Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name = "Guest";
-			}
-			else
-			{
-				Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name = User.Identity.Name.Substring(6);
-			}
-			@Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name !
+			@Qubiz.QuizEngine.Areas.M.Controllers.AdminCheckController.getUserName(User.Identity.Name) !
 			</h4>	
 		</div>
 	</md-toolbar>
