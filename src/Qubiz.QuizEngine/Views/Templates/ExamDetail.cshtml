@@ -18,7 +18,7 @@
             <div class="col-md-10">
                {{exam.TotalScore}} / {{exam.AllQuestions}}
                <div class="progress" style="margin:0;">
-                    <div class="progress-bar" role="progressbar" style="width:{{ exam.TotalScore / exam.AllQuestions *100}}%">
+                    <div class="progress-bar print-bar" role="progressbar" style="width:{{ exam.TotalScore / exam.AllQuestions *100}}%">
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 {{examSection.CorrectAnswers}}/{{examSection.AllQuestions}}
 
                 <div class="progress" style="margin:0;">
-                    <div class="progress-bar" role="progressbar" style="width:{{examSection.CorrectAnswers / examSection.AllQuestions*100}}%">
+                    <div class="progress-bar print-bar" role="progressbar" style="width:{{examSection.CorrectAnswers / examSection.AllQuestions*100}}%">
                     </div>
                 </div>
             </div>

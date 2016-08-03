@@ -13,6 +13,45 @@ select,
 textarea {
 }
 
+@media print {
+    .no-print-split-parent{
+        position: relative;
+        page-break-inside: avoid;
+    }
+
+    .no-print-split{
+        position: relative;
+        page-break-inside: avoid;
+    }
+
+    .print-bar {
+        background-color: #008cba !important; 
+    }
+
+    .sub-print-bar{
+        background-color: #5bc0de !important;
+    }
+
+    .success-print{
+        background-color: #dff0d8 !important;
+    }
+
+    .danger-print{
+        background-color: #f2dede !important;
+    }
+
+}
+
+.success-print{
+    background-color: #dff0d8 !important;
+    color: black !important;
+}
+
+.danger-print{
+    background-color: #f2dede !important;
+    color: black !important;
+}
+
 .exam-list{
   float: left;
   position: relative;
