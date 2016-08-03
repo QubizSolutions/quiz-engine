@@ -32,20 +32,33 @@ namespace Qubiz.QuizEngine.Database.Repositories
                 return this.featureFlagRepository;
             }
         }
-        public IAdminRepository AdminRepo
+
+        public IAdminRepository AdminRepository
         {
             get
             {
-                if (this.AdminRepo == null)
+                if (this.AdminRepository == null)
                 {
                     this.AdminsRepository = new AdminRepository(this.dbContext, this);
                 }
                 return this.AdminsRepository;
             }
         }
-        
 
-        
+        /*  public IAdminRepository AdminRepo
+ {
+     get
+     {
+         if (this.AdminRepository == null)
+         {
+             this.AdminsRepository = new AdminRepository(this.dbContext, this);
+         }
+         return this.AdminsRepository;
+     }
+ }
+
+*/
+
         public async Task SaveAsync()
         {
             await this.dbContext.SaveChangesAsync();

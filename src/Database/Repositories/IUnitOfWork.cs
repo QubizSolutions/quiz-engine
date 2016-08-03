@@ -8,6 +8,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface IUnitOfWork
     {
+        IAdminRepository AdminRepository { get; }
         IFeatureFlagRepository FeatureFlagRepository { get; }
         IAdminRepository AdminRepo { get; }
         Task SaveAsync();
