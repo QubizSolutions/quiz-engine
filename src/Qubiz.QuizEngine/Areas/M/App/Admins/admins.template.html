@@ -1,0 +1,23 @@
+﻿
+<md-button class="md-raised md-warn">Hey!!!</md-button>
+<div class="virtualRepeatdemoVerticalUsage">
+    <md-content layout="column">
+        <p>
+            Display 1000 item in a virtual-list with viewport of only 7 rows (height=40px).
+            <br><br>
+            This demo shows scroll and rendering performance gains when using <code>md-virtual-repeat</code>;
+            achieved with the dynamic reuse of rows visible in the viewport area. Developers are required to
+            explicitly use <code>md-virtual-repeat-container</code> as a wrapping parent container.
+        </p>
+        
+        
+            
+            <div ng-repeat="item in admins.getAllAdmins" >
+                buna
+                {{item}}
+            </div>
+        
+    </md-content>
+
+</div>
+

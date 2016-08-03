@@ -9,9 +9,12 @@
     <div id="body" class="container body-content">
         @RenderBody()
     </div>
-
+    
     @Scripts.Render("~/Areas/M/angular")
     @Scripts.Render("~/Areas/M/module")
     @Scripts.Render("~/Areas/M/tests")
+
+    <script src="~/Areas/M/App/Admins/admins.service.js"></script>
+    <script src="~/Areas/M/App/Admins/admins.controller.js"></script>
 </body>
 </html>

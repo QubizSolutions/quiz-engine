@@ -5,21 +5,21 @@
 	testsService.$inject = ['$http'];
 
 	function testsService(http) {
-	    this.getMessage = getMessage;
-	    this.getMessageById = getMessageById;
+        this.getMessage = getMessage;
+        this.getMessageById = getMessageById;
 
-	    function getMessage() {
-	        return http.get('api/tests/getMessage')
-                    .then(function (result) {
-                        return result;
-                    });
-	    }
+	function getMessage() {
+            return http.get('api/tests/getMessage')
+            .then(function (result) {
+                return result;
+        });
+	}
 
-	    function getMessageById(id) {
-	        return http.get('api/tests/getMessage/'+ id)
-                    .then(function (result) {
-                        return result;
+	function getMessageById(id) {
+        return http.get('api/tests/getMessage/'+ id)
+        .then(function (result) {
+                return result;
                     });
-	    }
+    }
 	}
 })();

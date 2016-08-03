@@ -12,6 +12,12 @@
 		controllerAs: "tests",
 		templateUrl: "../Areas/M/App/Tests/tests.template.html"
     })
+    .when('/admins',
+    {
+        controller: "AdminsController",
+    controllerAs:"admins",
+    templateUrl:"../Areas/M/App/Admins/admins.template.html"
+    })
 	.otherwise({ redirectTo: "/tests" });
 });
 })()

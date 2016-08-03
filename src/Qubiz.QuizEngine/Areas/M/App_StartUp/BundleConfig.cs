@@ -36,6 +36,11 @@ namespace Qubiz.QuizEngine.Areas.M
             testsBundle.Include("~/Areas/M/App/Tests/Services/tests.service.js");
             testsBundle.Include("~/Areas/M/App/Tests/tests.controller.js");
             bundles.Add(testsBundle);
+
+            Bundle adminBundle = new Bundle("~/Areas/M/App/Admins", jsTransforms);
+            adminBundle.Include("~/Areas/M/App/Admins/admins.controller.js");
+            bundles.Add(adminBundle);
+           
         }
     }
 }

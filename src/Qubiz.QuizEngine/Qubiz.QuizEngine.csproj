@@ -194,6 +194,8 @@
     <Compile Include="ViewModels\QuestionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\M\App\Admins\admins.service.js" />
+    <Content Include="Areas\M\App\Admins\admins.template.html" />
     <Content Include="Areas\M\App\app.module.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
@@ -690,6 +692,7 @@
     <Content Include="Areas\M\Views\Home\Index.cshtml" />
     <Content Include="Areas\M\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\M\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\M\App\Admins\admins.controller.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
