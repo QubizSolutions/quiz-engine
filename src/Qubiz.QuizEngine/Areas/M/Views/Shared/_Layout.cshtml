@@ -14,7 +14,17 @@
 				<h2 id="textLogo">Qubiz Quiz</h2>
 			<span flex></span>
 			
-			<h4 class="md-icon-button pull-right">Hello!</h4>	
+			<h4 style="padding-right: 5%" class="md-icon-button pull-right">Hello, 
+			@if(User.Identity.Name == System.String.Empty)
+			{
+				Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name = "Guest";
+			}
+			else
+			{
+				Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name = User.Identity.Name.Substring(6);
+			}
+			@Qubiz.QuizEngine.Areas.M.Controllers.HomeController.name !
+			</h4>	
 		</div>
 	</md-toolbar>
 
@@ -49,6 +59,7 @@
 	@Scripts.Render("~/Areas/M/angular")
 	@Scripts.Render("~/Areas/M/module")
 	@Scripts.Render("~/Areas/M/tests")
+	@Scripts.Render("~/Areas/M/MainBarController")
     
 </body>
 </html>
