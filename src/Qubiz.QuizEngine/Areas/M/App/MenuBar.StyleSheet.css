@@ -1,15 +1,23 @@
-﻿#mainMenu
-{
-	background-color: #008cba;
-}
-#textLogo{
+﻿#textLogo{
 	color: white;
 	text-transform: capitalize;
-	font-weight: 400;
+	font-weight: 300;
 	font-size: 23px;
 }
 #mainMenu{
+	background-color: #008cba;
 	-webkit-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
 	-moz-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
 	box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
+}
+md-tabs.md-default-theme .md-tab.md-active, md-tabs .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-active md-icon, md-tabs .md-tab.md-active md-icon, md-tabs.md-default-theme .md-tab.md-focused, md-tabs .md-tab.md-focused, md-tabs.md-default-theme .md-tab.md-focused md-icon, md-tabs .md-tab.md-focused md-icon 
+#menuItem{
+	color: #F26100;
+}
+md-tabs md-ink-bar {
+    color: #F26100;
+    background: #F26100;
+}
+a:link {
+    text-decoration: none;
 }
