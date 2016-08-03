@@ -6,8 +6,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface IAdminRepository
     {
-        Task<Admin[]> GetAllAdmins();
-        Task<Admin> GetByID(Guid id);
-        Task<Admin> GetByName(string Name);
+        Task<Admin[]> GetAllAdminsAsync();
+        Task<Admin> GetByIDAsync(Guid id);
+        Task<Admin> GetByNameAsync(string Name);
     }
 }
