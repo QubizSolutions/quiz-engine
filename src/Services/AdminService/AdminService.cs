@@ -32,10 +32,10 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 throw new NotImplementedException();
         }
 
-        public async bool DeleteAdmin(Guid id)
+        public bool DeleteAdmin(Guid id)
         {
             //await UnitOfWork.AdminRepository.DeleteAdmin(id);
-            throw new NotImplementedException();
+            return false;
         }
 
         public Task<Admin> GetAdmin(Guid id)
@@ -47,8 +47,8 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public Task<Admin[]> GetAllAdmins()
         {
-            //return UnitOfWork.AdminRepository.GetAllAdmins();
-            throw new NotImplementedException();
+            return UnitOfWork.AdminRepository.GetAllAdmins();
+            
         }
 
         public async void UpdateAdmin(Admin admin)
