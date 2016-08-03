@@ -25,33 +25,33 @@ namespace Qubiz.QuizEngine.Services.AdminService
             this.UnitOfWork = UnitOfWork;
         }
 
-        public async void AddAdmin(Admin admin)
+        public async void AddAdminAsync(Admin admin)
         {
             //await UnitOfWork.AdminRepository.AddAdmin(admin);
 
                 throw new NotImplementedException();
         }
 
-        public bool DeleteAdmin(Guid id)
+        public bool DeleteAdminAsync(Guid id)
         {
             //await UnitOfWork.AdminRepository.DeleteAdmin(id);
             return false;
         }
 
-        public Task<Admin> GetAdmin(Guid id)
+        public Task<Admin> GetAdminAsync(Guid id)
         {
             //return UnitOfWork.AdminRepository.GetAllAdmins(id);
 
             throw new NotImplementedException();
         }
 
-        public Task<Admin[]> GetAllAdmins()
+        public Task<Admin[]> GetAllAdminsAsync()
         {
             return UnitOfWork.AdminRepository.GetAllAdminsAsync();
             
         }
 
-        public async void UpdateAdmin(Admin admin)
+        public async void UpdateAdminAsync(Admin admin)
         {
             //await UnitOfWork.AdminRepository.UpdateAdmin(admin);
             throw new NotImplementedException();

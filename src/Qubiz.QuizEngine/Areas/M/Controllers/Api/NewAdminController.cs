@@ -26,7 +26,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [Route("M/api/admin/getAdmins")]
         public IHttpActionResult GetAdmins()
         {
-            Admin[] admin = adminService.GetAllAdmins().Result;
+            Admin[] admin = adminService.GetAllAdminsAsync().Result;
             return Ok(admin);
         }
 
@@ -40,13 +40,13 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [HttpPost]
         public void AddAdmin([FromBody]Admin admin)
         {
-            adminService.AddAdmin(admin);
+            adminService.AddAdminAsync(admin);
         }
 
         [HttpDelete]
         public IHttpActionResult DeleteAdmin(Guid id)
         {
-            if (adminService.DeleteAdmin(id))
+            if (adminService.DeleteAdminAsync(id))
                 return Ok();
 
             return NotFound();
@@ -55,7 +55,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [HttpPut]
         public void UpdateAdmin([FromBody]Admin admin)
         {
-            adminService.UpdateAdmin(admin);
+            adminService.UpdateAdminAsync(admin);
         }
     }
 }
