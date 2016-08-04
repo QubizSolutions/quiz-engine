@@ -8,9 +8,9 @@
    function AdminsController(adminsService)
    {
           var vm = this;
-          vm.getAllAdmins = getAllAdmins;
+          vm.getAllAdmins = getAllAdmins();
 
-          //getAllAdmins();
+          getAllAdmins();
 
 
 

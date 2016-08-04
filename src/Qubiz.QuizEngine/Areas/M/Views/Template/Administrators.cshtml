@@ -6,15 +6,15 @@
 <h2>Administrators</h2>
 
 
-<md-button class="md-raised md-warn">Hey!!!</md-button>
-<div class="virtualRepeatdemoVerticalUsage">
+<div ng-controller="AdminsController as admins" ng-cloak="" class="virtualRepeatdemoDeferredLoading" ng-app="quizEngineMaterial">
     <md-content layout="column">
-        
-        <div ng-repeat="admin in AdminCtrl.getAllAdmins">
-            buna
-            {{admin.Name}}
-        </div>
 
+
+        <md-virtual-repeat-container id="vertical-container">
+            <div md-virtual-repeat="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" class="repeated-item" flex="">
+                {{item}} <i class="material-icons" style="float:right">delete</i>
+            </div>
+        </md-virtual-repeat-container>
     </md-content>
 
 </div>
