@@ -26,7 +26,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
                 if (!admins.Contains(if_admin_exists))
                 {
-                admin.ID = new Guid();
+                admin.ID = Guid.NewGuid();
                 unitOfWork.AdminRepository.Create(admin);
                 await unitOfWork.SaveAsync();
             }
