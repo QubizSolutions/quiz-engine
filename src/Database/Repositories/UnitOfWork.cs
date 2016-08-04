@@ -33,7 +33,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             get
             {
-                if (this.AdminRepository == null)
+                if (this.AdminsRepository == null)
                 {
                     this.AdminsRepository = new AdminRepository(this.dbContext, this);
                 }
