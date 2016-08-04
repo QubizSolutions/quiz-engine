@@ -4,21 +4,30 @@
    angular
       .module('quizEngineMaterial')
       .controller('AddAdminController', AddAdminController)
-   AddAdminController.$inject = ['adminsService'];
-   function AddAdminController(adminsService)
+   AddAdminController.$inject = ['adminsService','$location'];
+   function AddAdminController(adminsService,location)
    {
+
        var vm = this;
-       vm.Movie = {};
+       vm.Admin = {};
        vm.Save = Save;
        vm.Reset = Reset;
+
+
        function Reset()
        {
-           vm.Movie = {};
+           vm.Admin = {};
        }
        function Save()
        {
            //Need Admin Service Add
            console.log("Saving works in controller");
+           adminsService.AddAdmin(vm.Admin).then(SavedSuccess).catch();
+
+       }
+       function SavedSuccess()
+       {
+           location.path('/administrators');
        }
    }
 

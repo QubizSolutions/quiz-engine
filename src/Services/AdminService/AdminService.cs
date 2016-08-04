@@ -30,7 +30,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
             {
                 admin.ID = new Guid();
                 unitOfWork.AdminRepository.Create(admin);
-
+                await  unitOfWork.SaveAsync();
                 throw new NotImplementedException();
             }
             

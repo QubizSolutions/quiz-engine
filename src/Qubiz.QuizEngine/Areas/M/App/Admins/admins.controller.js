@@ -7,6 +7,7 @@
     AdminsController.$inject = ['adminsService','$scope','$mdDialog'];
     function AdminsController(adminsService,scope,mdDialog) {
         var vm = this;
+        console.log("Orice");
         getAllAdmins();
 
         function getAllAdmins() {
