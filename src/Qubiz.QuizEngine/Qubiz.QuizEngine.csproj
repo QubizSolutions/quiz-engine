@@ -205,6 +205,7 @@
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
+    <Content Include="Areas\M\Content\angular-material\admins.style.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
