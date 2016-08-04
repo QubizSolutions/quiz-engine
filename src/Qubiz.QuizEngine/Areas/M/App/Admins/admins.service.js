@@ -12,7 +12,7 @@
         function getAllAdmins() {
             return $http({
                 method: 'GET',
-                url: 'M/api/admin/getAdmins'
+                url: 'api/NewAdmin/getAdmins/GetAdmins'
             })
             .then(getAllAdminsSuccess)
             .catch(errorCallback);
