@@ -15,7 +15,10 @@
                 templateUrl: "Template/Sections"
             })
             .when("/administrators", {
-                templateUrl: "Template/Administrators"
+                templateUrl: "Template/Administrators",
+                controller: "AdminsController",
+                controllerAs:"AdminCtrl"
+
             })
 		.otherwise({ redirectTo: "/tests" });
     });
