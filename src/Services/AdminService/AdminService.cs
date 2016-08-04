@@ -22,17 +22,17 @@ namespace Qubiz.QuizEngine.Services.AdminService
             List<Admin> admins = new List<Admin>(await unitOfWork.AdminRepository.GetAllAdminsAsync());
 
 
-            try
-            {
+           
                 Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
-            }
-            catch
-            {
+                if (!admins.Contains(if_admin_exists))
+                {
                 admin.ID = new Guid();
                 unitOfWork.AdminRepository.Create(admin);
-                await  unitOfWork.SaveAsync();
-                throw new NotImplementedException();
+                await unitOfWork.SaveAsync();
             }
+                
+            
+            
             
 
             
@@ -41,8 +41,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
         public async Task<bool> DeleteAdminAsync(Guid id)
         {
             
-            try
-            {
+            
                 Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
                 if (admin.Name == HttpContext.Current.User.Identity.Name)
                 {
@@ -51,15 +50,10 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 else
                 {
                     unitOfWork.AdminRepository.Delete(admin);
+                    await unitOfWork.SaveAsync();
                     return true;
                 }
                 
-               
-            }
-            catch
-            {
-                return false;
-            }
             
         }
 
@@ -78,8 +72,17 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async void UpdateAdminAsync(Admin admin)
         {
-            //await UnitOfWork.AdminRepository.UpdateAdmin(admin);
-            throw new NotImplementedException();
+            Admin admin2 = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+            if (admin.Name == HttpContext.Current.User.Identity.Name)
+            {
+                return ;
+            }
+            else
+            {
+                unitOfWork.AdminRepository.Update(admin);
+                await unitOfWork.SaveAsync();
+            }
+            
         }
     }
 }
