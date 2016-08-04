@@ -24,15 +24,13 @@
             </div>
         </div>
     </md-toolbar>
-    @if(!(User.Identity.Name == System.String.Empty) && Authorizer.IsAdmin(User.Identity.Name))
+    @if(Authorizer.IsAdmin(User.Identity.Name))
     {
         <div ng-cloak ng-controller="MainBarTabsController">
             <md-content style="align-self:center center; align-content:center">
                 <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
                     <md-tab md-on-select="testsTabClick()">
-                        <div class="menuItem">
-                            Tests
-                        </div>
+                        <div class="menuItem">Tests </div>
                     </md-tab>
                     <md-tab  md-on-select="examsTabClick()">
                         <div class="menuItem">Exams</div>
@@ -40,7 +38,6 @@
                     <md-tab md-on-select="questionsTabClick()">
                         <div class="menuItem">Questions</div>
                     </md-tab>
-
                     <md-tab md-on-select="sectionsTabClick()">
                         <div class="menuItem">Sections</div>
                     </md-tab>
