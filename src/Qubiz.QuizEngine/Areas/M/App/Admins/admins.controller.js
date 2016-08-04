@@ -18,36 +18,24 @@
                 .catch();
         }
         scope.showConfirm = function (ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
             var confirm = mdDialog.confirm()
-                  .title('Would you like to delete your debt?')
-                  .textContent('All of the banks have agreed to forgive you your debts.')
+                  .ok('Yes')
+                  .cancel('No')
+                  .title('Are you sure you want to delete this admin?')
+                  .textContent('This action cannot be undone.')
                   .ariaLabel('Lucky day')
-                  .targetEvent(ev)
-                  .ok('Please do it!')
-                  .cancel('Sounds like a scam');
+                  .targetEvent(ev);
+
 
             mdDialog.show(confirm).then(function () {
-                scope.status = 'You decided to get rid of your debt.';
+
+                scope.status = 'Admin deleted successfuly.';
             }, function () {
-                scope.status = 'You decided to keep your debt.';
+
+                scope.status = 'Deletion aborted.';
             });
         };
-
-        
-
     }
-
-
-    ///////////////////////
-
-
-
-
-
-
-
-
 
 
 })();

@@ -13,27 +13,18 @@
         <md-virtual-repeat-container id="vertical-container">
             <div md-virtual-repeat="admin in AdminCtrl.admins" class="repeated-item" flex="">
                 {{admin.Name}}
-                 <i class="material-icons" style="float:right">delete</i>
+                
+                 <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event)">delete</i>
+                <i class="material-icons2 btn-primary" style="float:right; margin-right:10px">mode_edit</i>
             </div>
         </md-virtual-repeat-container>
     </md-content>
 
 </div>
 
+<md-button class="CustomButton md-primary" ng-href="#/addadmin">Add</md-button>
 
 <div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
-
-
-    <div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
-
-        <md-button class="md-primary md-raised" ng-click="showConfirm($event)">
-            Confirm Dialog
-        </md-button>
-
-    </div>
-    <div hide-gt-sm="" layout="row" layout-align="center center" flex="">
-        <md-checkbox aria-label="Fullscreen Custom Dialog">Force Custom Dialog Fullscreen</md-checkbox>
-    </div>
 
     <div ng-if="status" id="status">
         <b layout="row" layout-align="center center" class="md-padding">
@@ -41,3 +32,5 @@
         </b>
     </div>
 </div>
+
+
