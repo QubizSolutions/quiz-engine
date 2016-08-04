@@ -4,17 +4,18 @@
 }
 
 <h2>Administrators</h2>
-
-
-<md-button class="md-raised md-warn">Hey!!!</md-button>
-<div class="virtualRepeatdemoVerticalUsage">
-    <md-content layout="column">
-        
-        <div ng-repeat="admin in AdminCtrl.getAllAdmins">
-            buna
-            {{admin.Name}}
-        </div>
-
-    </md-content>
-
+<div class="form-inline">
+    <input type="text" class="form-control" placeholder="Admin Name" ng-model="AdminCtrl.SearchAdmin" style="width: 300px;float:left" />
+    <md-button ng-href="#/addadmin" class="CustomButton md-primary" style="float:left;margin-top:0">Add</md-button>
 </div>
+    <div class="virtualRepeatdemoVerticalUsage">
+        <md-content layout="column">
+
+            <div ng-repeat="admin in AdminCtrl.getAllAdmins | filter:AdminCtrl.SearchAdmin">
+                buna
+                {{admin.Name}}
+            </div>
+
+        </md-content>
+
+    </div>

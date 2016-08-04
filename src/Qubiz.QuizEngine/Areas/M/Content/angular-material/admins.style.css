@@ -13,3 +13,7 @@
   border: solid 1px grey; }
 .virtualRepeatdemoDeferredLoading .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
   padding-left: 16px; }
+.CustomButton{
+    background-color: #008cba;
+    color:white !important;
+}
