@@ -2,6 +2,8 @@
 using Qubiz.QuizEngine.Database.Repositories;
 using System;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
 
 namespace Qubiz.QuizEngine.Services.AdminService
 {
@@ -23,8 +25,27 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<bool> DeleteAdminAsync(Guid id)
         {
-         //   await UnitOfWork.AdminRepository.DeleteAdmin(id);
-            return false;
+            
+            try
+            {
+                Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
+                if (admin.Name == HttpContext.Current.User.Identity.Name)
+                {
+                    return false;
+                }
+                else
+                {
+                    unitOfWork.AdminRepository.Delete(admin);
+                    return true;
+                }
+                
+               
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
 
         public async Task<Admin> GetAdminAsync(Guid id)

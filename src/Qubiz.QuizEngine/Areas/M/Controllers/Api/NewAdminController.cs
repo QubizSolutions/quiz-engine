@@ -14,8 +14,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     public class NewAdminController : ApiController
     {
-        public static List<Admin> admins = new List<Admin> { new Admin() { Name = "Jim Carrey" }, new Admin { Name = "Bruce Lee" } };
-
         private readonly IAdminService adminService;
 
         public NewAdminController(IAdminService adminService)
@@ -28,13 +26,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         {
             Admin[] admin = await adminService.GetAllAdminsAsync();
             return Ok(admin);
-        }
-
-        [HttpGet]
-        public async Task<IHttpActionResult> GetLoggedIn()
-        {
-            string Logged = HttpContext.Current.User.Identity.Name;
-            return Ok(Logged);
         }
 
         [HttpPost]
