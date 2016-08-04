@@ -21,12 +21,13 @@
         }
         scope.showConfirm = function (ev,Admin) {
             var confirm = mdDialog.confirm()
-                  .ok('Yes')
-                  .cancel('No')
+                  
                   .title('Are you sure you want to delete this admin?')
                   .textContent('This action cannot be undone.')
                   .ariaLabel('Lucky day')
-                  .targetEvent(ev);
+                  .targetEvent(ev)
+                  .cancel('No')
+                  .ok('Yes');
 
 
             mdDialog.show(confirm).then(function () {
