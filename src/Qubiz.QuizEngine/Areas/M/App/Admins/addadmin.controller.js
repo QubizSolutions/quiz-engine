@@ -4,8 +4,8 @@
    angular
       .module('quizEngineMaterial')
       .controller('AddAdminController', AddAdminController)
-   AddAdminController.$inject = ['adminsService','$location'];
-   function AddAdminController(adminsService,location)
+   AddAdminController.$inject = ['adminsService','$location','$mdDialog'];
+   function AddAdminController(adminsService,location,mdDialog)
    {
 
        var vm = this;
@@ -20,14 +20,20 @@
        }
        function Save()
        {
-           //Need Admin Service Add
-           console.log("Saving works in controller");
-           adminsService.AddAdmin(vm.Admin).then(SavedSuccess).catch();
-
+           adminsService.AddAdmin(vm.Admin).then(SavedSuccess).catch(SavedFailure);
        }
        function SavedSuccess()
        {
            location.path('/administrators');
+       }
+       function SavedFailure()
+       {
+           mdDialog.show(mdDialog.alert()
+                     .title('Warning')
+                     .textContent('Invalid Admin Name(Taken or Empty String)')
+                     .ok('Ok!')
+           );
+           
        }
    }
 

@@ -19,7 +19,6 @@
         }
         function AddAdmin(admin)
         {
-            console.log(admin);
             return $http({
                 method: 'POST',
                 url: 'api/NewAdmin/AddAdmin',

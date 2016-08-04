@@ -20,22 +20,10 @@ namespace Qubiz.QuizEngine.Services.AdminService
         public async Task AddAdminAsync(Admin admin)
         {
             List<Admin> admins = new List<Admin>(await unitOfWork.AdminRepository.GetAllAdminsAsync());
-
-
-            try
-            {
-                Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
-            }
-            catch
-            {
-                admin.ID = new Guid();
-                unitOfWork.AdminRepository.Create(admin);
-                await  unitOfWork.SaveAsync();
-                throw new NotImplementedException();
-            }
-            
-
-            
+            admin.ID = Guid.NewGuid();
+            unitOfWork.AdminRepository.Create(admin);
+          
+            await  unitOfWork.SaveAsync();                   
         }
 
         public async Task<bool> DeleteAdminAsync(Guid id)
