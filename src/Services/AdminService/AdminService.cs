@@ -1,6 +1,7 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
@@ -18,9 +19,23 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task AddAdminAsync(Admin admin)
         {
-            //await unitOfWork.AdminRepository.AddAdmin(admin);
+            List<Admin> admins = new List<Admin>(await unitOfWork.AdminRepository.GetAllAdminsAsync());
 
-            throw new NotImplementedException();
+
+            try
+            {
+                Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
+            }
+            catch
+            {
+                admin.ID = new Guid();
+                unitOfWork.AdminRepository.Create(admin);
+
+                throw new NotImplementedException();
+            }
+            
+
+            
         }
 
         public async Task<bool> DeleteAdminAsync(Guid id)
