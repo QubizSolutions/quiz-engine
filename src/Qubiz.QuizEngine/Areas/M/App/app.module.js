@@ -20,6 +20,11 @@
                 controllerAs:"AdminCtrl"
 
             })
+            .when('/addadmin', {
+                templateUrl: "Template/AddAdmin",
+                controller: "AddAdminController",
+                controllerAs:"AddAdminCtrl"
+            })
 		.otherwise({ redirectTo: "/tests" });
     });
 })();
