@@ -18,7 +18,6 @@ namespace Qubiz.QuizEngine.Areas.M
 
             Bundle angularMaterialBundle = new Bundle("~/Areas/M/angular-material", cssTransforms);
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/angular-material.css");
-            angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.list.css");
             bundles.Add(angularMaterialBundle);
 
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
