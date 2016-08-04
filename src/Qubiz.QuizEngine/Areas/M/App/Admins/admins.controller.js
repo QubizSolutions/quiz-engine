@@ -19,7 +19,7 @@
                 })
                 .catch();
         }
-        scope.showConfirm = function (ev) {
+        scope.showConfirm = function (ev,Admin) {
             var confirm = mdDialog.confirm()
                   .ok('Yes')
                   .cancel('No')
@@ -30,7 +30,7 @@
 
 
             mdDialog.show(confirm).then(function () {
-
+                deleteAdmin(Admin.ID);
                 scope.status = 'Admin deleted successfuly.';
             }, function () {
 

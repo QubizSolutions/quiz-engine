@@ -13,7 +13,7 @@
             <div md-virtual-repeat="admin in AdminCtrl.admins" class="repeated-item" flex="">
                 {{admin.Name}}
                 
-                 <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event)">delete</i>
+                 <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event,admin)">delete</i>
                 <i class="material-icons2 btn-primary" style="float:right; margin-right:10px">mode_edit</i>
             </div>
         </md-virtual-repeat-container>
@@ -21,7 +21,7 @@
 
 </div>
 
-<md-button class="CustomButton md-primary" ng-href="#/addadmin">Add</md-button>
+
 
 <div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
 
