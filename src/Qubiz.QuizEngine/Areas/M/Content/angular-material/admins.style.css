@@ -14,6 +14,11 @@
 .virtualRepeatdemoDeferredLoading .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
   padding-left: 16px; }
 
+.CustomButton{
+    background-color: #008cba;
+    color:white !important;
+}
+
 /*Delete admin confirm popup*/
 .dialogdemoBasicUsage #popupContainer {
   position: relative; }

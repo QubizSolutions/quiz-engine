@@ -29,6 +29,10 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         {
             return PartialView();
         }
+        public ActionResult AddAdmin()
+        {
+            return PartialView();
+        }
 
         public ActionResult Administrators()
         {
