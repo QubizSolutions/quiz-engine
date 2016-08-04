@@ -18,30 +18,29 @@
                 <span flex></span>
 
                 <h4 style="padding-right: 5%" class="md-icon-button pull-right">
-                    @(((User.Identity.Name == System.String.Empty) || !Authorizer.IsAdmin(User.Identity.Name)) ? "Hello, Guest" : string.Format("Hello, {0}", User.Identity.Name)) !
+                    @((Authorizer.IsAdmin(User.Identity.Name)) ? string.Format("Hello, {0}", User.Identity.Name) : "Hello, Guest") !
                 </h4>
-
             </div>
         </div>
     </md-toolbar>
     @if(Authorizer.IsAdmin(User.Identity.Name))
     {
-        <div ng-cloak ng-controller="MainBarTabsController">
+        <div ng-cloak ng-controller="MainBarTabsController as mainBarTabsCtrl">
             <md-content style="align-self:center center; align-content:center">
                 <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
-                    <md-tab md-on-select="testsTabClick()">
+                    <md-tab md-on-select="mainBarTabsCtrl.testsTabClick()">
                         <div class="menuItem">Tests </div>
                     </md-tab>
-                    <md-tab  md-on-select="examsTabClick()">
+                    <md-tab  md-on-select="mainBarTabsCtrl.examsTabClick()">
                         <div class="menuItem">Exams</div>
                     </md-tab>
-                    <md-tab md-on-select="questionsTabClick()">
+                    <md-tab md-on-select="mainBarTabsCtrl.questionsTabClick()">
                         <div class="menuItem">Questions</div>
                     </md-tab>
-                    <md-tab md-on-select="sectionsTabClick()">
+                    <md-tab md-on-select="mainBarTabsCtrl.sectionsTabClick()">
                         <div class="menuItem">Sections</div>
                     </md-tab>
-                    <md-tab md-on-select="administratorsTabClick()">
+                    <md-tab md-on-select="mainBarTabsCtrl.administratorsTabClick()">
                         <div class="menuItem">Administrators</div>
                     </md-tab>
                 </md-tabs>
