@@ -9,6 +9,7 @@ using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Database.Repositories;
 using System;
+using Qubiz.QuizEngine.Services.AdminService;
 
 namespace Qubiz.QuizEngine
 {
@@ -44,6 +45,11 @@ namespace Qubiz.QuizEngine
             container.RegisterType<IExamService, ExamService>();
             container.RegisterType<ILogger,EventViewerLogger>();
 			container.RegisterType<Repositories.IFeatureFlagRepository, Repositories.FeatureFlagRepository>();
+
+
+            //container.RegisterType<Database.Repositories.IBaseRepository, Database.Repositories.BaseRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IAdminService, AdminService>();
             container.RegisterType<Database.Repositories.IAdminRepository, Database.Repositories.AdminRepository>();
         }
     }
