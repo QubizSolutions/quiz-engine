@@ -159,6 +159,7 @@
     <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
+    <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -199,12 +200,15 @@
     <Content Include="Areas\M\App\Admins\admins.service.js" />
     <Content Include="Areas\M\App\Admins\admins.template.html" />
     <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
+    <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
     <Content Include="Areas\M\Content\angular-material\admins.list.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
+    <Content Include="Areas\M\Content\bootstrap.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
     <Content Include="Areas\M\Scripts\angular-aria.js" />
@@ -275,6 +279,7 @@
     <Content Include="Scripts\App\controllers\dropdown.controller.js" />
     <Content Include="Scripts\App\controllers\exam-list.controller.js" />
     <Content Include="Scripts\App\controllers\exam.controller.js" />
+    <Content Include="Scripts\App\controllers\print.controller.js" />
     <Content Include="Scripts\App\controllers\question-detail.controller.js" />
     <Content Include="Scripts\App\controllers\question-list.controller.js" />
     <Content Include="Scripts\App\controllers\question-selector.controller.js" />
@@ -282,6 +287,7 @@
     <Content Include="Scripts\App\controllers\section.controller.js" />
     <Content Include="Scripts\App\controllers\test-detail.controller.js" />
     <Content Include="Scripts\App\controllers\test-list.controller.js" />
+    <Content Include="Scripts\App\directives\answers-details-print.directive.js" />
     <Content Include="Scripts\App\directives\answers-details.directive.js" />
     <Content Include="Scripts\App\directives\dropdown.directive.js" />
     <Content Include="Scripts\App\filters\formatTimer.js" />
@@ -695,6 +701,11 @@
     <Content Include="Areas\M\Views\Home\Index.cshtml" />
     <Content Include="Areas\M\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\M\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\M\Views\Template\Administrators.cshtml" />
+    <Content Include="Areas\M\Views\Template\Exams.cshtml" />
+    <Content Include="Areas\M\Views\Template\Questions.cshtml" />
+    <Content Include="Areas\M\Views\Template\Sections.cshtml" />
+    <Content Include="Areas\M\Views\Template\Test.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -764,6 +775,8 @@
     <Content Include="Views\Templates\Admins.cshtml" />
     <Content Include="Views\Templates\AnswersDetails.cshtml" />
     <Content Include="Views\Templates\Dropdown.cshtml" />
+    <Content Include="Views\Templates\PrintPreview.cshtml" />
+    <Content Include="Views\Templates\AnswersDetailsPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\M\Models\" />

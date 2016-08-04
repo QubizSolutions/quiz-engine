@@ -9,6 +9,18 @@ namespace Qubiz.QuizEngine.Controllers
 {
     public class TemplatesController : Controller
     {
+        [OutputCache(Duration = 60)]
+        public ActionResult PrintPreview()
+        {
+            return PartialView();
+        }
+
+        [OutputCache(Duration = 60)]
+        public ActionResult AnswersDetailsPrint()
+        {
+            return PartialView();
+        }
+
         [OutputCache(Duration=60)]
         public ActionResult Sections()
         {

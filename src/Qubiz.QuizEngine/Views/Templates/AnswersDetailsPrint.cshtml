@@ -1,0 +1,43 @@
+﻿<div class="panel panel-primary no-print-split" ng-repeat="section in exam.AnswersPerSection">
+    <div class="panel-heading print-bar" style="cursor:pointer">
+        <div ng-click="collapsed=!collapsed">
+            <b style="font-size:large" ng-show="!collapsed">
+                &#x025B4;
+            </b>
+            <b style="font-size:large" ng-show="collapsed">
+                &#x025BE;
+            </b>
+            <b style="width:100%;font-size:large">
+                {{section.SectionName}}
+            </b>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="no-print-split-parent" ng-repeat="answer in section.Answers track by $index" ng-hide="collapsed" style="margin-bottom:50px">
+            <div class="panel panel-info no-print-split" style="margin-bottom:5px">
+                <div class="panel-heading sub-print-bar">
+                    <p style="color: black !important;">Question:</p>
+                </div>
+                <div class="panel-body">
+                    <p" ng-bind-html="answer.Question.QuestionText"></p>
+                </div>
+            </div>
+            <div class="panel panel-info no-print-split" style="margin-bottom:5px">
+                <div class="panel-heading sub-print-bar success-print">
+                    <p">Correct answer:</p>
+                </div>
+                <div class="panel-body">
+                    <p ng-repeat="option in answer.CorrectOptions track by $index" ng-bind-html="option"></p>
+                </div>
+            </div>
+            <div class="panel panel-info no-print-split" style="margin-bottom:5px">
+                <div class="panel-heading sub-print-bar" ng-class="{'danger-print': answer.AnsweredCorrectly===false, 'success-print': answer.AnsweredCorrectly===true}">
+                    <p">Candidate's answer:</p>
+                </div>
+                <div class="panel-body">
+                    <p ng-repeat="option in answer.SelectedOptions track by $index" ng-bind-html="option"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

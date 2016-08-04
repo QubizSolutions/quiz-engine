@@ -22,7 +22,7 @@ namespace Qubiz.QuizEngine.Areas.M
         }
 
         private void RegisterRoutes(AreaRegistrationContext context)
-        {
+        {  
             context.Routes.MapHttpRoute(
                 name: "MApiAction",
                 routeTemplate: "M/api/{controller}/{action}"
@@ -39,10 +39,10 @@ namespace Qubiz.QuizEngine.Areas.M
             );
 
             context.MapRoute(
-                "M_default",
-                "M/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Qubiz.QuizEngine.Areas.M.Controllers" }
+              "M_default",
+              "M/{controller}/{action}/{id}",
+              new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+              new[] { "Qubiz.QuizEngine.Areas.M.Controllers" }
             );
         }
     }
