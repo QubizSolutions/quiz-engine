@@ -6,15 +6,38 @@
 <h2>Administrators</h2>
 
 
-<div ng-controller="AdminsController as admins" ng-cloak="" class="virtualRepeatdemoDeferredLoading" ng-app="quizEngineMaterial">
+<div  ng-cloak="" class="virtualRepeatdemoDeferredLoading">
     <md-content layout="column">
 
 
         <md-virtual-repeat-container id="vertical-container">
-            <div md-virtual-repeat="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" class="repeated-item" flex="">
-                {{item}} <i class="material-icons" style="float:right">delete</i>
+            <div md-virtual-repeat="admin in AdminCtrl.admins" class="repeated-item" flex="">
+                {{admin.Name}}
+                 <i class="material-icons" style="float:right">delete</i>
             </div>
         </md-virtual-repeat-container>
     </md-content>
 
+</div>
+
+
+<div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
+
+
+    <div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+
+        <md-button class="md-primary md-raised" ng-click="showConfirm($event)">
+            Confirm Dialog
+        </md-button>
+
+    </div>
+    <div hide-gt-sm="" layout="row" layout-align="center center" flex="">
+        <md-checkbox aria-label="Fullscreen Custom Dialog">Force Custom Dialog Fullscreen</md-checkbox>
+    </div>
+
+    <div ng-if="status" id="status">
+        <b layout="row" layout-align="center center" class="md-padding">
+            {{status}}
+        </b>
+    </div>
 </div>
