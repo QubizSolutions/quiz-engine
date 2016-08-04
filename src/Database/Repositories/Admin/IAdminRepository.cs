@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-    public interface IAdminRepository
+    public interface IAdminRepository:IBaseRepository<Admin>
     {
         Task<Admin[]> GetAllAdminsAsync();
         Task<Admin> GetByIDAsync(Guid id);

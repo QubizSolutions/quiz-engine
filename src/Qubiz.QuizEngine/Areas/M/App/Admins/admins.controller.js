@@ -7,6 +7,8 @@
     AdminsController.$inject = ['adminsService','$scope','$mdDialog'];
     function AdminsController(adminsService,scope,mdDialog) {
         var vm = this;
+        vm.deleteAdmin = deleteAdmin;
+        console.log("Orice");
         getAllAdmins();
 
         function getAllAdmins() {
@@ -35,6 +37,15 @@
                 scope.status = 'Deletion aborted.';
             });
         };
+
+        function deleteAdmin(id) {
+            adminsService.deleteAdmin(id)
+                .then(getAllAdmins())
+                .catch();
+        }
+
+        
+
     }
 
 
