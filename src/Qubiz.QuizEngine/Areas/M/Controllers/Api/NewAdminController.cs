@@ -22,10 +22,17 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         }
 
         [HttpGet]
+        public async Task<IHttpActionResult> GetAdmin(Guid id)
+        {
+            Admin admin =await adminService.GetAdminAsync(id);
+            return Ok(admin);
+        }
+
+        [HttpGet]
         public async Task<IHttpActionResult> GetAdmins()
         {
-            Admin[] admin = await adminService.GetAllAdminsAsync();
-            return Ok(admin);
+            Admin[] admins = await adminService.GetAllAdminsAsync();
+            return Ok(admins);
         }
 
         [HttpPost]
