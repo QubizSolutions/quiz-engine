@@ -10,6 +10,8 @@
         this.getAllAdmins = getAllAdmins;
         this.AddAdmin = AddAdmin;
         this.deleteAdmin = deleteAdmin;
+        this.EditAdmin=EditAdmin;
+        this.GetById=GetById;
         function getAllAdmins() {
             return $http({
                 method: 'GET',
@@ -28,7 +30,28 @@
             .then()
             .catch(errorCallback);
         }
+        function EditAdmin(admin)
+        {
+            return $http({
+                method: 'PUT',
+                url: 'api/NewAdmin/UpdateAdmin',
+                data: admin
+            })
+            .then()
+            .catch(errorCallback);
+        }
+        function GetById(id)
+        {
+            return $http({
+                method: 'GET',
+                url: 'api/NewAdmin/GetAdmin',
+                data: id
 
+            })
+            .then()
+            .catch();
+        }
+        
         function getAllAdminsSuccess(response) {
             return response.data;
         }
