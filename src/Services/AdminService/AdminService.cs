@@ -59,6 +59,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<Admin> GetAdminAsync(Guid id)
         {
+            return await unitOfWork.AdminRepository.GetByIDAsync(id);
             //return UnitOfWork.AdminRepository.GetAllAdmins(id);
 
             throw new NotImplementedException();

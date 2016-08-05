@@ -4,13 +4,26 @@
 }
 
 <h2>Administrators</h2>
-<md-button class="CustomButton md-primary" ng-href="#/addadmin">Add</md-button>
 <div  ng-cloak="" class="virtualRepeatdemoDeferredLoading">
-    <md-content layout="column">
+    <md-content  layout = "column " style="background-color: transparent">
+        <div>
+            <md-input-container flex="">
+                <label>Search
+                    <i class="material-icons">search</i> 
+                </label>
+                <input type="text" ng-model="searchAdmin">
+            </md-input-container>
 
+            <md-button class="CustomButton md-primary pull-right" ng-href="#/addadmin"
+                       style="position: fixed;
+                        left: 50%;"
+                       >Add</md-button>
+            <br />
 
+            <br />
+        </div>
         <md-virtual-repeat-container id="vertical-container">
-            <div md-virtual-repeat="admin in AdminCtrl.admins" class="repeated-item" flex="">
+            <div md-virtual-repeat="admin in AdminCtrl.admins | filter:searchAdmin" class="repeated-item" flex="">
                 {{admin.Name}}
                 
                  <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event,admin)">delete</i>

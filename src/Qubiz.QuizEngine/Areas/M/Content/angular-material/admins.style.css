@@ -74,3 +74,8 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+
+.material-icons2:hover {
+    cursor: pointer;
+}
