@@ -28,7 +28,7 @@
             vm.selectedQuestion = angular.copy(question);
         }
 
-        fucntion deleteSelected(){
+        function deleteSelected(){
 
         }
         
