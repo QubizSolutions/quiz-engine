@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Services;
+using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
@@ -20,9 +21,9 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
 		}
 
 		[HttpGet]
-		public IHttpActionResult GetQuestionsFiltered(int id)
+		public async Task<IHttpActionResult> GetQuestionsPaged(int id)
 		{
-			return Ok(questionService.GetQuestionsByPage(id));
+            return Ok(await questionService.GetQuestionsByPage(id));
 		}
 
 	}

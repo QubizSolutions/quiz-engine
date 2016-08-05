@@ -10,7 +10,7 @@ namespace Qubiz.QuizEngine.Services
 	public interface IQuestionService
 	{
 
-		Database.Models.PagedResult<Database.Models.QuestionListItem> GetQuestionsByPage(int pagenumber);
+		Task<Database.Models.PagedResult<Database.Models.QuestionListItem>> GetQuestionsByPage(int pagenumber);
 
 	}
 }

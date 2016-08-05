@@ -20,12 +20,10 @@ namespace Qubiz.QuizEngine.Services
 			this.config = config;
 		}
 
-		public PagedResult<QuestionListItem> GetQuestionsByPage(int pagenumber)
-		{
-			UnitOfWork unit = new UnitOfWork(config);
-			unit.QuestionRepository.GetQuestionsByPage(pagenumber);
-
-			return null;
-		}
-	}
+        public async Task<PagedResult<QuestionListItem>> GetQuestionsByPage(int pagenumber)
+        {
+            UnitOfWork unit = new UnitOfWork(config);
+            return await unit.QuestionRepository.GetQuestionsByPage(pagenumber);
+        }
+    }
 }

@@ -11,7 +11,8 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         // GET: M/TemplateName
         public ActionResult Test()
         {
-            return PartialView();
+            var viwe = PartialView();
+            return viwe;
         }
 
         public ActionResult Exams()

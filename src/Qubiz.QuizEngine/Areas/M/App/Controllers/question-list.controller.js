@@ -16,8 +16,8 @@
         getQuestions();
 
         function getQuestions() {
-            questionData.filteredQuestion({ pagenumber: vm.pageNumber }).$promise.then(function (result) {
-                vm.Questions = result;
+            questionData.getQuestionsPaged(vm.pageNumber).then(function(result){
+                vm.Questions = result.data;
                 vm.maxPages = Math.ceil(vm.Questions.TotalCount / 20) - 1;
             });
         }
