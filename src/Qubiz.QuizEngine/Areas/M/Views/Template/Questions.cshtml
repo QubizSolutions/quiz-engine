@@ -11,12 +11,9 @@
         </md-toolbar>
         <md-content>
             <md-list flex>
-                <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="null">
+                <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="questionCtrl.selectQuestion(question)">
                     <div class="md-list-item-text" layout="column">
-                        <b>
-                            {{question.Number}}
-                        </b>
-                        - ({{question.Section}})
+                        <b>{{question.Number}}</b> - ({{question.Section}})
                     </div>
                 </md-list-item>
             </md-list>
@@ -29,6 +26,16 @@
             <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.nextPage()">
                 <i class="material-icons" style="margin-top: 12px;">skip_next</i>
             </md-button>
+        </div>
+    </div>
+    <div class="col-md-10" ng-show="questionCtrl.selectedQuestion">
+        <div>
+            <div class="col-md-6" style="font-size: 32px;"><b>{{questionCtrl.selectedQuestion.Number}}</b> - ({{questionCtrl.selectedQuestion.Section}})</div>
+            <div class="col-md-3 pull-right">
+                <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.deleteSelected()">
+                    <i class="material-icons" style="margin-top: 12px;">delete</i>
+                </md-button>
+            </div>
         </div>
     </div>
 </div>

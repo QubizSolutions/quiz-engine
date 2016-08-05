@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict'
-    angular.module('quizEngineMaterial', ['ngRoute', 'ngResource', 'ngAnimate', 'ngAria', 'ngMaterial']);
+    angular.module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial']);
     angular.module('quizEngineMaterial').config(function ($routeProvider) {
         $routeProvider.when("/tests", {
             templateUrl: "Template/Test"

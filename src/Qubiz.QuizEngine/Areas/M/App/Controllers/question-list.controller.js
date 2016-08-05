@@ -10,6 +10,8 @@
         vm.nextPage = nextPage;
         vm.prevPage = prevPage;
         vm.updatePage = updatePage;
+        vm.selectQuestion = selectQuestion;
+        vm.deleteSelected = deleteSelected;
 
         vm.pageNumber = 0;
 
@@ -22,6 +24,14 @@
             });
         }
 
+        function selectQuestion(question) {
+            vm.selectedQuestion = angular.copy(question);
+        }
+
+        fucntion deleteSelected(){
+
+        }
+        
         function nextPage() {
             vm.pageNumber++;
             updatePage();
@@ -30,6 +40,7 @@
             vm.pageNumber--;
             updatePage();
         }
+
         function updatePage() {
             if(isNaN(vm.pageNumber)){ vm.pageNumber = 0 }
             if (vm.pageNumber > vm.maxPages) { vm.pageNumber = vm.maxPages; }
