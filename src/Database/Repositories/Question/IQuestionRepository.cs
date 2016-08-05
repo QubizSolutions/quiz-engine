@@ -10,8 +10,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
     public interface IQuestionRepository
 	{
         void UpdateQuestion(QuestionDefinition question);
-        void DeleteQuestion(Guid id);
-
+		Task<IQueryable<QuestionDefinition>> DeleteQuestion(Guid id);
 		Task<Models.PagedResult<Models.QuestionListItem>> GetQuestionsByPage(int pagenumber);
 		
 	}
