@@ -1,7 +1,41 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Questions";
 }
 
-<h2>Questions</h2>
-
+<div class="col-md-10 col-md-offset-1" style="margin-top: 20px;">
+    <div class="col-md-2">
+        <md-toolbar layout="row">
+            <div class="md-toolbar-tools qubiz-color">
+                <span>Questions({{questionCtrl.Questions.TotalCount}})</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="null">
+                    <div class="md-list-item-text" layout="column">
+                        <b>
+                            {{question.Number}}
+                        </b>
+                        - ({{question.Section}})
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <div class="col-md-12">
+            <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.prevPage()">
+                <i class="material-icons" style="margin-top: 12px;">skip_previous</i>
+            </md-button>
+            <input ng-model="questionCtrl.pageNumber" ng-change="questionCtrl.updatePage()" class="col-md-3" style="margin-top: 5px;height: 50px;">
+            <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.nextPage()">
+                <i class="material-icons" style="margin-top: 12px;">skip_next</i>
+            </md-button>
+        </div>
+        <div class="col-md-12" ng-show="Questions.TotalCount >= 10">
+            <input type="number" ng-model="page" /><button class="btn btn-default" ng-click="goToPage(-pageNumber + page-1)"><span class="glyphicon glyphicon-search"></span></button>
+            <button type="button" id="FrstBtn" class="btn btn-default" ng-click="goToPage(-pageNumber + 0)" ng-class="{'disabled': pageNumber <= 0}"><span class="glyphicon glyphicon-backward"></span></button>
+            <button type="button" id="PrevBtn" class="btn btn-default" ng-click="goToPage(-1)" ng-class="{'disabled': pageNumber <= 0}"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            <button type="button" id="NextBtn" class="btn btn-default" ng-click="goToPage(+1)" ng-class="{'disabled': pageNumber >= maxPages}"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            <button type="button" id="LastBtn" class="btn btn-default" ng-click="goToPage(-pageNumber + maxPages)" ng-class="{'disabled': pageNumber >= maxPages}"><span class="glyphicon glyphicon-forward"></span></button>
+        </div>
+    </div>
+</div>

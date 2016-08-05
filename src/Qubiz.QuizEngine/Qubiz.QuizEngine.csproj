@@ -196,8 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
+    <Content Include="Areas\M\App\Services\question-data.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
@@ -210,6 +212,8 @@
     <Content Include="Areas\M\Scripts\angular-aria.min.js" />
     <Content Include="Areas\M\Scripts\angular-material.js" />
     <Content Include="Areas\M\Scripts\angular-material.min.js" />
+    <Content Include="Areas\M\Scripts\angular-resource.js" />
+    <Content Include="Areas\M\Scripts\angular-resource.min.js" />
     <Content Include="Areas\M\Scripts\angular-route.js" />
     <Content Include="Areas\M\Scripts\angular.js" />
     <Content Include="Areas\M\Scripts\angular.min.js" />
@@ -701,6 +705,7 @@
     <Content Include="Areas\M\Views\Template\Questions.cshtml" />
     <Content Include="Areas\M\Views\Template\Sections.cshtml" />
     <Content Include="Areas\M\Views\Template\Test.cshtml" />
+    <Content Include="Areas\M\Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -774,6 +779,7 @@
     <Content Include="Views\Templates\AnswersDetailsPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\M\App\Directives\" />
     <Folder Include="Areas\M\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

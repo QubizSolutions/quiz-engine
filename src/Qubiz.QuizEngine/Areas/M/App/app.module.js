@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict'
-    angular.module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial']);
+    angular.module('quizEngineMaterial', ['ngRoute', 'ngResource', 'ngAnimate', 'ngAria', 'ngMaterial']);
     angular.module('quizEngineMaterial').config(function ($routeProvider) {
         $routeProvider.when("/tests", {
             templateUrl: "Template/Test"
@@ -9,7 +9,9 @@
                 templateUrl: "Template/Exams"
             })
             .when("/questions", {
-                templateUrl: "Template/Questions"
+                templateUrl: "Template/Questions",
+                controller: "QuestionListController",
+                controllerAs: "questionCtrl"
             })
             .when("/sections", {
                 templateUrl: "Template/Sections"
