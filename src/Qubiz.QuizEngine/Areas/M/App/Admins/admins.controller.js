@@ -30,7 +30,6 @@
 
             mdDialog.show(confirm).then(function () {
                 deleteAdmin(Admin.ID);
-                scope.status = 'Admin deleted successfuly.';
             }, function () {
                 scope.status = 'Deletion aborted.';
             });
@@ -39,9 +38,12 @@
         function deleteAdmin(id) {
             adminsService.deleteAdmin(id)
                 .then(function () {
+                    scope.status = 'Admin deleted successfuly.';
                     getAllAdmins();
                 })
-                .catch();
+                .catch(function () { 
+                    scope.status = 'You cannot delete yourself.';
+                });
         }
 
         

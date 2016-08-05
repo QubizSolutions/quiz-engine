@@ -2,10 +2,12 @@
 @{
     ViewBag.Title = "Administrators";
 }
+@{ var currentUser = User.Identity.Name;}
 
 <h2>Administrators</h2>
 <div  ng-cloak="" class="virtualRepeatdemoDeferredLoading">
     <md-content  layout = "column " style="background-color: transparent">
+        <br/>
         <div>
             <md-input-container flex="">
                 <label>Search
@@ -22,10 +24,18 @@
         <md-virtual-repeat-container id="vertical-container">
             <div md-virtual-repeat="admin in AdminCtrl.admins | filter:searchAdmin" class="repeated-item" flex="">
                 {{admin.Name}}
-                             
-                 <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event,admin)">delete</i>
-                <a class="material-icons2 btn-primary" ng-href="#/editadmin/{{admin.ID}}" style="float:right; margin-right:10px">mode_edit</a>
+                <span ng-if="admin.Name =='@currentUser'">
+                   <i class="material-icons2 btn-primary-disabled" ng-click="showConfirm($event,admin)">delete</i>
+                   <a class="material-icons2 btn-primary-disabled" ng-href="#/editadmin/{{admin.ID}}">mode_edit</a>
+                </span>
+
+                <span ng-if="admin.Name !='@currentUser'">
+                    <i class="material-icons2 btn-primary" ng-click="showConfirm($event,admin)">delete</i>
+                    <a class="material-icons2 btn-primary" ng-href="#/editadmin/{{admin.ID}}">mode_edit</a>
+                </span>
+            
             </div>
+            
         </md-virtual-repeat-container>
     </md-content>
 
