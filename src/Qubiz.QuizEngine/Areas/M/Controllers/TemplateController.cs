@@ -6,9 +6,11 @@ using System.Web.Mvc;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
+    [Admin]
     public class TemplateController : Controller
     {
         // GET: M/TemplateName
+        [AllowAnonymous]
         public ActionResult Test()
         {
             var viwe = PartialView();
