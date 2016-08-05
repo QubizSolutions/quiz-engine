@@ -23,7 +23,8 @@ namespace Qubiz.QuizEngine.Services
         public async Task<PagedResult<QuestionListItem>> GetQuestionsByPage(int pagenumber)
         {
             UnitOfWork unit = new UnitOfWork(config);
-            return await unit.QuestionRepository.GetQuestionsByPage(pagenumber);
+            var result = await unit.QuestionRepository.GetQuestionsByPage(pagenumber);
+            return result;
         }
     }
 }

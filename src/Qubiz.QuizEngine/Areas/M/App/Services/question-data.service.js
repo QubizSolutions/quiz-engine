@@ -13,7 +13,7 @@
             var id = pagenumber;
             return $http({
                 method: 'GET',
-                url: 'm/api/NewQuestion/GetQuestionsPaged/' + id
+                url: 'api/NewQuestion/GetQuestionsPaged/' + id
             });
         }
 	}
