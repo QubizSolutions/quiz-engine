@@ -1,5 +1,6 @@
 ﻿using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Database.Entities;
+using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.AdminService;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,17 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         }
 
         [HttpPost]
-        public async Task AddAdmin([FromBody]Admin admin)
+        public async Task<IHttpActionResult> AddAdmin([FromBody]Admin admin)
         {
-            await adminService.AddAdminAsync(admin);
+            Validator[] validator=await adminService.AddAdminAsync(admin);
+            if (validator.Length == 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete]
@@ -51,9 +60,17 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         }
 
         [HttpPut]
-        public async void UpdateAdmin([FromBody]Admin admin)
+        public async Task<IHttpActionResult> UpdateAdmin([FromBody]Admin admin)
         {
-            adminService.UpdateAdminAsync(admin);
+            Validator[] validator= await adminService.UpdateAdminAsync(admin);
+            if (validator.Length == 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

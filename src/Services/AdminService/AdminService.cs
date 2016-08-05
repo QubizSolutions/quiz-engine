@@ -1,5 +1,6 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
+using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,19 +18,22 @@ namespace Qubiz.QuizEngine.Services.AdminService
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task AddAdminAsync(Admin admin)
+        public async Task<Validator[]> AddAdminAsync(Admin admin)
         {
             List<Admin> admins = new List<Admin>(await unitOfWork.AdminRepository.GetAllAdminsAsync());
-
-
-           
-                Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
-                if (!admins.Contains(if_admin_exists))
+            Validator[] validator = new Validator[0];
+            Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
+            if (!admins.Contains(if_admin_exists))
                 {
                 admin.ID = Guid.NewGuid();
                 unitOfWork.AdminRepository.Create(admin);
                 await unitOfWork.SaveAsync();
+                }
+            else
+            {
+                validator[validator.Length - 1] = new Validator("name alreadi exists");
             }
+            return validator;
                 
             
             
@@ -71,18 +75,21 @@ namespace Qubiz.QuizEngine.Services.AdminService
             
         }
 
-        public async void UpdateAdminAsync(Admin admin)
+        public async Task<Validator[]> UpdateAdminAsync(Admin admin)
         {
-            Admin admin2 = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+            Validator[] validator = new Validator[0];
+            Admin originalAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
             if (admin.Name == HttpContext.Current.User.Identity.Name)
             {
-                return ;
+                validator[validator.Length - 1] = new Validator("You cannot change yourself");
             }
             else
             {
-                unitOfWork.AdminRepository.Update(admin);
+                originalAdmin.Name = admin.Name;
+                unitOfWork.AdminRepository.Update(originalAdmin);
                 await unitOfWork.SaveAsync();
             }
+            return validator;
             
         }
     }

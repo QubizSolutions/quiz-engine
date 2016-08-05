@@ -11,7 +11,10 @@
         vm.Admin = {};
         vm.Save = Save;
         vm.Reset = Reset;
-        console.log($scope.id)
+        adminsService.GetById($scope.id).then(function (response) {
+            vm.Admin = response.data;
+            console.log(vm.Admin);
+        }).catch();
 
         function Save() {
             adminsService.EditAdmin(vm.Admin).then(SavedSucces).catch();
@@ -22,6 +25,7 @@
         }
         function SavedSucces()
         {
+            
             location.path('/administrators');
         }
     }

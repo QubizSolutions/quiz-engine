@@ -1,4 +1,5 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
+using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Qubiz.QuizEngine.Services.AdminService
 {
     public interface IAdminService
     {
-        Task AddAdminAsync(Admin admin);
+        Task<Validator[]> AddAdminAsync(Admin admin);
         Task<bool> DeleteAdminAsync(Guid id);
-        void UpdateAdminAsync(Admin admin);
+        Task<Validator[]> UpdateAdminAsync(Admin admin);
         Task<Admin[]> GetAllAdminsAsync();
         Task<Admin> GetAdminAsync(Guid id);
     }

@@ -44,8 +44,7 @@
         {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmin',
-                data: id
+                url: 'api/NewAdmin/GetAdmin/'+id
 
             })
             .then()

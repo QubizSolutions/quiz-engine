@@ -4,7 +4,7 @@
     angular
        .module('quizEngineMaterial')
        .controller('AdminsController', AdminsController)
-    AdminsController.$inject = ['adminsService','$scope','$mdDialog'];
+    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog'];
     function AdminsController(adminsService,scope,mdDialog) {
         var vm = this;
         vm.deleteAdmin = deleteAdmin;
@@ -32,7 +32,6 @@
                 deleteAdmin(Admin.ID);
                 scope.status = 'Admin deleted successfuly.';
             }, function () {
-
                 scope.status = 'Deletion aborted.';
             });
         };
