@@ -31,42 +31,29 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 }
             else
             {
-                validator[validator.Length - 1] = new Validator("name alreadi exists");
+                validator[validator.Length - 1] = new Validator("name already exists");
             }
-            return validator;
-                
-            
-            
-            
-
-            
+            return validator;  
         }
 
         public async Task<bool> DeleteAdminAsync(Guid id)
         {
-            
-            
-                Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
-                if (admin.Name == HttpContext.Current.User.Identity.Name)
-                {
-                    return false;
-                }
-                else
-                {
-                    unitOfWork.AdminRepository.Delete(admin);
-                    await unitOfWork.SaveAsync();
-                    return true;
-                }
-                
-            
+            Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
+            if (admin.Name == HttpContext.Current.User.Identity.Name)
+            {
+                return false;
+            }
+            else
+            {
+                unitOfWork.AdminRepository.Delete(admin);
+                await unitOfWork.SaveAsync();
+                return true;
+            }
         }
 
         public async Task<Admin> GetAdminAsync(Guid id)
         {
             return await unitOfWork.AdminRepository.GetByIDAsync(id);
-            //return UnitOfWork.AdminRepository.GetAllAdmins(id);
-
-            throw new NotImplementedException();
         }
 
         public async Task<Admin[]> GetAllAdminsAsync()
