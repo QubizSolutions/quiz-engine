@@ -14,12 +14,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-        public async void DeleteQuestion(Guid id)
-        {
-			//return dbSet.Remove(id);
-        }
-
-        public async Task<Models.PagedResult<Models.QuestionListItem>> GetQuestionsByPage(int pagenumber)
+		public async Task<Models.PagedResult<Models.QuestionListItem>> GetQuestionsByPage(int pagenumber)
 		{
 			if(pagenumber > dbSet.ToList().Count / 10)
 			{
@@ -53,7 +48,11 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
 		}
 
+		Task<IQueryable<QuestionDefinition>> IQuestionRepository.DeleteQuestion(Guid id)
+		{
+			QuestionDefinition question = dbSet.QuestionDefinitons.Find(id);
+			dbSet.Remove(question);
 
-
-    }
+		}
+	}
 }
