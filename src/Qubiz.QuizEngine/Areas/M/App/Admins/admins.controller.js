@@ -8,14 +8,12 @@
     function AdminsController(adminsService,scope,mdDialog) {
         var vm = this;
         vm.deleteAdmin = deleteAdmin;
-        console.log("Orice");
         getAllAdmins();
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
                 .then(function (result) {
                     vm.admins = result;
-                    console.log(vm.admins);
                 })
                 .catch();
         }
@@ -41,7 +39,9 @@
 
         function deleteAdmin(id) {
             adminsService.deleteAdmin(id)
-                .then(getAllAdmins())
+                .then(function () {
+                    getAllAdmins();
+                })
                 .catch();
         }
 

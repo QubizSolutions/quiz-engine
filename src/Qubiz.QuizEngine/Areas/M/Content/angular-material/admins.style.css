@@ -21,6 +21,11 @@
 .CustomButton{
     background-color: #008cba;
     color:white !important;
+   
+}
+
+#addAdminButton{
+     margin-right: 39%;
 }
 
 /*Delete admin confirm popup*/
@@ -75,7 +80,22 @@
   font-feature-settings: 'liga';
 }
 
-
 .material-icons2:hover {
     cursor: pointer;
+}
+
+
+.btn-primary-disabled, .btn-primary{
+    color:#ffffff;
+    background-color:#008cba;
+    border-color:#0079a1;
+}
+
+.btn-primary-disabled{
+    background-color:#808486;
+}
+
+md-input-container .md-input {
+    border-color:#008cba !important;
+    width:150% !important;
 }
