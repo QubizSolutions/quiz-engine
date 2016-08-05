@@ -56,6 +56,10 @@
       <Project>{B2D10802-A03B-4231-A9F8-C0A757740869}</Project>
       <Name>Qubiz.QuizEngine.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Qubiz.QuizEngine.Infrastructure.csproj">
+      <Project>{B80C7772-2868-4AA9-9127-A01B607D47E3}</Project>
+      <Name>Qubiz.QuizEngine.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
