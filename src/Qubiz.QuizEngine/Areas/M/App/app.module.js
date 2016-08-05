@@ -25,6 +25,12 @@
                 controller: "AddAdminController",
                 controllerAs:"AddAdminCtrl"
             })
+            .when('/editadmin/:id',
+        {
+            templateUrl:"Template/EditAdmin",
+            controller: "EditAdminController",
+            controllerAs:"EditCtrl"
+        })
 		.otherwise({ redirectTo: "/tests" });
     });
 })();

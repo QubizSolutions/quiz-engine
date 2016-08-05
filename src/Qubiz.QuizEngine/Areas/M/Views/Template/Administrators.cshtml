@@ -27,7 +27,7 @@
                 {{admin.Name}}
                 
                  <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="showConfirm($event,admin)">delete</i>
-                <i class="material-icons2 btn-primary" style="float:right; margin-right:10px">mode_edit</i>
+                <a class="material-icons2 btn-primary" ng-href="#/editadmin/{{admin.ID}}" style="float:right; margin-right:10px">mode_edit</a>
             </div>
         </md-virtual-repeat-container>
     </md-content>
