@@ -8,7 +8,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface IUnitOfWork
     {
-        IFeatureFlagRepository FeatureFlagRepository { get; }
-        Task SaveAsync();
+        IQuestionRepository QuestionRepository { get; }
+		IOptionRepository OptionRepository { get; }
+		Task SaveAsync();
     }
 }

@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
@@ -9,10 +11,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 	{
         void UpdateQuestion(QuestionDefinition question);
         void DeleteQuestion(Guid id);
+
+		Task<Models.PagedResult<Models.QuestionListItem>> GetQuestionsByPage(int pagenumber);
 		
-        Task<QuestionDefinition> GetQuestionDefinitionByID(Guid id);
-        Task<IQueryable<OptionDefinition>> GetAllQuestionDefinitions();
-        Task<Guid[]> GetQuestionIDsBySctions(Guid[] sectionIDs);
-		Task<OptionDefinition[]> GetOptionsByQuestionIDs(Guid[] ids);
 	}
 }

@@ -46,7 +46,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="IQuestionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Database\Qubiz.QuizEngine.Database.csproj">
+      <Project>{B2D10802-A03B-4231-A9F8-C0A757740869}</Project>
+      <Name>Qubiz.QuizEngine.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Qubiz.QuizEngine.Infrastructure.csproj">
+      <Project>{b80c7772-2868-4aa9-9127-a01b607d47e3}</Project>
+      <Name>Qubiz.QuizEngine.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
