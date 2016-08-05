@@ -14,32 +14,9 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-		public async Task<Models.PagedResult<Models.QuestionListItem>> GetQuestionsByPage(int pagenumber)
+		public async Task<IQueryable<QuestionDefinition>> GetQuestions()
 		{
-			if(pagenumber > dbSet.ToList().Count / 10)
-			{
-				pagenumber = dbSet.ToList().Count / 10;
-			}
-			if(pagenumber < 0)
-			{
-				pagenumber = 0;
-			}
-
-
-			var questionsFiltered = dbSet.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
-
-			IQueryable<Section> sections = await unitOfWork.SectionRepository.GetAllSections();
-
-			return new Models.PagedResult<Models.QuestionListItem>
-			{
-				Items = questionsFiltered.OrderBy(q => q.Number).Skip(pagenumber * 10).Take(10).Select(q => new Models.QuestionListItem
-				{
-					ID = q.ID,
-					Number = q.Number,
-					Section = (sections.SingleOrDefault(s => s.ID == q.SectionID) ?? new Section { Name = string.Empty }).Name
-				}).ToArray(),
-				TotalCount = questionsFiltered.Count()
-			};
+            return dbSet;
 		}
 
         public async void UpdateQuestion(QuestionDefinition question)
@@ -48,11 +25,11 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
 		}
 
-		Task<IQueryable<QuestionDefinition>> IQuestionRepository.DeleteQuestion(Guid id)
+		public async void DeleteQuestion(Guid id)
 		{
-			QuestionDefinition question = dbSet.QuestionDefinitons.Find(id);
+            QuestionDefinition question = dbSet.Where(i => i.ID == id).ToList()[0];
 			dbSet.Remove(question);
-
+            dbContext.SaveChanges();
 		}
 	}
 }

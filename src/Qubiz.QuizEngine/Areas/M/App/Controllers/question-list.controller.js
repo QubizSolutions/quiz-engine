@@ -29,7 +29,10 @@
         }
 
         function deleteSelected(){
-
+            questionData.deleteQuestion(vm.selectedQuestion).then(function(result){
+                vm.selectedQuestion = null;
+                updatePage();
+            });
         }
         
         function nextPage() {

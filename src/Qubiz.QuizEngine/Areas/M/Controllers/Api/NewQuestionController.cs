@@ -26,5 +26,12 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             return Ok(await questionService.GetQuestionsByPage(id));
 		}
 
+        [HttpDelete]
+        public IHttpActionResult DeleteQuestion(string id)
+        {
+            questionService.DeleteQuestion(Guid.Parse(id));
+            return Ok();
+        }
+
 	}
 }

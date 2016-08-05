@@ -10,6 +10,7 @@ namespace Qubiz.QuizEngine.Services
 	public interface IQuestionService
 	{
 
+        void DeleteQuestion(Guid id);
 		Task<Database.Models.PagedResult<Database.Models.QuestionListItem>> GetQuestionsByPage(int pagenumber);
 
 	}
