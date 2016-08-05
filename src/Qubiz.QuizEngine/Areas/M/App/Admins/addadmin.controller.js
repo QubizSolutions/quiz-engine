@@ -1,41 +1,35 @@
 ﻿(function () {
     'use strict';
 
-   angular
-      .module('quizEngineMaterial')
-      .controller('AddAdminController', AddAdminController)
-   AddAdminController.$inject = ['adminsService','$location','$mdDialog'];
-   function AddAdminController(adminsService,location,mdDialog)
-   {
+    angular
+       .module('quizEngineMaterial')
+       .controller('AddAdminController', AddAdminController);
 
-       var vm = this;
-       vm.Admin = {};
-       vm.Save = Save;
-       vm.Reset = Reset;
+    AddAdminController.$inject = ['adminsService', '$location', '$mdDialog'];
 
+    function AddAdminController(adminsService, location, mdDialog) {
 
-       function Reset()
-       {
-           vm.Admin = {};
-       }
-       function Save()
-       {
-           adminsService.AddAdmin(vm.Admin).then(SavedSuccess).catch(SavedFailure);
-       }
-       function SavedSuccess()
-       {
-           location.path('/administrators');
-       }
-       function SavedFailure()
-       {
+        var vm = this;
+        vm.Admin = {};
+        vm.Save = save;
+        vm.Reset = reset;
 
-           mdDialog.show(mdDialog.alert()
-                     .title('Warning')
-                     .textContent('Invalid Admin Name(Taken or Empty String)')
-                     .ok('Ok!')
-           );
-           
-       }
-   }
+        function reset() {
+            vm.Admin = {};
+        }
 
+        function save() {
+            adminsService.AddAdmin(vm.Admin)
+                .then(function () {
+                    location.path('/administrators');
+                })
+                .catch(function () {
+                    mdDialog.show(mdDialog
+                        .alert()
+                        .title('Error')
+                        .textContent('This admin already exists.')
+                        .ok('Ok!'));
+                });
+        }
+    }
 })();

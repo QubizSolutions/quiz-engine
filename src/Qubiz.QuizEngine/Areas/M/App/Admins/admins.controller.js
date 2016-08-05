@@ -30,8 +30,6 @@
 
             mdDialog.show(confirm).then(function () {
                 deleteAdmin(Admin.ID);
-            }, function () {
-                scope.status = 'Deletion aborted.';
             });
         };
 
