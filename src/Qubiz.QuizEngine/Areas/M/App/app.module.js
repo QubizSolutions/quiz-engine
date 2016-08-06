@@ -6,8 +6,8 @@
         .config(function ($routeProvider) {
             $routeProvider
                 .when("/tests", {
-            templateUrl: "Template/Test"
-        })
+                    templateUrl: "Template/Test"
+                })
             .when("/exams", {
                 templateUrl: "Template/Exams"
             })
@@ -22,6 +22,6 @@
             .when("/administrators", {
                 templateUrl: "Template/Administrators"
             })
-		.otherwise({ redirectTo: "/tests" });
-    });
+		    .otherwise({ redirectTo: "/tests" });
+        });
 })();

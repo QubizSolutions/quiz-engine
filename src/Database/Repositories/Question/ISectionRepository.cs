@@ -9,6 +9,5 @@ namespace Qubiz.QuizEngine.Database.Repositories
 	{
         void UpdateSections(Section[] sections);
         Task<IQueryable<Section>> GetAllSections();
-
     }
 }

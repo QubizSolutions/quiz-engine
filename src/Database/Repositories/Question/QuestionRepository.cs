@@ -2,34 +2,29 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-	public class QuestionRepository : BaseRepository<QuestionDefinition>, IQuestionRepository
-	{
-		
-		public QuestionRepository(QuizEngineDataContext context, UnitOfWork unitOfWork)
+    public class QuestionRepository : BaseRepository<QuestionDefinition>, IQuestionRepository
+    {
+        public QuestionRepository(QuizEngineDataContext context, UnitOfWork unitOfWork)
             : base(context, unitOfWork)
         { }
 
-		public async Task<IQueryable<QuestionDefinition>> GetQuestions()
-		{
-            return dbSet;
-		}
-
-        public async void UpdateQuestion(QuestionDefinition question)
+        public async Task<IQueryable<QuestionDefinition>> GetQuestionsAsync()
         {
-			 
+            return dbSet;
+        }
 
-		}
+        public async Task UpdateQuestionAsync(QuestionDefinition question)
+        {
+            throw new NotImplementedException();
+        }
 
-		public async void DeleteQuestion(Guid id)
-		{
+        public async Task DeleteQuestionAsync(Guid id)
+        {
             QuestionDefinition question = dbSet.Where(i => i.ID == id).ToList()[0];
-			dbSet.Remove(question);
-            dbContext.SaveChanges();
-		}
-	}
+            dbSet.Remove(question);
+        }
+    }
 }

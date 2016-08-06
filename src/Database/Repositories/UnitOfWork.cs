@@ -1,9 +1,5 @@
 ﻿using Qubiz.QuizEngine.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
@@ -12,64 +8,78 @@ namespace Qubiz.QuizEngine.Database.Repositories
     {
         private readonly QuizEngineDataContext dbContext;
 
-		private ISectionRepository sectionRepository;
-		private IQuestionRepository questionRepository;
-		private IOptionRepository optionRepository;
+        private IFeatureFlagRepository featureFlagRepository;
+        private IQuestionRepository questionRepository;
+        private IOptionRepository optionRepository;
+        private ISectionRepository sectionRepository;
 
-		public UnitOfWork(IConfig config)
+        public UnitOfWork(IConfig config)
         {
             dbContext = new QuizEngineDataContext(config.ConnectionString);
+        }
+
+        public IFeatureFlagRepository FeatureFlagRepository
+        {
+            get
+            {
+                if (featureFlagRepository == null)
+                {
+                    featureFlagRepository = new FeatureFlagRepository(dbContext, this);
+                }
+
+                return featureFlagRepository;
+            }
         }
 
         public IQuestionRepository QuestionRepository
         {
             get
             {
-                if(this.questionRepository == null)
+                if (questionRepository == null)
                 {
-                    this.questionRepository = new QuestionRepository(this.dbContext, this);
+                    questionRepository = new QuestionRepository(dbContext, this);
                 }
 
-                return this.questionRepository;
+                return questionRepository;
             }
         }
 
-		public ISectionRepository SectionRepository
-		{
-			get
-			{
-				if (this.sectionRepository == null)
-				{
-					this.sectionRepository = new SectionRepository(this.dbContext, this);
-				}
-
-				return this.sectionRepository;
-			}
-		}
-
-		public IOptionRepository OptionRepository
-		{
-			get
-			{
-				if (this.optionRepository == null)
-				{
-					this.optionRepository = new OptionRepository(this.dbContext, this);
-				}
-
-				return this.optionRepository;
-			}
-		}
-
-		public async Task SaveAsync()
+        public IOptionRepository OptionRepository
         {
-            await this.dbContext.SaveChangesAsync();
+            get
+            {
+                if (optionRepository == null)
+                {
+                    optionRepository = new OptionRepository(dbContext, this);
+                }
+
+                return optionRepository;
+            }
+        }
+
+        public ISectionRepository SectionRepository
+        {
+            get
+            {
+                if (sectionRepository == null)
+                {
+                    sectionRepository = new SectionRepository(dbContext, this);
+                }
+
+                return sectionRepository;
+            }
+        }
+
+        public async Task SaveAsync()
+        {
+            await dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            if (this.dbContext != null)
+            if (dbContext != null)
             {
-                this.dbContext.Dispose();
+                dbContext.Dispose();
             }
         }
     }

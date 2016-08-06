@@ -44,10 +44,8 @@ namespace Qubiz.QuizEngine
             container.RegisterType<ILogger,EventViewerLogger>();
 			container.RegisterType<IFeatureFlagRepository, FeatureFlagRepository>();
 
-			//Material registers
-
+			//M
 			container.RegisterType<Services.IQuestionService, Services.QuestionService>();
-			container.RegisterType<IConfig, Config>();
 		}
     }
 }

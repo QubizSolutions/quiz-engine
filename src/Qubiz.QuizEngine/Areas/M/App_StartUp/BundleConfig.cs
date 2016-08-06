@@ -26,7 +26,6 @@ namespace Qubiz.QuizEngine.Areas.M
             angularBundle.Include("~/Areas/M/Scripts/angular-animate.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-material.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-route.js");
-            angularBundle.Include("~/Areas/M/Scripts/angular-resource.js");
             bundles.Add(angularBundle);
 
             Bundle appModuleBundle = new Bundle("~/Areas/M/module", jsTransforms);
@@ -39,7 +38,7 @@ namespace Qubiz.QuizEngine.Areas.M
             bundles.Add(testsBundle);
 
 
-			Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
+            Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
             controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
             controllerBundle.Include("~/Areas/M/App/Controllers/question-list.controller.js");
             bundles.Add(controllerBundle);

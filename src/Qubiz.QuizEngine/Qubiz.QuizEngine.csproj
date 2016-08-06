@@ -777,7 +777,6 @@
     <Content Include="Views\Templates\AnswersDetailsPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\M\App\Directives\" />
     <Folder Include="Areas\M\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

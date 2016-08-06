@@ -1,37 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Qubiz.QuizEngine.Database.Entities;
-using Qubiz.QuizEngine.Services;
+﻿using Qubiz.QuizEngine.Services;
+using System;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
-	public class NewQuestionController : ApiController
-	{
+    public class NewQuestionController : ApiController
+    {
+        private readonly IQuestionService questionService;
 
-		private readonly IQuestionService questionService;
-
-		public NewQuestionController(IQuestionService service)
-		{
-			this.questionService = service;
-		}
-
-		[HttpGet]
-		public async Task<IHttpActionResult> GetQuestionsPaged(int id)
-		{
-            return Ok(await questionService.GetQuestionsByPage(id));
-		}
-
-        [HttpDelete]
-        public IHttpActionResult DeleteQuestion(string id)
+        public NewQuestionController(IQuestionService questionService)
         {
-            questionService.DeleteQuestion(Guid.Parse(id));
-            return Ok();
+            this.questionService = questionService;
         }
 
-	}
+        [HttpGet]
+        public async Task<IHttpActionResult> GetQuestionsPaged(int id)
+        {
+            return Ok(await questionService.GetQuestionsByPageAsync(id));
+        }
+
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteQuestion(string id)
+        {
+            await questionService.DeleteQuestionAsync(Guid.Parse(id));
+            return Ok();
+        }
+    }
 }

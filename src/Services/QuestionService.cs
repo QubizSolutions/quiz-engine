@@ -1,61 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Qubiz.QuizEngine.Infrastructure;
-using Qubiz.QuizEngine.Database.Entities;
-using Qubiz.QuizEngine.Database.Repositories;
+﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Models;
+using Qubiz.QuizEngine.Database.Repositories;
+using Qubiz.QuizEngine.Infrastructure;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Services
 {
-	public class QuestionService : IQuestionService
-	{
+    public class QuestionService : IQuestionService
+    {
+        private IConfig config;
 
-		private IConfig config;
-
-		public QuestionService(IConfig config)
-		{
-			this.config = config;
-		}
-
-        public async void DeleteQuestion(Guid id)
+        public QuestionService(IConfig config)
         {
-            UnitOfWork unit = new UnitOfWork(config);
-            unit.QuestionRepository.DeleteQuestion(id);
+            this.config = config;
         }
 
-        public async Task<PagedResult<QuestionListItem>> GetQuestionsByPage(int pagenumber)
+        public async Task DeleteQuestionAsync(Guid id)
         {
-            UnitOfWork unit = new UnitOfWork(config);
-
-            var initialQuestions = await unit.QuestionRepository.GetQuestions();
-
-            if (pagenumber > initialQuestions.ToList().Count / 10)
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                pagenumber = initialQuestions.ToList().Count / 10;
+                await unitOfWork.QuestionRepository.DeleteQuestionAsync(id);
             }
-            if (pagenumber < 0)
+        }
+
+        public async Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pagenumber)
+        {
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                pagenumber = 0;
-            }
+                IQueryable<Database.Entities.QuestionDefinition> questions = await unitOfWork.QuestionRepository.GetQuestionsAsync();
 
-
-            var questionsFiltered = initialQuestions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
-
-            IQueryable<Section> sections = await unit.SectionRepository.GetAllSections();
-
-            return new PagedResult<QuestionListItem>
-            {
-                Items = questionsFiltered.OrderBy(q => q.Number).Skip(pagenumber * 10).Take(10).Select(q => new QuestionListItem
+                if (pagenumber > questions.ToList().Count / 10)
                 {
-                    ID = q.ID,
-                    Number = q.Number,
-                    Section = (sections.SingleOrDefault(s => s.ID == q.SectionID) ?? new Section { Name = string.Empty }).Name
-                }).ToArray(),
-                TotalCount = questionsFiltered.Count()
-            };
+                    pagenumber = questions.ToList().Count / 10;
+                }
+
+                if (pagenumber < 0)
+                {
+                    pagenumber = 0;
+                }
+
+                var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
+
+                IQueryable<Section> sections = await unitOfWork.SectionRepository.GetAllSections();
+
+                return new PagedResult<QuestionListItem>
+                {
+                    Items = questionsFiltered.OrderBy(q => q.Number).Skip(pagenumber * 10).Take(10).Select(q => new QuestionListItem
+                    {
+                        ID = q.ID,
+                        Number = q.Number,
+                        Section = (sections.SingleOrDefault(s => s.ID == q.SectionID) ?? new Section { Name = string.Empty }).Name
+                    }).ToArray(),
+                    TotalCount = questionsFiltered.Count()
+                };
+            }
         }
     }
 }
