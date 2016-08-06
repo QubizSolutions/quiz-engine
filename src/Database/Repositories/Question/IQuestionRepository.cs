@@ -2,17 +2,16 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface IQuestionRepository
 	{
         void UpdateQuestion(QuestionDefinition question);
-        void DeleteQuestion(Guid id);
+		void DeleteQuestion(Guid id);
+		Task<IQueryable<QuestionDefinition>> GetQuestions();
 		
-        Task<QuestionDefinition> GetQuestionDefinitionByID(Guid id);
-        Task<IQueryable<OptionDefinition>> GetAllQuestionDefinitions();
-        Task<Guid[]> GetQuestionIDsBySctions(Guid[] sectionIDs);
-		Task<OptionDefinition[]> GetOptionsByQuestionIDs(Guid[] ids);
 	}
 }

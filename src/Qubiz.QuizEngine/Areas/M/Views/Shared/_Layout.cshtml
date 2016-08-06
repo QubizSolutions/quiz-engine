@@ -5,12 +5,13 @@
     <meta charset="utf-8" />
     @Styles.Render("~/Areas/M/angular-material")
     <link href="~/Areas/M/Content/bootstrap.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/Areas/M/App/MenuBar.StyleSheet.css" rel="stylesheet" />
 </head>
 
 <body>
     <md-toolbar class="md-hue-2">
-        <div class="mainMenu">
+        <div class="mainMenu qubiz-color">
             <div style="padding-left: 5%" class="md-toolbar-tools">
                 <div class="textLogo">
                     <a class="customLogoLink" href="#/tests"><h2>Qubiz Quiz</h2></a>
@@ -47,12 +48,13 @@
             </md-content>
         </div>
     }
-    <div id="body" class="container body-content">
+    <div id="body" class="body-content">
         @RenderBody()
     </div>
     @Scripts.Render("~/Areas/M/angular")
     @Scripts.Render("~/Areas/M/module")
     @Scripts.Render("~/Areas/M/tests")
-    @Scripts.Render("~/Areas/M/MainBarController")
+    @Scripts.Render("~/Areas/M/AngularControllers")
+    @Scripts.Render("~/Areas/M/AngularServices")
 </body>
 </html>

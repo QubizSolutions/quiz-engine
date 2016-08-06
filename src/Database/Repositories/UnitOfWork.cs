@@ -11,28 +11,56 @@ namespace Qubiz.QuizEngine.Database.Repositories
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly QuizEngineDataContext dbContext;
-        
-        private IFeatureFlagRepository featureFlagRepository;
 
-        public UnitOfWork(IConfig config)
+		private ISectionRepository sectionRepository;
+		private IQuestionRepository questionRepository;
+		private IOptionRepository optionRepository;
+
+		public UnitOfWork(IConfig config)
         {
             dbContext = new QuizEngineDataContext(config.ConnectionString);
         }
 
-        public IFeatureFlagRepository FeatureFlagRepository
+        public IQuestionRepository QuestionRepository
         {
             get
             {
-                if(this.featureFlagRepository == null)
+                if(this.questionRepository == null)
                 {
-                    this.featureFlagRepository = new FeatureFlagRepository(this.dbContext, this);
+                    this.questionRepository = new QuestionRepository(this.dbContext, this);
                 }
 
-                return this.featureFlagRepository;
+                return this.questionRepository;
             }
         }
-        
-        public async Task SaveAsync()
+
+		public ISectionRepository SectionRepository
+		{
+			get
+			{
+				if (this.sectionRepository == null)
+				{
+					this.sectionRepository = new SectionRepository(this.dbContext, this);
+				}
+
+				return this.sectionRepository;
+			}
+		}
+
+		public IOptionRepository OptionRepository
+		{
+			get
+			{
+				if (this.optionRepository == null)
+				{
+					this.optionRepository = new OptionRepository(this.dbContext, this);
+				}
+
+				return this.optionRepository;
+			}
+		}
+
+		public async Task SaveAsync()
         {
             await this.dbContext.SaveChangesAsync();
         }

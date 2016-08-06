@@ -13,7 +13,8 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         [AllowAnonymous]
         public ActionResult Test()
         {
-            return PartialView();
+            var viwe = PartialView();
+            return viwe;
         }
 
         public ActionResult Exams()
