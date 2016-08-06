@@ -1,0 +1,22 @@
+﻿
+
+<div layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons">
+    <h2>Add Admin</h2>
+    <br>
+    <div class="pageContent">
+        <md-content class="md-no-momentum">
+            <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->
+                <label>Name</label>
+                <input ng-model="AddAdminCtrl.Admin.Name" type="text">
+            </md-input-container>
+
+        </md-content>
+        <div class="panel-footer">
+            <md-button class="CustomButton md-primary" ng-click="AddAdminCtrl.Reset()">reset</md-button>
+            <md-button class="CustomButton md-primary" ng-click="AddAdminCtrl.Save()">Save</md-button>
+            <md-button class="CustomButton md-primary" ng-href="#/administrators" style="float:left;">Back</md-button>
+        </div>
+    </div>
+
+</div>

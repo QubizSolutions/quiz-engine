@@ -7,7 +7,9 @@ using Qubiz.QuizEngine.Core;
 using Qubiz.QuizEngine.Infrastructure.Logger;
 using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
+using Qubiz.QuizEngine.Database.Repositories;
 using System;
+using Qubiz.QuizEngine.Services.AdminService;
 
 namespace Qubiz.QuizEngine
 {
@@ -36,13 +38,19 @@ namespace Qubiz.QuizEngine
             container.RegisterType<IConfig, Config>();
             container.RegisterType<System.Data.Entity.DbContext, QuizEngineDataContext>(new InjectionConstructor(container.Resolve<IConfig>().ConnectionString));
             container.RegisterType<IRepository, RepositoryBase>();
-            container.RegisterType<IAdminRepository, AdminRepository>();
-            container.RegisterType<IQuestionRepository, QuestionRepository>();
-            container.RegisterType<ITestRepository, TestRepository>();
-            container.RegisterType<IExamRepository, ExamRepository>();
+            container.RegisterType<Repositories.IAdminRepository, Repositories.AdminRepository>();
+            container.RegisterType<Repositories.IQuestionRepository, Repositories.QuestionRepository>();
+            container.RegisterType<Repositories.ITestRepository, Repositories.TestRepository>();
+            container.RegisterType<Repositories.IExamRepository, Repositories.ExamRepository>();
             container.RegisterType<IExamService, ExamService>();
             container.RegisterType<ILogger,EventViewerLogger>();
-			container.RegisterType<IFeatureFlagRepository, FeatureFlagRepository>();
+			container.RegisterType<Repositories.IFeatureFlagRepository, Repositories.FeatureFlagRepository>();
+
+
+            //container.RegisterType<Database.Repositories.IBaseRepository, Database.Repositories.BaseRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IAdminService, AdminService>();
+            container.RegisterType<Database.Repositories.IAdminRepository, Database.Repositories.AdminRepository>();
         }
     }
 }

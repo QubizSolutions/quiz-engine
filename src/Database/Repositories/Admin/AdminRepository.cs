@@ -13,14 +13,19 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-        public Task<Admin[]> GetAllAdmins()
+        public async Task<Admin[]> GetAllAdminsAsync()
         {
-            throw new NotImplementedException();
+            return await this.dbSet.ToArrayAsync();
+        }
+        
+        public async Task<Admin> GetByIDAsync(Guid id)
+        {
+            return await dbSet.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public async void UpdateAdmins(Admin[] admins)
+        public async Task<Admin> GetByNameAsync(string Name)
         {
-            throw new NotImplementedException();
+            return await dbSet.FirstOrDefaultAsync(x => x.Name == Name);
         }
     }
 }

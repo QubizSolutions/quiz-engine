@@ -21,13 +21,20 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
 
             return PartialView();
         }
-
+        public ActionResult EditAdmin()
+        {
+            return PartialView();
+        }
         public ActionResult Questions()
         {
             return PartialView();
         }
 
         public ActionResult Sections()
+        {
+            return PartialView();
+        }
+        public ActionResult AddAdmin()
         {
             return PartialView();
         }

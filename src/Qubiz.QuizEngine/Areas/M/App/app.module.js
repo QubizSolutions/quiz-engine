@@ -18,7 +18,21 @@
                     templateUrl: "Template/Sections"
                 })
                 .when("/administrators", {
-                    templateUrl: "Template/Administrators"
+                    templateUrl: "Template/Administrators",
+                    controller: "AdminsController",
+                    controllerAs: "AdminCtrl"
+
+                })
+                .when('/addadmin', {
+                    templateUrl: "Template/AddAdmin",
+                    controller: "AddAdminController",
+                    controllerAs: "AddAdminCtrl"
+                })
+                .when('/editadmin/:id',
+                {
+                    templateUrl: "Template/EditAdmin",
+                    controller: "EditAdminController",
+                    controllerAs: "EditCtrl"
                 })
 		        .otherwise({ redirectTo: "/tests" });
         });
