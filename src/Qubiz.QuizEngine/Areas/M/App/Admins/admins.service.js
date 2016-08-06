@@ -1,17 +1,19 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quizEngineMaterial')
-            .service('adminsService', adminsService);
+    angular
+		.module('quizEngineMaterial')
+		.service('adminsService', adminsService);
 
     adminsService.$inject = ['$http', '$q'];
 
     function adminsService($http, $q) {
         this.getAllAdmins = getAllAdmins;
-        this.AddAdmin = AddAdmin;
+        this.AddAdmin = addAdmin;
         this.deleteAdmin = deleteAdmin;
-        this.EditAdmin=EditAdmin;
-        this.GetById=GetById;
+        this.EditAdmin = editAdmin;
+        this.GetById = getById;
+
         function getAllAdmins() {
             return $http({
                 method: 'GET',
@@ -20,8 +22,8 @@
             .then(getAllAdminsSuccess)
             .catch(errorCallback);
         }
-        function AddAdmin(admin)
-        {
+
+        function addAdmin(admin) {
             return $http({
                 method: 'POST',
                 url: 'api/NewAdmin/AddAdmin',
@@ -30,8 +32,8 @@
             .then()
             .catch(errorCallback);
         }
-        function EditAdmin(admin)
-        {
+
+        function editAdmin(admin) {
             return $http({
                 method: 'PUT',
                 url: 'api/NewAdmin/UpdateAdmin',
@@ -40,20 +42,20 @@
             .then()
             .catch(errorCallback);
         }
-        function GetById(id)
-        {
+
+        function getById(id) {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmin/'+id
-
+                url: 'api/NewAdmin/GetAdmin/' + id
             })
             .then()
             .catch();
         }
-        
+
         function getAllAdminsSuccess(response) {
             return response.data;
         }
+
         function errorCallback(response) {
             return $q.reject('HTTP status: ' + response.status + ' - ' + response.statusText + '!');
         }

@@ -2,82 +2,87 @@
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Security;
 
 namespace Qubiz.QuizEngine.Services.AdminService
 {
     public class AdminService : IAdminService
-    {  
-        private readonly IUnitOfWork unitOfWork;
+    {
+        private readonly IConfig config;
 
-        public AdminService(IUnitOfWork unitOfWork)
+        public AdminService(IConfig config)
         {
-            this.unitOfWork = unitOfWork;
+            this.config = config;
         }
 
-        public async Task<Validator[]> AddAdminAsync(Admin admin)
+        public async Task<ValidationError[]> AddAdminAsync(Admin admin, string originator)
         {
-            List<Admin> admins = new List<Admin>(await unitOfWork.AdminRepository.GetAllAdminsAsync());
-            Validator[] validator = new Validator[0];
-            Admin if_admin_exists = admins.Find(a => a.Name.Equals(admin.Name));
-            if (!admins.Contains(if_admin_exists))
-                {
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            {
+                if (originator == admin.Name)
+                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
+
                 admin.ID = Guid.NewGuid();
+
                 unitOfWork.AdminRepository.Create(admin);
+
                 await unitOfWork.SaveAsync();
-                }
-            else
-            {
-                validator[validator.Length - 1] = new Validator("name already exists");
+
+                return new ValidationError[0];
             }
-            return validator;  
         }
 
-        public async Task<bool> DeleteAdminAsync(Guid id)
+        public async Task<ValidationError[]> DeleteAdminAsync(Guid id, string originator)
         {
-            Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
-            if (admin.Name == HttpContext.Current.User.Identity.Name)
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                return false;
-            }
-            else
-            {
+                Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
+
+                if (admin.Name == originator)
+                    return new ValidationError[1] { new ValidationError() { Message = "Can't delete yourself" } };
+
                 unitOfWork.AdminRepository.Delete(admin);
+
                 await unitOfWork.SaveAsync();
-                return true;
+
+                return new ValidationError[0];
             }
         }
 
         public async Task<Admin> GetAdminAsync(Guid id)
         {
-            return await unitOfWork.AdminRepository.GetByIDAsync(id);
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            {
+                return await unitOfWork.AdminRepository.GetByIDAsync(id);
+            }
         }
 
         public async Task<Admin[]> GetAllAdminsAsync()
         {
-            return await unitOfWork.AdminRepository.GetAllAdminsAsync();
-            
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            {
+                return await unitOfWork.AdminRepository.GetAllAdminsAsync();
+            }
+
         }
 
-        public async Task<Validator[]> UpdateAdminAsync(Admin admin)
+        public async Task<ValidationError[]> UpdateAdminAsync(Admin admin, string originator)
         {
-            Validator[] validator = new Validator[0];
-            Admin originalAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
-            if (admin.Name == HttpContext.Current.User.Identity.Name)
+            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                validator[validator.Length - 1] = new Validator("You cannot change yourself");
-            }
-            else
-            {
-                originalAdmin.Name = admin.Name;
-                unitOfWork.AdminRepository.Update(originalAdmin);
+                if (originator == admin.Name)
+                    return new ValidationError[1] { new ValidationError() { Message = "You can't change yourself!" } };
+
+                Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+
+                Mapper.Map(admin, dbAdmin);
+
+                unitOfWork.AdminRepository.Update(dbAdmin);
+
                 await unitOfWork.SaveAsync();
+
+                return new ValidationError[0];
             }
-            return validator;
-            
         }
     }
 }

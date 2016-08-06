@@ -9,7 +9,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
         private readonly QuizEngineDataContext dbContext;
 
         private IFeatureFlagRepository featureFlagRepository;
-        private IAdminRepository AdminsRepository;
+        private IAdminRepository adminsRepository;
 
         public UnitOfWork(IConfig config)
         {
@@ -20,12 +20,12 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             get
             {
-                if (this.featureFlagRepository == null)
+                if (featureFlagRepository == null)
                 {
-                    this.featureFlagRepository = new FeatureFlagRepository(this.dbContext, this);
+                    featureFlagRepository = new FeatureFlagRepository(dbContext, this);
                 }
 
-                return this.featureFlagRepository;
+                return featureFlagRepository;
             }
         }
 
@@ -33,25 +33,25 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             get
             {
-                if (this.AdminsRepository == null)
+                if (adminsRepository == null)
                 {
-                    this.AdminsRepository = new AdminRepository(this.dbContext, this);
+                    adminsRepository = new AdminRepository(dbContext, this);
                 }
 
-                return this.AdminsRepository;
+                return adminsRepository;
             }
         }
 
         public async Task SaveAsync()
         {
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            if (this.dbContext != null)
+            if (dbContext != null)
             {
-                this.dbContext.Dispose();
+                dbContext.Dispose();
             }
         }
     }

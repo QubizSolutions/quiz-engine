@@ -1,14 +1,8 @@
-﻿using Qubiz.QuizEngine.Database;
-using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.AdminService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
@@ -25,7 +19,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [HttpGet]
         public async Task<IHttpActionResult> GetAdmin(Guid id)
         {
-            Admin admin =await adminService.GetAdminAsync(id);
+            Admin admin = await adminService.GetAdminAsync(id);
             return Ok(admin);
         }
 
@@ -39,38 +33,31 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [HttpPost]
         public async Task<IHttpActionResult> AddAdmin([FromBody]Admin admin)
         {
-            Validator[] validator=await adminService.AddAdminAsync(admin);
-            if (validator.Length == 0)
-            {
+            ValidationError[] validationErrors = await adminService.AddAdminAsync(admin, User.Identity.Name);
+            if (validationErrors.Length == 0)
                 return Ok();
-            }
-            else
-            {
-                return NotFound();
-            }
+
+            return BadRequest();
         }
 
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteAdmin(Guid id)
         {
-            if (await adminService.DeleteAdminAsync(id))
+            ValidationError[] validationErrors = await adminService.DeleteAdminAsync(id, User.Identity.Name);
+            if (validationErrors.Length == 0)
                 return Ok();
 
-            return NotFound();
+            return BadRequest();
         }
 
         [HttpPut]
         public async Task<IHttpActionResult> UpdateAdmin([FromBody]Admin admin)
         {
-            Validator[] validator= await adminService.UpdateAdminAsync(admin);
-            if (validator.Length == 0)
-            {
+            ValidationError[] validationErrors = await adminService.UpdateAdminAsync(admin, User.Identity.Name);
+            if (validationErrors.Length == 0)
                 return Ok();
-            }
-            else
-            {
-                return NotFound();
-            }
+
+            return BadRequest();
         }
     }
 }
