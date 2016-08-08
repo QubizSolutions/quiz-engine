@@ -12,7 +12,7 @@
         <md-content>
             <md-list flex>
                 <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="questionCtrl.selectQuestion(question)">
-                    <div class="md-list-item-text" layout="column">
+                    <div class="md-list-item-text" layout="row">
                         <b>{{question.Number}}</b> - ({{question.Section}})
                     </div>
                 </md-list-item>
