@@ -4,4 +4,29 @@
 }
 
 <h2>Sections</h2>
+<br/>
+<div ng-cloak="" class="virtualRepeatdemoDeferredLoading">
+    <md-content layout="column " style="background-color: transparent">
+        <br />
+        <div>
+            <md-input-container flex="">
+                <label>
+                    Search
+                    <i class="material-icons">search</i>
+                </label>
+                <input type="text" ng-model="searchSection">
+            </md-input-container>
+           
+        </div>
+        <br />
+        <br />
+        <md-virtual-repeat-container id="vertical-container">
+            <div md-virtual-repeat="section in SectionsCtrl.sections | filter:searchSection" class="repeated-item" flex="">
+                Section id : {{section.ID}} - {{section.Name}}
+                <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="SectionsCtrl.showConfirm($event,section)">delete</i>
+            </div>       
+        </md-virtual-repeat-container>
+    </md-content>
+
+</div>
 
