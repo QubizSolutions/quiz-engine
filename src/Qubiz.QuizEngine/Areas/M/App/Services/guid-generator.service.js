@@ -12,15 +12,14 @@
         var unusedGuids = [];
         this.getNewGuid = getNewGuid;
 
-        generateNewGuids(10);
+        generateNewGuids();
 
-        function generateNewGuids(number) {
-            return $http({
+        function generateNewGuids() {
+            $http({
                 method: 'GET',
-                url: 'api/GuidGenerator/GetGuids/',
-                params: {
-                    number: number
-                }
+                url: 'api/Guids/'
+            }).then(function (result) {
+                this.unusedGuids = result;
             });
         }
 

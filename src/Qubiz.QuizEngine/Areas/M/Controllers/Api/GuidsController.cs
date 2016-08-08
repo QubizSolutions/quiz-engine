@@ -8,18 +8,18 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
-    public class GuidGeneratorController : ApiController
+    public class GuidsController : ApiController
     {
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetGuids(int number)
+        public async Task<Guid[]> Get()
         {
             List<Guid> result = new List<Guid>();
-            for(int i=1;i<= number; i++)
+            for(int i=1;i<= 10; i++)
             {
                 result.Add(Guid.NewGuid());
             }
-            return Ok(result);
+            return result.ToArray();
         }
 
     }

@@ -156,7 +156,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
-    <Compile Include="Areas\M\Controllers\Api\GuidGeneratorController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\GuidsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
