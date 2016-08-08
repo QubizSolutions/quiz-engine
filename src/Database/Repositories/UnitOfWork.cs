@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly QuizEngineDataContext dbContext;
         
         private IFeatureFlagRepository featureFlagRepository;
+		private ISectionRepository sectionRepository;
 
         public UnitOfWork(IConfig config)
         {
@@ -23,25 +24,37 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             get
             {
-                if(this.featureFlagRepository == null)
+                if(featureFlagRepository == null)
                 {
-                    this.featureFlagRepository = new FeatureFlagRepository(this.dbContext, this);
+                    featureFlagRepository = new FeatureFlagRepository(this.dbContext, this);
                 }
 
-                return this.featureFlagRepository;
+                return featureFlagRepository;
             }
         }
         
+		public ISectionRepository SectionRepository
+		{
+			get
+			{
+				if(sectionRepository == null)
+				{
+					sectionRepository = new SectionRepository(this.dbContext, this);
+				}
+				return sectionRepository;
+			}
+		}
+
         public async Task SaveAsync()
         {
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            if (this.dbContext != null)
+            if (dbContext != null)
             {
-                this.dbContext.Dispose();
+                dbContext.Dispose();
             }
         }
     }
