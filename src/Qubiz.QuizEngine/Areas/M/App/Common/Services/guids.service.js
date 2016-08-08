@@ -17,9 +17,9 @@
         function generateNewGuids() {
             $http({
                 method: 'GET',
-                url: 'api/Guids/'
-            }).then(function (result) {
-                this.unusedGuids = result;
+                url: 'api/guids/'
+            }).then(function (guids) {
+                this.unusedGuids = guids;
             });
         }
 
