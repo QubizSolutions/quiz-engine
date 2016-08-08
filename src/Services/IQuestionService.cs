@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Qubiz.QuizEngine.Services.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Services
@@ -7,6 +8,6 @@ namespace Qubiz.QuizEngine.Services
     {
         Task DeleteQuestionAsync(Guid id);
 
-        Task<Database.Models.PagedResult<Database.Models.QuestionListItem>> GetQuestionsByPageAsync(int pagenumber);
+        Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pageNumber, int itemsPerPage);
     }
 }

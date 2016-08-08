@@ -1,10 +1,11 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
-using Qubiz.QuizEngine.Database.Models;
+﻿using Qubiz.QuizEngine.Database.Models;
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Qubiz.QuizEngine.Services.Models;
 
 namespace Qubiz.QuizEngine.Services
 {
@@ -22,32 +23,34 @@ namespace Qubiz.QuizEngine.Services
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
                 await unitOfWork.QuestionRepository.DeleteQuestionAsync(id);
+                IEnumerable<OptionDefinition> options = await unitOfWork.OptionRepository.GetAllOptionsAsync();
+                unitOfWork.OptionRepository.DeleteOptionsAsync(options.Where(o => o.QuestionID == id).ToArray());
             }
         }
 
-        public async Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pagenumber)
+        public async Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pageNumber, int itemsPerPage)
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                IQueryable<Database.Entities.QuestionDefinition> questions = await unitOfWork.QuestionRepository.GetQuestionsAsync();
+                IEnumerable<QuestionDefinition> questions = await unitOfWork.QuestionRepository.GetQuestionsAsync();
 
-                if (pagenumber > questions.ToList().Count / 10)
+                if (pageNumber > questions.ToList().Count / itemsPerPage)
                 {
-                    pagenumber = questions.ToList().Count / 10;
+                    pageNumber = questions.ToList().Count / itemsPerPage;
                 }
 
-                if (pagenumber < 0)
+                if (pageNumber < 0)
                 {
-                    pagenumber = 0;
+                    pageNumber = 0;
                 }
 
                 var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
 
-                IQueryable<Section> sections = await unitOfWork.SectionRepository.GetAllSections();
+                IEnumerable<Section> sections = await unitOfWork.SectionRepository.GetAllSectionsAsync();
 
                 return new PagedResult<QuestionListItem>
                 {
-                    Items = questionsFiltered.OrderBy(q => q.Number).Skip(pagenumber * 10).Take(10).Select(q => new QuestionListItem
+                    Items = questionsFiltered.OrderBy(q => q.Number).Skip(pageNumber * itemsPerPage).Take(itemsPerPage).Select(q => new QuestionListItem
                     {
                         ID = q.ID,
                         Number = q.Number,

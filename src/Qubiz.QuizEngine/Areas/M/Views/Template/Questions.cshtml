@@ -4,20 +4,20 @@
 
 <div class="col-md-10 col-md-offset-1" style="margin-top: 20px;">
     <div class="col-md-2">
-        <md-toolbar layout="row">
-            <div class="md-toolbar-tools qubiz-color">
-                <span>Questions({{questionCtrl.Questions.TotalCount}})</span>
-            </div>
-        </md-toolbar>
-        <md-content>
-            <md-list flex>
-                <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="questionCtrl.selectQuestion(question)">
-                    <div class="md-list-item-text" layout="column">
+        <table class="mdl-data-table mdl-js-data-table">
+            <thead>
+                <tr>
+                    <th>Questions({{questionCtrl.Questions.TotalCount}} on {{questionCtrl.maxPages}} pages)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="question in questionCtrl.Questions.Items" ng-click="questionCtrl.selectQuestion(question)" style="cursor: pointer">
+                    <td>
                         <b>{{question.Number}}</b> - ({{question.Section}})
-                    </div>
-                </md-list-item>
-            </md-list>
-        </md-content>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <div class="col-md-12">
             <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.prevPage()">
                 <i class="material-icons" style="margin-top: 12px;">skip_previous</i>

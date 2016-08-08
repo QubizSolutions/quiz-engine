@@ -1,7 +1,8 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
@@ -11,6 +12,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
         Task DeleteQuestionAsync(Guid id);
 
-		Task<IQueryable<QuestionDefinition>> GetQuestionsAsync();
+		Task<IEnumerable<QuestionDefinition>> GetQuestionsAsync();
+
+        Task<QuestionDefinition> GetQuestionByIDAsync(Guid id);
 	}
 }

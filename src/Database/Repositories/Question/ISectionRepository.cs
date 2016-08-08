@@ -1,13 +1,14 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface ISectionRepository
 	{
-        void UpdateSections(Section[] sections);
-        Task<IQueryable<Section>> GetAllSections();
+        void UpdateSectionsAsync(Section[] sections);
+        Task<IEnumerable<Section>> GetAllSectionsAsync();
     }
 }
