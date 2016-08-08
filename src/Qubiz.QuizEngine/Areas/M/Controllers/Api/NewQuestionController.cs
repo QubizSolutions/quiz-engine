@@ -15,9 +15,9 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetQuestionsPaged(int id)
+        public async Task<IHttpActionResult> GetQuestionsPaged(int pageNumber, int itemsPerPage)
         {
-            return Ok(await questionService.GetQuestionsByPageAsync(id));
+            return Ok(await questionService.GetQuestionsByPageAsync(pageNumber, itemsPerPage));
         }
 
         [HttpDelete]

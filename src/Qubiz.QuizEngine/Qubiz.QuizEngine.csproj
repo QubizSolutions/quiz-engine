@@ -197,22 +197,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\M\App\app.module.js" />
-    <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
+    <Content Include="Areas\M\App\Controllers\questions.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
-    <Content Include="Areas\M\App\Services\question-data.service.js" />
+    <Content Include="Areas\M\App\Services\questions.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
+    <Content Include="Areas\M\Scripts\angular-material.js" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
+    <Content Include="Areas\M\Scripts\angular-material.min.js" />
     <Content Include="Areas\M\Content\bootstrap.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
     <Content Include="Areas\M\Scripts\angular-aria.js" />
     <Content Include="Areas\M\Scripts\angular-aria.min.js" />
-    <Content Include="Areas\M\Scripts\angular-material.js" />
-    <Content Include="Areas\M\Scripts\angular-material.min.js" />
     <Content Include="Areas\M\Scripts\angular-route.js" />
     <Content Include="Areas\M\Scripts\angular.js" />
     <Content Include="Areas\M\Scripts\angular.min.js" />
@@ -701,9 +701,11 @@
     <Content Include="Areas\M\Views\_ViewStart.cshtml" />
     <Content Include="Areas\M\Views\Template\Administrators.cshtml" />
     <Content Include="Areas\M\Views\Template\Exams.cshtml" />
-    <Content Include="Areas\M\Views\Template\Questions.cshtml" />
     <Content Include="Areas\M\Views\Template\Sections.cshtml" />
     <Content Include="Areas\M\Views\Template\Test.cshtml" />
+    <Content Include="Areas\M\Views\Template\Questions.cshtml" />
+    <Content Include="Areas\M\Content\angular-material\angular-material.min.css.map" />
+    <Content Include="Areas\M\Scripts\angular-material.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
