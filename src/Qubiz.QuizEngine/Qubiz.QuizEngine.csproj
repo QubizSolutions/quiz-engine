@@ -156,6 +156,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
+    <Compile Include="Areas\M\Controllers\Api\SectionsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
@@ -789,6 +790,10 @@
     <ProjectReference Include="..\Infrastructure\Qubiz.QuizEngine.Infrastructure.csproj">
       <Project>{b80c7772-2868-4aa9-9127-a01b607d47e3}</Project>
       <Name>Qubiz.QuizEngine.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Qubiz.QuizEngine.Services.csproj">
+      <Project>{2ef828b7-5de9-4688-9ebe-fc7661dc87f4}</Project>
+      <Name>Qubiz.QuizEngine.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

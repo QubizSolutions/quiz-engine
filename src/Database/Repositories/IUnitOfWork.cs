@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-    public interface IUnitOfWork
-    {
+    public interface IUnitOfWork : IDisposable
+	{
         IFeatureFlagRepository FeatureFlagRepository { get; }
-        Task SaveAsync();
+		ISectionRepository SectionRepository { get; }
+
+		Task SaveAsync();
     }
 }

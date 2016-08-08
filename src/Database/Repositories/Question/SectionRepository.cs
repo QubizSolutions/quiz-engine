@@ -1,8 +1,8 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Qubiz.QuizEngine.Database.Repositories
 {
 	public class SectionRepository : BaseRepository<Section>, ISectionRepository
@@ -11,14 +11,20 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-        public async Task<IQueryable<Section>> GetAllSections()
+        public async Task<Section[]> GetAllSectionsAsync()
         {
-            throw new NotImplementedException();
+			return await dbSet.ToArrayAsync();
         }
 
-        public async void UpdateSections(Section[] sections)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public async Task<Section> GetSectionByNameAsync(string name)
+		{
+			return await dbSet.FirstOrDefaultAsync(s => s.Name == name);
+		}
+
+		public async Task<Section> GetSectionByIDAsync(Guid id)
+		{
+			return await dbSet.FirstOrDefaultAsync(s => s.ID == id);
+		}
+
+	}
 }
