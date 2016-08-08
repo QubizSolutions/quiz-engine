@@ -1,9 +1,5 @@
 ﻿using Qubiz.QuizEngine.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
@@ -11,8 +7,9 @@ namespace Qubiz.QuizEngine.Database.Repositories
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly QuizEngineDataContext dbContext;
-        
+
         private IFeatureFlagRepository featureFlagRepository;
+        private IAdminRepository adminsRepository;
 
         public UnitOfWork(IConfig config)
         {
@@ -23,25 +20,38 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             get
             {
-                if(this.featureFlagRepository == null)
+                if (featureFlagRepository == null)
                 {
-                    this.featureFlagRepository = new FeatureFlagRepository(this.dbContext, this);
+                    featureFlagRepository = new FeatureFlagRepository(dbContext, this);
                 }
 
-                return this.featureFlagRepository;
+                return featureFlagRepository;
             }
         }
-        
+
+        public IAdminRepository AdminRepository
+        {
+            get
+            {
+                if (adminsRepository == null)
+                {
+                    adminsRepository = new AdminRepository(dbContext, this);
+                }
+
+                return adminsRepository;
+            }
+        }
+
         public async Task SaveAsync()
         {
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            if (this.dbContext != null)
+            if (dbContext != null)
             {
-                this.dbContext.Dispose();
+                dbContext.Dispose();
             }
         }
     }

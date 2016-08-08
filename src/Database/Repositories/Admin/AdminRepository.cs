@@ -1,26 +1,29 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using System;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
     public class AdminRepository : BaseRepository<Admin>, IAdminRepository
     {
-		
         public AdminRepository(QuizEngineDataContext context, UnitOfWork unitOfWork)
             : base(context, unitOfWork)
         { }
 
-        public Task<Admin[]> GetAllAdmins()
+        public async Task<Admin[]> GetAllAdminsAsync()
         {
-            throw new NotImplementedException();
+            return await dbSet.ToArrayAsync();
         }
 
-        public async void UpdateAdmins(Admin[] admins)
+        public async Task<Admin> GetByIDAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await dbSet.FirstOrDefaultAsync(x => x.ID == id);
+        }
+
+        public async Task<Admin> GetByNameAsync(string name)
+        {
+            return await dbSet.FirstOrDefaultAsync(x => x.Name == name);
         }
     }
 }
