@@ -9,26 +9,27 @@
 
     function guidsService($http) {
         
-        var unusedGuids = [];
-        this.getNewGuid = getNewGuid;
+        this.getGuid = getGuid;
+        this.loadGuids = loadGuids;
+
+        var guidsCache = [];
 
         generateNewGuids();
 
-        function generateNewGuids() {
+        function getGuid() {
+            if (guidsCache.length <= 2) {
+                loadGuids();
+            }
+            return guidsCache.shift();
+        }
+
+        function loadGuids() {
             $http({
                 method: 'GET',
                 url: 'api/guids/'
             }).then(function (guids) {
-                this.unusedGuids = guids;
+                guidsCache = guids;
             });
-        }
-
-        function getNewGuid() {
-            var result = unusedGuids.pop();
-            if (unusedGuids.length == 0) {
-                generateNewGuids();
-            }
-            return result;
         }
     }
 })();
