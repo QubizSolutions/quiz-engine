@@ -1,13 +1,13 @@
-using System.Web.Mvc;
 using Microsoft.Practices.Unity;
-using Unity.Mvc4;
-using Qubiz.QuizEngine.Repositories;
-using System.Web.Http;
 using Qubiz.QuizEngine.Core;
-using Qubiz.QuizEngine.Infrastructure.Logger;
 using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
-using System;
+using Qubiz.QuizEngine.Infrastructure.Logger;
+using Qubiz.QuizEngine.Repositories;
+using Qubiz.QuizEngine.Services.AdminService;
+using System.Web.Http;
+using System.Web.Mvc;
+using Unity.Mvc4;
 
 namespace Qubiz.QuizEngine
 {
@@ -41,11 +41,14 @@ namespace Qubiz.QuizEngine
             container.RegisterType<ITestRepository, TestRepository>();
             container.RegisterType<IExamRepository, ExamRepository>();
             container.RegisterType<IExamService, ExamService>();
-            container.RegisterType<ILogger,EventViewerLogger>();
-			container.RegisterType<IFeatureFlagRepository, FeatureFlagRepository>();
+            container.RegisterType<ILogger, EventViewerLogger>();
+            container.RegisterType<Repositories.IFeatureFlagRepository, Repositories.FeatureFlagRepository>();
 
-			//M
-			container.RegisterType<Services.IQuestionService, Services.QuestionService>();
-		}
+
+            // M
+            container.RegisterType<Database.Repositories.IAdminRepository, Database.Repositories.AdminRepository>();
+            container.RegisterType<Services.IQuestionService, Services.QuestionService>();
+            container.RegisterType<IAdminService, AdminService>();
+        }
     }
 }

@@ -7,11 +7,12 @@ namespace Qubiz.QuizEngine.Database.Repositories
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly QuizEngineDataContext dbContext;
-
+        
         private IFeatureFlagRepository featureFlagRepository;
         private IQuestionRepository questionRepository;
         private IOptionRepository optionRepository;
         private ISectionRepository sectionRepository;
+        private IAdminRepository adminsRepository;
 
         public UnitOfWork(IConfig config)
         {
@@ -60,13 +61,26 @@ namespace Qubiz.QuizEngine.Database.Repositories
         public ISectionRepository SectionRepository
         {
             get
-            {
+                {
                 if (sectionRepository == null)
                 {
                     sectionRepository = new SectionRepository(dbContext, this);
                 }
 
                 return sectionRepository;
+            }
+        }
+
+        public IAdminRepository AdminRepository
+        {
+            get
+            {
+                if (adminsRepository == null)
+                {
+                    adminsRepository = new AdminRepository(dbContext, this);
+                }
+
+                return adminsRepository;
             }
         }
 

@@ -18,6 +18,7 @@ namespace Qubiz.QuizEngine.Areas.M
 
             Bundle angularMaterialBundle = new Bundle("~/Areas/M/angular-material", cssTransforms);
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/angular-material.css");
+            angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.style.css");
             bundles.Add(angularMaterialBundle);
 
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
@@ -46,6 +47,6 @@ namespace Qubiz.QuizEngine.Areas.M
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
             serviceBundle.Include("~/Areas/M/App/Services/question-data.service.js");
             bundles.Add(serviceBundle);
-        }
+		}
     }
 }
