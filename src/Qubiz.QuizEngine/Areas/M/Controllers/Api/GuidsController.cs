@@ -14,12 +14,13 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         [HttpGet]
         public async Task<Guid[]> Get()
         {
-            List<Guid> result = new List<Guid>();
-            for(int i=1;i<= 10; i++)
+            List<Guid> guids = new List<Guid>();
+            for (int i = 1; i <= 10; i++)
             {
-                result.Add(Guid.NewGuid());
+                guids.Add(Guid.NewGuid());
             }
-            return result.ToArray();
+
+            return guids.ToArray();
         }
 
     }

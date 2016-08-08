@@ -3,11 +3,11 @@
 
     angular
         .module('quizEngineMaterial')
-        .service("guidGenerator", guidGenerator);
+        .service("guidsService", guidsService);
 
-    guidGenerator.$inject = ['$http'];
+    guidsService.$inject = ['$http'];
 
-    function guidGenerator($http) {
+    function guidsService($http) {
         
         var unusedGuids = [];
         this.getNewGuid = getNewGuid;
