@@ -3,29 +3,30 @@
 
     angular
        .module('quizEngineMaterial')
-       .controller('EditAdminController',EditAdminController)
-    EditAdminController.$inject = ['adminsService','$location','$mdDialog','$routeParams','$scope'];
-    function EditAdminController(adminsService, location, routeParams,$scope) {
+       .controller('EditAdminController', EditAdminController);
+
+    EditAdminController.$inject = ['adminsService', '$location', '$mdDialog', '$routeParams', '$scope'];
+
+    function EditAdminController(adminsService, location, routeParams, $scope) {
 
         var vm = this;
         vm.Admin = {};
-        vm.Save = Save;
-        vm.Reset = Reset;
+        vm.Save = save;
+        vm.Reset = reset;
+
         adminsService.GetById($scope.id).then(function (response) {
             vm.Admin = response.data;
-            console.log(vm.Admin);
         }).catch();
 
-        function Save() {
+        function save() {
             adminsService.EditAdmin(vm.Admin).then(SavedSucces).catch();
         }
-        function Reset() {
-            vm.Admin = {};
 
+        function reset() {
+            vm.Admin = {};
         }
-        function SavedSucces()
-        {
-            
+
+        function SavedSucces() {
             location.path('/administrators');
         }
     }
