@@ -22,7 +22,7 @@
         function getQuestions() {
             questionData.getQuestionsPaged(vm.pageNumber).then(function (result) {
                 vm.Questions = result.data;
-                vm.maxPages = Math.ceil(vm.Questions.TotalCount / 20) - 1;
+                vm.maxPages = Math.ceil(vm.Questions.TotalCount / 10) - 1;
             });
         }
 
