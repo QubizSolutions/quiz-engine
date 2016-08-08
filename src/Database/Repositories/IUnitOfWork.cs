@@ -7,6 +7,9 @@ namespace Qubiz.QuizEngine.Database.Repositories
     {
         IAdminRepository AdminRepository { get; }
         IFeatureFlagRepository FeatureFlagRepository { get; }
+        IQuestionRepository QuestionRepository { get; }
+        IOptionRepository OptionRepository { get; }
+        ISectionRepository SectionRepository { get; }
         Task SaveAsync();
     }
 }

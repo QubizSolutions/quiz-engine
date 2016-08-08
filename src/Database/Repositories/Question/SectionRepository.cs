@@ -13,7 +13,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
         public async Task<IQueryable<Section>> GetAllSections()
         {
-            throw new NotImplementedException();
+			return dbSet;
         }
 
         public async void UpdateSections(Section[] sections)

@@ -75,6 +75,9 @@
       <DependentUpon>201509020904036_113_Add_FeatureFlag_Table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\PagedResult.cs" />
+    <Compile Include="Models\QuestionDefinition.cs" />
+    <Compile Include="Models\QuestionListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizEngineDataContext.cs" />
     <Compile Include="Repositories\Admin\AdminRepository.cs" />

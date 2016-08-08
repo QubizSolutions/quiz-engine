@@ -7,12 +7,10 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
     public interface IQuestionRepository
 	{
-        void UpdateQuestion(QuestionDefinition question);
-        void DeleteQuestion(Guid id);
-		
-        Task<QuestionDefinition> GetQuestionDefinitionByID(Guid id);
-        Task<IQueryable<OptionDefinition>> GetAllQuestionDefinitions();
-        Task<Guid[]> GetQuestionIDsBySctions(Guid[] sectionIDs);
-		Task<OptionDefinition[]> GetOptionsByQuestionIDs(Guid[] ids);
+        Task UpdateQuestionAsync(QuestionDefinition question);
+
+        Task DeleteQuestionAsync(Guid id);
+
+		Task<IQueryable<QuestionDefinition>> GetQuestionsAsync();
 	}
 }

@@ -36,10 +36,10 @@ namespace Qubiz.QuizEngine
             container.RegisterType<IConfig, Config>();
             container.RegisterType<System.Data.Entity.DbContext, QuizEngineDataContext>(new InjectionConstructor(container.Resolve<IConfig>().ConnectionString));
             container.RegisterType<IRepository, RepositoryBase>();
-            container.RegisterType<Repositories.IAdminRepository, Repositories.AdminRepository>();
-            container.RegisterType<Repositories.IQuestionRepository, Repositories.QuestionRepository>();
-            container.RegisterType<Repositories.ITestRepository, Repositories.TestRepository>();
-            container.RegisterType<Repositories.IExamRepository, Repositories.ExamRepository>();
+            container.RegisterType<IAdminRepository, AdminRepository>();
+            container.RegisterType<IQuestionRepository, QuestionRepository>();
+            container.RegisterType<ITestRepository, TestRepository>();
+            container.RegisterType<IExamRepository, ExamRepository>();
             container.RegisterType<IExamService, ExamService>();
             container.RegisterType<ILogger, EventViewerLogger>();
             container.RegisterType<Repositories.IFeatureFlagRepository, Repositories.FeatureFlagRepository>();
@@ -47,7 +47,7 @@ namespace Qubiz.QuizEngine
 
             // M
             container.RegisterType<Database.Repositories.IAdminRepository, Database.Repositories.AdminRepository>();
-
+            container.RegisterType<Services.IQuestionService, Services.QuestionService>();
             container.RegisterType<IAdminService, AdminService>();
         }
     }
