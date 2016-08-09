@@ -21,7 +21,9 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			{
 				Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
 				if (section == null)
-					return new ValidationError[1] { new ValidationError() { Message = "There is no Section instance with this ID!" } };
+				{
+					return new ValidationError[1] { new ValidationError() { Message = "Deletion failed! There is no Section instance with this ID!" } };
+				}
 
 				unitOfWork.SectionRepository.Delete(section);
 
@@ -36,6 +38,49 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
 			{
 				return await unitOfWork.SectionRepository.GetAllSectionsAsync();
+			}
+		}
+
+		public async Task<ValidationError[]> AddSectionAsync(Section newSection)
+		{
+			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+			{
+				Section section = await unitOfWork.SectionRepository.GetSectionByNameAsync(newSection.Name);
+				if (section == null)
+				{
+					unitOfWork.SectionRepository.Create(newSection);
+					await unitOfWork.SaveAsync();
+					return new ValidationError[0];
+				}
+
+				return new ValidationError[1] { new ValidationError() { Message = "Add failed! There already exists a Section instance with this name!" } };
+			}
+		}
+
+		public async Task<ValidationError[]> UpdateSectionAsync(Section newSection)
+		{
+			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+			{
+				Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(newSection.ID);
+				if (section == null)
+				{
+					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
+				}
+
+				Mapper.Map(newSection, section);
+				unitOfWork.SectionRepository.Update(section);
+
+				await unitOfWork.SaveAsync();
+
+				return new ValidationError[0]; 
+			}
+		}
+
+		public async Task<Section> GetSectionAsync(Guid id)
+		{
+			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+			{
+				return await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
 			}
 		}
 	}

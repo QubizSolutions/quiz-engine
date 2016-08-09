@@ -35,5 +35,32 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 
 			return Ok();
 		}
+
+		[HttpPost]
+		public async Task<IHttpActionResult> AddSection(Section newSection)
+		{
+			//Section s = new Section();
+			//s.Name = newSection;
+			//s.ID = Guid.NewGuid();
+			ValidationError[] validationErrors = await sectionService.AddSectionAsync(newSection);
+			if (validationErrors.Any())
+				return BadRequest();
+
+			return Ok();
+		}
+
+		[HttpPut]
+		public async Task<IHttpActionResult> EditSection(Section newSection)
+		{
+			//Section s = await sectionService.GetSectionAsync(id);
+			//if (s == null)
+			//	return BadRequest();
+			//s.Name = text;
+			ValidationError[] validationErrors = await sectionService.UpdateSectionAsync(newSection);
+			if (validationErrors.Any())
+				return BadRequest();
+
+			return Ok();
+		}
 	}
 }
