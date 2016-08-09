@@ -13,35 +13,39 @@
         adminsService.GetById($routeParams.id).then(function(result)
         {
             vm.Admin = result.data;
+            if (vm.Admin == null)
+                vm.Save = addAdmin;
+            else
+                vm.Save = editAdmin;
         })
-        vm.Save = save;
         vm.Reset = reset;
 
         function reset() {
             vm.Admin = {};
         }
 
-        function save() {
-            if (vm.Admin == undefined) {
-                console.log("sds");
-                adminsService.addAdmin(vm.Admin).then(function () {
-                    location.path('/administrators');
-                })
-            }
-            else {
-                adminsService.EditAdmin(vm.Admin)
-                    .then(function () {
+         
+        function addAdmin()
+        {
+          adminsService.AddAdmin(vm.Admin).then(function () {
                         location.path('/administrators');
-                    })
-                    .catch(function () {
-                        mdDialog.show(mdDialog
-                            .alert()
-                            .title('Error')
-                            .textContent('This admin already exists.')
-                            .ok('Ok!'));
-                    });
-            }
-        }
+               })
+                }
+        function editAdmin()
+        {
+            adminsService.EditAdmin(vm.Admin)
+                .then(function () {
+                        location.path('/administrators');
+                 })
+                .catch(function () {
+                    mdDialog.show(mdDialog
+                        .alert()
+                        .title('Error')
+                        .textContent('This admin already exists.')
+                        .ok('Ok!'));
+                 });
+          }
 
-    }
+     }
+    
 })();
