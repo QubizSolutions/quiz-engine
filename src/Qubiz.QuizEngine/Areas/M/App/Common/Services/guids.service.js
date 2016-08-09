@@ -14,7 +14,7 @@
 
         var guidsCache = [];
 
-        generateNewGuids();
+        loadGuids();
 
         function getGuid() {
             if (guidsCache.length <= 2) {
