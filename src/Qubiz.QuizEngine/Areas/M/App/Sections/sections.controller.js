@@ -1,12 +1,13 @@
 ﻿(function () {
-    'use strict'
+	'use strict'
+
     angular
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
     
-    SectionsController.$inject = ['SectionsDataService', '$mdDialog'];
+    SectionsController.$inject = ['sectionsDataService', '$mdDialog'];
 
-    function SectionsController(SectionsDataService, mdDialog) {
+    function SectionsController(sectionsDataService, mdDialog) {
         
         var vm = this;
         vm.sections = {};
@@ -16,7 +17,7 @@
         getAllSections();
 
         function getAllSections() {
-            vm.sections = SectionsDataService.getAllSections()
+            vm.sections = sectionsDataService.getAllSections()
                 .then(getSectionsSuccess)
                 .catch(errorCallBack);
         }
@@ -30,20 +31,18 @@
         }
 
         function deleteSection(id) {
-            SectionsDataService.deleteSection(id)
+            sectionsDataService.deleteSection(id)
                 .then(deleteSuccess)
                 .catch(errorCallBack);
         }
 
         function deleteSuccess(response) {
-            console.log(response);
             getAllSections();
         }
 
         // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
-
                   .title('Are you sure you want to delete this section?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
@@ -54,10 +53,8 @@
                 deleteSection(section.ID);
                 vm.status = 'Section deleted successfuly.';
             }, function () {
-
                 vm.status = 'Deletion aborted.';
             });
         };    
     }
-   
 })();

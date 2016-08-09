@@ -12,9 +12,9 @@
                     templateUrl: "Template/Exams"
                 })
                 .when("/questions", {
-                templateUrl: "Template/Questions",
-                controller: "QuestionListController",
-                controllerAs: "questionCtrl"
+					templateUrl: "Template/Questions",
+					controller: "QuestionListController",
+					controllerAs: "questionCtrl"
                 })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
