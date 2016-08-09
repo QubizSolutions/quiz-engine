@@ -9,6 +9,8 @@
     function QuestionListController(questionData) {
         var vm = this;
 
+        vm.itemsPerPage = 10;
+
         vm.nextPage = nextPage;
         vm.prevPage = prevPage;
         vm.updatePage = updatePage;
@@ -20,9 +22,9 @@
         getQuestions();
 
         function getQuestions() {
-            questionData.getQuestionsPaged(vm.pageNumber).then(function (result) {
+            questionData.getQuestionsPaged(vm.pageNumber, vm.itemsPerPage).then(function (result) {
                 vm.Questions = result.data;
-                vm.maxPages = Math.ceil(vm.Questions.TotalCount / 10) - 1;
+                vm.maxPages = Math.ceil(vm.Questions.TotalCount / vm.itemsPerPage) - 1;
             });
         }
 
