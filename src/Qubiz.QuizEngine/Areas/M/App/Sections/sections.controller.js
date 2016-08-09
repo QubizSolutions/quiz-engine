@@ -6,34 +6,31 @@
     
     SectionsController.$inject = ['SectionsDataService', '$mdDialog'];
 
-    function SectionsController(SectionsDataService, mdDialog) {
+        function SectionsController(SectionsDataService, mdDialog) {
         
         var vm = this;
-        vm.sections = {};
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
-
         getAllSections();
 
         function getAllSections() {
-            vm.sections = SectionsDataService.getAllSections()
+           SectionsDataService.getAllSections()
                 .then(getSectionsSuccess)
                 .catch(errorCallBack);
         }
-
-        function getSectionsSuccess(sections) {
-            vm.sections = sections;
+        function getSectionsSuccess(response) {
+            vm.sections = response.data;
         }
 
-        function errorCallback(errorMsg) {
+        function errorCallBack(errorMsg) {
             console.log('Error message: ' + errorMsg);
         }
 
         function deleteSection(id) {
             SectionsDataService.deleteSection(id)
                 .then(deleteSuccess)
-                .catch(errorCallback);
-               
+                .catch(errorCallBack);
+      
         }
 
         function deleteSuccess(response) {
@@ -44,7 +41,7 @@
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
 
-                  .title('Are you sure you want to delete this section?')
+                  .title('Are you sure you want to delete '+ section.Name +' ?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
                   .cancel('No')
@@ -52,9 +49,8 @@
 
             mdDialog.show(confirm).then(function () {
                 deleteSection(section.ID);
-                vm.status = 'Section deleted successfuly.';
+                vm.status = section.Name +' deleted successfuly.';
             }, function () {
-
                 vm.status = 'Deletion aborted.';
             });
         };    
