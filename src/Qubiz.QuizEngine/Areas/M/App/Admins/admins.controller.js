@@ -5,14 +5,14 @@
        .module('quizEngineMaterial')
        .controller('AdminsController', AdminsController);
 
-    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog'];
+    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog','guidsService'];
 
-    function AdminsController(adminsService, scope, mdDialog) {
+    function AdminsController(adminsService, scope, mdDialog,guidsService) {
         var vm = this;
         vm.deleteAdmin = deleteAdmin;
         getAllAdmins();
-        vm.getGuids=getGuids;
-
+        vm.Guid = guidsService.getGuid();
+        console.log(vm.Guid);
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
@@ -44,9 +44,6 @@
                     scope.status = 'You cannot delete yourself.';
                 });
         }
-        function getGuids()
-        {
-            //TO DO
-        }
+        
     }
 })();
