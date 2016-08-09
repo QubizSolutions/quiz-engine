@@ -15,7 +15,7 @@
             });
         }
         $scope.print = function (print) {
-        	window.print();
+        	$window.print();
         };
 
     }
