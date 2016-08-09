@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-    public interface ISectionRepository
+     public interface ISectionRepository : IBaseRepository<Section>
 	{
-        void UpdateSections(Section[] sections);
-        Task<IQueryable<Section>> GetAllSections();
-    }
+        Task<Section[]> GetAllSectionsAsync();
+
+		Task<Section> GetSectionByNameAsync(string name);
+
+		Task<Section> GetSectionByIDAsync(Guid id);
+
+	}
 }
