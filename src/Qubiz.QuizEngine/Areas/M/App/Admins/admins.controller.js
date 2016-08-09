@@ -11,6 +11,8 @@
         var vm = this;
         vm.deleteAdmin = deleteAdmin;
         getAllAdmins();
+        vm.getGuids=getGuids;
+
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
@@ -41,6 +43,10 @@
                 .catch(function () {
                     scope.status = 'You cannot delete yourself.';
                 });
+        }
+        function getGuids()
+        {
+            //TO DO
         }
     }
 })();

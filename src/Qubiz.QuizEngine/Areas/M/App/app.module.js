@@ -22,16 +22,10 @@
                 	controller: "AdminsController",
                 	controllerAs: "AdminCtrl"
                 })
-                .when('/addadmin', {
-                	templateUrl: "Template/AddAdmin",
-                	controller: "AddAdminController",
-                	controllerAs: "AddAdminCtrl"
-                })
-                .when('/editadmin/:id',
-                {
-                	templateUrl: "Template/EditAdmin",
-                	controller: "EditAdminController",
-                	controllerAs: "EditCtrl"
+                .when('/saveadmin/:id', {
+                	templateUrl: "Template/SaveAdmin",
+                	controller: "SaveAdminController",
+                	controllerAs: "saveCtrl"
                 })
 		        .otherwise({ redirectTo: "/tests" });
         });

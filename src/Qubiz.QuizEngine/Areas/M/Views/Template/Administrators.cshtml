@@ -16,7 +16,7 @@
                 <input type="text" ng-model="searchAdmin">
             </md-input-container>
 
-            <md-button id="addAdminButton" class="CustomButton md-primary pull-right" ng-href="#/addadmin">Add</md-button>
+            <md-button id="addAdminButton" class="CustomButton md-primary pull-right" ng-href="#/saveadmin">Add</md-button>
             <br />
 
             <br />
@@ -31,7 +31,7 @@
 
                 <span ng-if="admin.Name !='@currentUser'">
                     <i class="material-icons2 btn-primary" ng-click="showConfirm($event,admin)">delete</i>
-                    <a class="material-icons2 btn-primary" ng-href="#/editadmin/{{admin.ID}}">mode_edit</a>
+                    <a class="material-icons2 btn-primary" ng-href="#/saveadmin/{{admin.ID}}">mode_edit</a>
                 </span>
             
             </div>
