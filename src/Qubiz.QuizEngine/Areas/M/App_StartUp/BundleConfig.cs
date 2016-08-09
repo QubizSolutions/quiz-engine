@@ -21,12 +21,17 @@ namespace Qubiz.QuizEngine.Areas.M
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.style.css");
             bundles.Add(angularMaterialBundle);
 
+            Bundle materialLiteBundle = new Bundle("~/Content/mdl", cssTransforms);
+            materialLiteBundle.Include("~/Content/mdl-v1.1.2/material.css");
+            bundles.Add(materialLiteBundle);
+
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
             angularBundle.Include("~/Areas/M/Scripts/angular.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-aria.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-animate.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-material.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-route.js");
+            angularBundle.Include("~/Content/mdl-v1.1.2/material.js");
             bundles.Add(angularBundle);
 
             Bundle appModuleBundle = new Bundle("~/Areas/M/module", jsTransforms);
