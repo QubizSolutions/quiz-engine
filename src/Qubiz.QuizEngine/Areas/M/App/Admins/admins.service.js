@@ -29,7 +29,6 @@
                 url: 'api/NewAdmin/AddAdmin',
                 data: admin
             })
-            .then()
             .catch(errorCallback);
         }
 
@@ -39,7 +38,6 @@
                 url: 'api/NewAdmin/UpdateAdmin',
                 data: admin
             })
-            .then()
             .catch(errorCallback);
         }
 
@@ -47,9 +45,7 @@
             return $http({
                 method: 'GET',
                 url: 'api/NewAdmin/GetAdmin/' + id
-            })
-            .then()
-            .catch();
+            });
         }
 
         function getAllAdminsSuccess(response) {

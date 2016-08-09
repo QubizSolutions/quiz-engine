@@ -22,7 +22,15 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 if (originator == admin.Name)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
-                admin.ID = Guid.NewGuid();
+                if(admin.Name.Substring(0,6).ToUpper() == ("QUBIZ" + '\\'))
+                {
+                    admin.Name = admin.Name.Substring(6);
+                }
+                else
+                {
+                    admin.Name = "QUBIZ" + '\\' + admin.Name;
+                }
+                
 
                 unitOfWork.AdminRepository.Create(admin);
 
