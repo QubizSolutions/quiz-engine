@@ -19,8 +19,6 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (originator == admin.Name)
-                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
                 if(admin.Name.Substring(0,6).ToUpper() == ("QUBIZ" + '\\'))
                 {
@@ -30,7 +28,9 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 {
                     admin.Name = "QUBIZ" + '\\' + admin.Name;
                 }
-                
+                Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (someAdmin != null)
+                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
                 unitOfWork.AdminRepository.Create(admin);
 
