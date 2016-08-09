@@ -21,12 +21,17 @@ namespace Qubiz.QuizEngine.Areas.M
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.style.css");
             bundles.Add(angularMaterialBundle);
 
+            Bundle materialLiteBundle = new Bundle("~/Content/mdl", cssTransforms);
+            materialLiteBundle.Include("~/Content/mdl-v1.1.2/material.css");
+            bundles.Add(materialLiteBundle);
+
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
             angularBundle.Include("~/Areas/M/Scripts/angular.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-aria.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-animate.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-material.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-route.js");
+            angularBundle.Include("~/Content/mdl-v1.1.2/material.js");
             bundles.Add(angularBundle);
 
             Bundle appModuleBundle = new Bundle("~/Areas/M/module", jsTransforms);
@@ -43,12 +48,13 @@ namespace Qubiz.QuizEngine.Areas.M
             controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
             controllerBundle.Include("~/Areas/M/App/Controllers/question-list.controller.js");
 			controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
-			bundles.Add(controllerBundle);
+            bundles.Add(controllerBundle);
 
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
             serviceBundle.Include("~/Areas/M/App/Services/question-data.service.js");
 			serviceBundle.Include("~/Areas/M/App/sections/sections.service.js");
-			bundles.Add(serviceBundle);
+            serviceBundle.Include("~/Areas/M/App/Common/Services/guids.service.js");
+            bundles.Add(serviceBundle);
 		}
     }
 }
