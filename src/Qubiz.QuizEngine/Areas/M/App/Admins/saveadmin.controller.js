@@ -13,8 +13,11 @@
         adminsService.GetById($routeParams.id).then(function(result)
         {
             vm.Admin = result.data;
-            if (vm.Admin == null)
+            if (vm.Admin == null) {
                 vm.Save = addAdmin;
+                vm.Admin = {};
+                vm.Admin.ID = $routeParams.id;
+            }
             else
                 vm.Save = editAdmin;
         })
