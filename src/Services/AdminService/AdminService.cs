@@ -78,12 +78,21 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (originator == admin.Name)
+                if (admin.Name.Substring(0, 6).ToUpper() != ("QUBIZ" + '\\'))
+                {
+                    admin.Name = "QUBIZ" + '\\' + admin.Name;
+                }
+
+                Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                Admin loggedIn = await unitOfWork.AdminRepository.GetByNameAsync(originator);
+                if (someAdmin!=null || loggedIn.ID==admin.ID)
                     return new ValidationError[1] { new ValidationError() { Message = "You can't change yourself!" } };
 
                 Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
 
                 Mapper.Map(admin, dbAdmin);
+
+
 
                 unitOfWork.AdminRepository.Update(dbAdmin);
 
