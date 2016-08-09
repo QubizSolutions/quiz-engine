@@ -5,9 +5,9 @@
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
     
-    SectionsController.$inject = ['SectionsDataService', '$mdDialog'];
+    SectionsController.$inject = ['sectionsDataService', '$mdDialog'];
 
-    function SectionsController(SectionsDataService, mdDialog) {
+    function SectionsController(sectionsDataService, mdDialog) {
         
         var vm = this;
         vm.sections = {};
@@ -17,7 +17,7 @@
         getAllSections();
 
         function getAllSections() {
-            vm.sections = SectionsDataService.getAllSections()
+            vm.sections = sectionsDataService.getAllSections()
                 .then(getSectionsSuccess)
                 .catch(errorCallBack);
         }
@@ -31,7 +31,7 @@
         }
 
         function deleteSection(id) {
-            SectionsDataService.deleteSection(id)
+            sectionsDataService.deleteSection(id)
                 .then(deleteSuccess)
                 .catch(errorCallBack);
         }

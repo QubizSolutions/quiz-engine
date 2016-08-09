@@ -19,7 +19,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		}
 
 		[HttpGet]
-		public async Task<IHttpActionResult> GetSectionsAsync()
+		public async Task<IHttpActionResult> GetSections()
 		{
 			Section[] sections = await sectionService.GetAllSectionsAsync();
 
@@ -27,7 +27,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		}
 
 		[HttpDelete]
-		public async Task<IHttpActionResult> DeleteSectionAsync(Guid id)
+		public async Task<IHttpActionResult> DeleteSection(Guid id)
 		{
 			ValidationError[] validationErrors = await sectionService.DeleteSectionAsync(id);
 			if (validationErrors.Any())

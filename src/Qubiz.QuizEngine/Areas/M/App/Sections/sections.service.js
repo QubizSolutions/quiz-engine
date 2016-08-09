@@ -3,11 +3,11 @@
 
 	angular
         .module('quizEngineMaterial')
-        .service('SectionsDataService', SectionsDataService)
+        .service('sectionsDataService', sectionsDataService)
 
-	SectionsDataService.$inject = ['$http', '$q'];
+	sectionsDataService.$inject = ['$http', '$q'];
 
-	function SectionsDataService($http, $q) {
+	function sectionsDataService($http, $q) {
 
 		this.getAllSections = getAllSections;
 		this.deleteSection = deleteSection;
@@ -30,7 +30,7 @@
 		}
 
 		function deleteSection(id) {
-			return $http.delete('api/Section/DeleteSectionAsync/' + id)
+			return $http.delete('api/Section/DeleteSection/' + id)
                 .then(deletedSuccess)
                 .catch(errorCallBack);
 		}
