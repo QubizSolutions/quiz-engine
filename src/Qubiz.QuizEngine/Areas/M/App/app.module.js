@@ -17,7 +17,9 @@
                 controllerAs: "questionCtrl"
                 })
                 .when("/sections", {
-                    templateUrl: "Template/Sections"
+                    templateUrl: "Template/Sections",
+                    controller: "SectionsController",
+                    controllerAs : "SectionsCtrl"
                 })
                 .when("/administrators", {
                 	templateUrl: "Template/Administrators",

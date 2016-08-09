@@ -157,6 +157,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
     <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\SectionsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
     <Compile Include="Areas\M\Controllers\Api\NewQuestionController.cs" />
@@ -206,6 +207,8 @@
     <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
+    <Content Include="Areas\M\App\Sections\sections.controller.js" />
+    <Content Include="Areas\M\App\Sections\sections.service.js" />
     <Content Include="Areas\M\App\Services\question-data.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />

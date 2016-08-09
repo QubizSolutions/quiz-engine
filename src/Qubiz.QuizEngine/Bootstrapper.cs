@@ -5,6 +5,7 @@ using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Infrastructure.Logger;
 using Qubiz.QuizEngine.Repositories;
 using Qubiz.QuizEngine.Services.AdminService;
+using Qubiz.QuizEngine.Services.SectionService;
 using System.Web.Http;
 using System.Web.Mvc;
 using Unity.Mvc4;
@@ -49,6 +50,8 @@ namespace Qubiz.QuizEngine
             container.RegisterType<Database.Repositories.IAdminRepository, Database.Repositories.AdminRepository>();
             container.RegisterType<Services.IQuestionService, Services.QuestionService>();
             container.RegisterType<IAdminService, AdminService>();
-        }
+
+			container.RegisterType<ISectionService, SectionService>();
+		}
     }
 }
