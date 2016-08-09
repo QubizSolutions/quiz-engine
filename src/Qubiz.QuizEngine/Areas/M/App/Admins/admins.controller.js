@@ -22,7 +22,7 @@
         }
         scope.showConfirm = function (ev, Admin) {
             var confirm = mdDialog.confirm()
-                  .title('Are you sure you want to delete this admin?')
+                  .title('Are you sure you want to delete the admin '+Admin.Name+' ?')
                   .textContent('This action cannot be undone.')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
