@@ -11,13 +11,13 @@
         var vm = this;
         vm.deleteAdmin = deleteAdmin;
         getAllAdmins();
-        vm.Guid = guidsService.getGuid();
-        console.log(vm.Guid);
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
                 .then(function (result) {
                     vm.admins = result;
+                    displayList();
+                    getGuid();
                 });
         }
         scope.showConfirm = function (ev, Admin) {
@@ -43,6 +43,15 @@
                 .catch(function () {
                     scope.status = 'You cannot delete yourself.';
                 });
+        }
+        function displayList() {
+            for (var i = 0; i < vm.admins.length; i++)
+                vm.admins[i].Name = vm.admins[i].Name.substring( 6);
+        }
+        function getGuid()
+        {
+
+            vm.Guid =guidsService.getGuid();
         }
         
     }
