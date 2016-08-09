@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Threading.Tasks;
-using Qubiz.QuizEngine.Services.SectionService;
-using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Infrastructure;
+using Qubiz.QuizEngine.Services.SectionService;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
 	[Admin]
-    public class SectionController : ApiController
-    {
+	public class SectionController : ApiController
+	{
 		private readonly ISectionService sectionService;
 
 		public SectionController(ISectionService sectionService)
 		{
-			 this.sectionService = sectionService;
+			this.sectionService = sectionService;
 		}
 
 		[HttpGet]
@@ -38,6 +35,5 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 
 			return Ok();
 		}
-
 	}
 }

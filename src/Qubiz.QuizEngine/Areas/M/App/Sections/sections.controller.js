@@ -1,5 +1,6 @@
 ﻿(function () {
-    'use strict'
+	'use strict'
+
     angular
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
@@ -36,14 +37,12 @@
         }
 
         function deleteSuccess(response) {
-            console.log(response);
             getAllSections();
         }
 
         // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
-
                   .title('Are you sure you want to delete this section?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
@@ -54,10 +53,8 @@
                 deleteSection(section.ID);
                 vm.status = 'Section deleted successfuly.';
             }, function () {
-
                 vm.status = 'Deletion aborted.';
             });
         };    
     }
-   
 })();

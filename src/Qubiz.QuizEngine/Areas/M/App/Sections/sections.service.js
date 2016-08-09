@@ -1,42 +1,42 @@
 ﻿(function () {
-    'use strict'
-    angular
+	'use strict'
+
+	angular
         .module('quizEngineMaterial')
         .service('SectionsDataService', SectionsDataService)
 
-    SectionsDataService.$inject = ['$http','$q'];
+	SectionsDataService.$inject = ['$http', '$q'];
 
-    function SectionsDataService($http,$q) {
+	function SectionsDataService($http, $q) {
 
-        this.getAllSections = getAllSections;
-        this.deleteSection = deleteSection;
-         
-        function getAllSections() {
-            return $http({
-                method: 'GET',
-                url: 'api/Section'
-            })
-                .then(getSectionsSuccess)
-                .catch(errorCallBack)
-        }
+		this.getAllSections = getAllSections;
+		this.deleteSection = deleteSection;
 
-        function errorCallBack(response) {
-            return $q.reject('HTTP status : ' + response.status + ' ' + response.statusText);
-        }
+		function getAllSections() {
+			return $http({
+				method: 'GET',
+				url: 'api/Section'
+			})
+				.then(getSectionsSuccess)
+				.catch(errorCallBack)
+		}
 
-        function getSectionsSuccess(response) {
-            return response.data;
-        }
+		function errorCallBack(response) {
+			return $q.reject('HTTP status : ' + response.status + ' ' + response.statusText);
+		}
 
-        function deleteSection(id) {
-        	return $http.delete('api/Section/DeleteSectionAsync/' + id)
+		function getSectionsSuccess(response) {
+			return response.data;
+		}
+
+		function deleteSection(id) {
+			return $http.delete('api/Section/DeleteSectionAsync/' + id)
                 .then(deletedSuccess)
                 .catch(errorCallBack);
-        }
+		}
 
-        function deletedSuccess(response) {
-            return console.log("Section Deleted !");
-        }
-    }
-
-})();
+		function deletedSuccess(response) {
+			return console.log("Section Deleted !");
+		}
+	}
+}) ();

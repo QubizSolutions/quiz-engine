@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
+using System;
+using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Services.SectionService
 {
 	public class SectionService : ISectionService
 	{
 		private readonly IConfig config;
-	
+
 		public SectionService(IConfig config)
 		{
 			this.config = config;
@@ -36,11 +33,10 @@ namespace Qubiz.QuizEngine.Services.SectionService
 
 		public async Task<Section[]> GetAllSectionsAsync()
 		{
-			using(IUnitOfWork unitOfWork = new UnitOfWork(config))
+			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
 			{
 				return await unitOfWork.SectionRepository.GetAllSectionsAsync();
 			}
 		}
-
 	}
 }
