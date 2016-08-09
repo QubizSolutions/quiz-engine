@@ -1,23 +1,21 @@
 ﻿
-<div class="container">
-<div layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons">
-    <h2>Add Admin</h2>
-    <br>
-    <div class="pageContent">
-        <md-content class="md-no-momentum">
-            <md-input-container class="md-block">
-                <!-- Use floating label instead of placeholder -->
-                <label>Name</label>
-                <input ng-model="saveCtrl.Admin.Name" type="text">
-            </md-input-container>
-
-        </md-content>
-        <div class="panel-footer">
-            <md-button class="CustomButton md-primary" ng-click="saveCtrl.Reset()">reset</md-button>
-            <md-button class="CustomButton md-primary" ng-click="saveCtrl.Save()">Save</md-button>
-            <md-button class="CustomButton md-primary" ng-href="#/administrators" style="float:left;">Back</md-button>
-        </div>
-    </div>
-
-</div>
+<div class="container layout-column">
+    <section class="demo-container md-whiteframe-z1 contentSize">
+        <md-toolbar class="demo-toolbar md-primary _md qubiz-color">
+            <div class="md-toolbar-tools">
+                <h3 class="ng-binding">Admin Details</h3>
+            </div>
+        </md-toolbar>
+        <md-input-container class="md-icon-float md-block md-icon-left md-input-has-value">
+            <label for="input_324">Name</label>
+            <input ng-model="saveCtrl.Admin.Name" type="text" class="ng-pristine ng-valid md-input ng-not-empty ng-touched " id="input_324" aria-invalid="false" style=""><div class="md-errors-spacer"></div>
+        </md-input-container>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-left btnPadding">
+            <md-button class="md-raised md-primary CustomButton" ng-href="#/administrators">Back</md-button>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-right btnPadding">
+            <md-button class="md-raised md-primary CustomButton" ng-click="saveCtrl.Save()">Save</md-button>
+            <md-button class="md-raised md-primary CustomButton" ng-click="saveCtrl.Reset()">Reset</md-button>
+        </section>
+    </section>
 </div>
