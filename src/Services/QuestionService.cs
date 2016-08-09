@@ -43,7 +43,7 @@ namespace Qubiz.QuizEngine.Services
 
                 var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
 
-                IQueryable<Section> sections = await unitOfWork.SectionRepository.GetAllSections();
+                Section[] sections = await unitOfWork.SectionRepository.GetAllSectionsAsync();
 
                 return new PagedResult<QuestionListItem>
                 {
