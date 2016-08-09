@@ -10,5 +10,11 @@ namespace Qubiz.QuizEngine.Services.SectionService
 		Task<Section[]> GetAllSectionsAsync();
 
 		Task<ValidationError[]> DeleteSectionAsync(Guid id);
+		
+		Task<ValidationError[]> AddSectionAsync(Section newSection);
+
+		Task<ValidationError[]>	UpdateSectionAsync(Section newSection);
+
+		Task<Section> GetSectionAsync(Guid id);
 	}
 }
