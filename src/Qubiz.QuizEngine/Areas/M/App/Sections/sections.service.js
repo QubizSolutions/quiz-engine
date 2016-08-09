@@ -14,7 +14,7 @@
         function getAllSections() {
             return $http({
                 method: 'GET',
-                url: 'M/api/Section'
+                url: 'api/Section'
             })
                 .then(getSectionsSuccess)
                 .catch(errorCallBack)
@@ -29,7 +29,7 @@
         }
 
         function deleteSection(id) {
-            return $http.delete('M/api/sections/' + id)
+        	return $http.delete('api/Section/DeleteSectionAsync/' + id)
                 .then(deletedSuccess)
                 .catch(errorCallBack);
         }

@@ -25,21 +25,21 @@
             vm.sections = sections;
         }
 
-        function errorCallback(errorMsg) {
+        function errorCallBack(errorMsg) {
             console.log('Error message: ' + errorMsg);
         }
 
         function deleteSection(id) {
             SectionsDataService.deleteSection(id)
                 .then(deleteSuccess)
-                .catch(errorCallback);
-               
+                .catch(errorCallBack);
         }
 
         function deleteSuccess(response) {
             console.log(response);
             getAllSections();
         }
+
         // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()

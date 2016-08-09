@@ -32,7 +32,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpDelete]
 		public async Task<IHttpActionResult> DeleteSectionAsync(Guid id)
 		{
-			Validator[] validationErrors = await sectionService.DeleteSectionAsync(id);
+			ValidationError[] validationErrors = await sectionService.DeleteSectionAsync(id);
 			if (validationErrors.Any())
 				return BadRequest();
 

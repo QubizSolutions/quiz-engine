@@ -12,7 +12,9 @@
                     templateUrl: "Template/Exams"
                 })
                 .when("/questions", {
-                    templateUrl: "Template/Questions"
+                templateUrl: "Template/Questions",
+                controller: "QuestionListController",
+                controllerAs: "questionCtrl"
                 })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
@@ -20,7 +22,20 @@
                     controllerAs : "SectionsCtrl"
                 })
                 .when("/administrators", {
-                    templateUrl: "Template/Administrators"
+                	templateUrl: "Template/Administrators",
+                	controller: "AdminsController",
+                	controllerAs: "AdminCtrl"
+                })
+                .when('/addadmin', {
+                	templateUrl: "Template/AddAdmin",
+                	controller: "AddAdminController",
+                	controllerAs: "AddAdminCtrl"
+                })
+                .when('/editadmin/:id',
+                {
+                	templateUrl: "Template/EditAdmin",
+                	controller: "EditAdminController",
+                	controllerAs: "EditCtrl"
                 })
 		        .otherwise({ redirectTo: "/tests" });
         });

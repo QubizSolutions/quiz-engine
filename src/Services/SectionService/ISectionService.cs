@@ -11,7 +11,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
 	public interface ISectionService
 	{
 		Task<Section[]> GetAllSectionsAsync();
-		Task<Validator[]> DeleteSectionAsync(Guid id);
+		Task<ValidationError[]> DeleteSectionAsync(Guid id);
 
 	}
 }

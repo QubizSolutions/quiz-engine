@@ -18,19 +18,19 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			this.config = config;
 		}
 
-		public async Task<Validator[]> DeleteSectionAsync(Guid id)
+		public async Task<ValidationError[]> DeleteSectionAsync(Guid id)
 		{
 			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
 			{
 				Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
 				if (section == null)
-					return new Validator[1] { new Validator() { Message = "There is no Section instance with this ID!" } };
+					return new ValidationError[1] { new ValidationError() { Message = "There is no Section instance with this ID!" } };
 
 				unitOfWork.SectionRepository.Delete(section);
 
 				await unitOfWork.SaveAsync();
 
-				return new Validator[0];
+				return new ValidationError[0];
 			}
 		}
 
