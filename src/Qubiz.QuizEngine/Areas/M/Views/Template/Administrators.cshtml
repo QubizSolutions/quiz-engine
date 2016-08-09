@@ -3,31 +3,32 @@
     ViewBag.Title = "Administrators";
 }
 @{ var currentUser = User.Identity.Name;}
-
-<h2>Administrators</h2>
-<div  ng-cloak="" class="virtualRepeatdemoDeferredLoading">
-    <md-content  layout = "column " style="background-color: transparent">
-        <br/>
-        <div>
-            <md-input-container flex="">
-                <label>Search
-                    <i class="material-icons">search</i> 
-                </label>
-                <input type="text" ng-model="searchAdmin">
-            </md-input-container>
+<div class="container">
+	<h2>Administrators</h2>
+	<div ng-cloak="" class="virtualRepeatdemoDeferredLoading">
+		<md-content layout="column " style="background-color: transparent">
+			<br />
+			<div>
+				<md-input-container flex="">
+					<label>
+						Search
+						<i class="material-icons">search</i>
+					</label>
+					<input type="text" ng-model="searchAdmin">
+				</md-input-container>
 
             <md-button id="addAdminButton" class="CustomButton md-primary pull-right" ng-href="#/saveadmin">Add</md-button>
             <br />
 
-            <br />
-        </div>
-        <md-virtual-repeat-container id="vertical-container">
-            <div md-virtual-repeat="admin in AdminCtrl.admins | filter:searchAdmin" class="repeated-item" flex="">
-                {{admin.Name}}
-                <span ng-if="admin.Name =='@currentUser'">
-                   <i class="material-icons2 btn-primary-disabled" ng-click="showConfirm($event,admin)">delete</i>
-                   <a class="material-icons2 btn-primary-disabled" ng-href="#/editadmin/{{admin.ID}}">mode_edit</a>
-                </span>
+				<br />
+			</div>
+			<md-virtual-repeat-container id="vertical-container">
+				<div md-virtual-repeat="admin in AdminCtrl.admins | filter:searchAdmin" class="repeated-item" flex="">
+					{{admin.Name}}
+					<span ng-if="admin.Name =='@currentUser'">
+						<i class="material-icons2 btn-primary-disabled" ng-click="showConfirm($event,admin)">delete</i>
+						<a class="material-icons2 btn-primary-disabled" ng-href="#/editadmin/{{admin.ID}}">mode_edit</a>
+					</span>
 
                 <span ng-if="admin.Name !='@currentUser'">
                     <i class="material-icons2 btn-primary" ng-click="showConfirm($event,admin)">delete</i>
@@ -39,17 +40,18 @@
         </md-virtual-repeat-container>
     </md-content>
 
-</div>
+	</div>
 
 
 
-<div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
+	<div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
 
-    <div ng-if="status" id="status">
-        <b layout="row" layout-align="center center" class="md-padding">
-            {{status}}
-        </b>
-    </div>
-</div>
+		<div ng-if="status" id="status">
+			<b layout="row" layout-align="center center" class="md-padding">
+				{{status}}
+			</b>
+		</div>
+	</div>
 
 
+	</div>

@@ -39,9 +39,16 @@ namespace Qubiz.QuizEngine.Areas.M
             bundles.Add(testsBundle);
 
 
-			Bundle mainBarBundle = new Bundle("~/Areas/M/MainBarController", jsTransforms);
-			testsBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
-			bundles.Add(mainBarBundle);
+            Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
+            controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
+            controllerBundle.Include("~/Areas/M/App/Controllers/question-list.controller.js");
+			controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
+			bundles.Add(controllerBundle);
+
+            Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
+            serviceBundle.Include("~/Areas/M/App/Services/question-data.service.js");
+			serviceBundle.Include("~/Areas/M/App/sections/sections.service.js");
+			bundles.Add(serviceBundle);
 		}
     }
 }
