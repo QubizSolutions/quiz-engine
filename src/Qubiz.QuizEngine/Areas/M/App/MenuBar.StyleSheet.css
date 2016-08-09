@@ -1,40 +1,49 @@
-﻿.textLogo{
-	color: white;
-	text-transform: capitalize;
-	font-weight: 300;
-	font-size: 23px;
-}
-.mainMenu{
-	background-color: #008cba;
-	-webkit-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
-	-moz-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
-	box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
+﻿.textLogo {
+    color: white;
+    text-transform: capitalize;
+    font-weight: 300;
+    font-size: 23px;
 }
 
-.menuItem{
-	color: #008cba;
+.mainMenu {
+    -webkit-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
+    box-shadow: 1px 2px 14px -2px rgba(0,0,0,0.75);
 }
+
+.qubiz-color {
+    background-color: #008cba !important;
+}
+
+.menuItem {
+    color: #008cba;
+}
+
+.md-button {
+    min-width: 1%;
+}
+
 md-tabs md-ink-bar {
     color: #F26100;
     background: #F26100;
 }
-.customLogoLink:active
-{
-    text-decoration: none; 
+
+.customLogoLink:active {
+    text-decoration: none;
     color: white;
 }
-.customLogoLink:hover
-{
-     text-decoration: none;
-     color: white;
+
+.customLogoLink:hover {
+    text-decoration: none;
+    color: white;
 }
-.customLogoLink:visited
-{
-     text-decoration: none;
-     color: white;
+
+.customLogoLink:visited {
+    text-decoration: none;
+    color: white;
 }
-.customLogoLink:link
-{
-     text-decoration: none;
-     color: white;
+
+.customLogoLink:link {
+    text-decoration: none;
+    color: white;
 }

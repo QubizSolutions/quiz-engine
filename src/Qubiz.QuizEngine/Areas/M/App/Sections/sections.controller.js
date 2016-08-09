@@ -1,25 +1,29 @@
 ﻿(function () {
-    'use strict'
+	'use strict'
+
     angular
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
     
-    SectionsController.$inject = ['SectionsDataService', '$mdDialog'];
+    SectionsController.$inject = ['sectionsDataService', '$mdDialog'];
 
-        function SectionsController(SectionsDataService, mdDialog) {
+    function SectionsController(sectionsDataService, mdDialog) {
         
         var vm = this;
+        vm.sections = {};
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
+
         getAllSections();
 
         function getAllSections() {
-           SectionsDataService.getAllSections()
+            vm.sections = sectionsDataService.getAllSections()
                 .then(getSectionsSuccess)
                 .catch(errorCallBack);
         }
-        function getSectionsSuccess(response) {
-            vm.sections = response.data;
+
+        function getSectionsSuccess(sections) {
+            vm.sections = sections;
         }
 
         function errorCallBack(errorMsg) {
@@ -27,21 +31,19 @@
         }
 
         function deleteSection(id) {
-            SectionsDataService.deleteSection(id)
+            sectionsDataService.deleteSection(id)
                 .then(deleteSuccess)
                 .catch(errorCallBack);
-      
         }
 
         function deleteSuccess(response) {
-            console.log(response);
             getAllSections();
         }
+
         // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
-
-                  .title('Are you sure you want to delete '+ section.Name +' ?')
+                  .title('Are you sure you want to delete this section?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
                   .cancel('No')
@@ -49,11 +51,10 @@
 
             mdDialog.show(confirm).then(function () {
                 deleteSection(section.ID);
-                vm.status = section.Name +' deleted successfuly.';
+                vm.status = 'Section deleted successfuly.';
             }, function () {
                 vm.status = 'Deletion aborted.';
             });
         };    
     }
-   
 })();

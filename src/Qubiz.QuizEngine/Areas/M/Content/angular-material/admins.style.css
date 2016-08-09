@@ -25,12 +25,15 @@
 }
 
 .CustomButton {
-	background-color: #008cba;
+    background-color: #008cba;
 	color: white !important;
-	margin-right: 30%;
 }
 
-/*Delete section confirm popup*/
+#addAdminButton {
+	margin-right: 39%;
+}
+
+/*Delete admin confirm popup*/
 .dialogdemoBasicUsage #popupContainer {
 	position: relative;
 }
@@ -62,7 +65,7 @@
 /*material icons*/
 
 
-.material-icons2, .material-icons2-disabled {
+.material-icons2 {
 	font-family: 'Material Icons';
 	font-weight: normal;
 	font-style: normal;
@@ -74,6 +77,8 @@
 	word-wrap: normal;
 	white-space: nowrap;
 	direction: ltr;
+	float: right;
+	margin-right: 10px;
 	/* Support for all WebKit browsers. */
 	-webkit-font-smoothing: antialiased;
 	/* Support for Safari and Chrome. */
@@ -84,11 +89,27 @@
 	font-feature-settings: 'liga';
 }
 
-.material-icons2-disabled {
-	color: #808486;
+	.material-icons2:hover {
+		cursor: pointer;
+	}
+
+
+.btn-primary-disabled, .btn-primary {
+	color: #ffffff;
+	background-color: #008cba;
+	border-color: #0079a1;
+}
+
+.btn-primary-disabled {
+	background-color: #808486;
+}
+
+md-input-container .md-input {
+	border-color: #008cba !important;
+	width: 150% !important;
 }
 
 
-.material-icons2:hover {
-	cursor: pointer;
+.pageContent {
+	width: 70%;
 }

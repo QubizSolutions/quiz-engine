@@ -156,9 +156,12 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
+    <Compile Include="Areas\M\Controllers\Api\GuidsController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
     <Compile Include="Areas\M\Controllers\Api\SectionsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\NewQuestionController.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
@@ -196,16 +199,23 @@
     <Compile Include="ViewModels\QuestionListItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\M\App\Admins\addadmin.controller.js" />
+    <Content Include="Areas\M\App\Admins\admins.controller.js" />
+    <Content Include="Areas\M\App\Admins\admins.service.js" />
+    <Content Include="Areas\M\App\Admins\admins.template.html" />
+    <Content Include="Areas\M\App\Admins\editadmin.controller.js" />
     <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
-    <Content Include="Areas\M\App\Sections\sections.service.js" />
+    <Content Include="Areas\M\App\Common\Services\guids.service.js" />
     <Content Include="Areas\M\App\Sections\sections.controller.js" />
-    <Content Include="Areas\M\Content\app-style\SectionStyle.css" />
+    <Content Include="Areas\M\App\Sections\sections.service.js" />
+    <Content Include="Areas\M\App\Services\question-data.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
     <Content Include="Areas\M\App\Tests\tests.template.html" />
-    <Content Include="Areas\M\Content\angular-material\material-fonts\material-icons.css" />
+    <Content Include="Areas\M\Content\angular-material\admins.style.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
@@ -706,7 +716,8 @@
     <Content Include="Areas\M\Views\Template\Questions.cshtml" />
     <Content Include="Areas\M\Views\Template\Sections.cshtml" />
     <Content Include="Areas\M\Views\Template\Test.cshtml" />
-    <Content Include="Areas\M\Content\angular-material\material-fonts\2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2" />
+    <Content Include="Areas\M\Views\Template\AddAdmin.cshtml" />
+    <Content Include="Areas\M\Views\Template\EditAdmin.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
