@@ -3,9 +3,11 @@
     ViewBag.Title = "PrintPreview";
 }
 
-<div class="col-md-1"/><div id="detail" class="col-md-10" style="padding-bottom:50px">
-    <exam-detail exam="SelectedExam"></exam-detail>
-</div>
-<div class="col-md-12 md-no-float" style="overflow: auto">
-    <answers-details-print exam="SelectedExam" expanded="expanded"></answers-details-print>
-</div>
+	<a class="btn btn-primary print-button" style="float:left;margin-left:15px;" ng-click="print()">Print</a>
+	<div class="col-md-1" /><div id="detail" class="col-md-10" style="padding-bottom:50px">
+		<exam-detail exam="SelectedExam"></exam-detail>
+	</div>
+	<div class="col-md-12 md-no-float" style="overflow: auto">
+		<answers-details-print exam="SelectedExam" expanded="expanded"></answers-details-print>
+	</div>
+

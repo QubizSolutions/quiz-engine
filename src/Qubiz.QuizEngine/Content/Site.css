@@ -39,6 +39,9 @@ textarea {
     .danger-print{
         background-color: #f2dede !important;
     }
+	.print-button{
+		display:none;
+	}
 
 }
 

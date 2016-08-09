@@ -14,6 +14,9 @@
                 $scope.SelectedExam = data;
             });
         }
+        $scope.print = function (print) {
+        	window.print();
+        };
 
     }
 })();
