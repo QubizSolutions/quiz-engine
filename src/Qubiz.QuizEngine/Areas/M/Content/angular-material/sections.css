@@ -1,0 +1,118 @@
+﻿.virtualRepeatdemoDeferredLoading #vertical-container {
+	height: 400px;
+	width: 70%;
+}
+
+.virtualRepeatdemoDeferredLoading .repeated-item {
+	border-bottom: 1px solid #ddd;
+	box-sizing: border-box;
+	height: 50px;
+	padding-top: 10px;
+}
+
+.virtualRepeatdemoDeferredLoading md-content {
+	margin: 16px;
+	margin-left: -3%;
+	margin-top: 3%;
+}
+
+.virtualRepeatdemoDeferredLoading md-virtual-repeat-container {
+	border: solid 1px grey;
+}
+
+.virtualRepeatdemoDeferredLoading .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
+	padding-left: 16px;
+}
+
+.custom-button {
+    background-color: #008cba !important;
+	color: white !important;
+}
+
+
+.dialogdemoBasicUsage #popupContainer {
+	position: relative;
+}
+
+.dialogdemoBasicUsage .footer {
+	width: 100%;
+	text-align: center;
+	margin-left: 20px;
+}
+
+.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+		font-size: 0.8em;
+		margin-top: 50px;
+}
+
+.dialogdemoBasicUsage button {
+	width: 200px;
+}
+
+.dialogdemoBasicUsage div#status {
+	color: #c60008;
+}
+
+.dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
+	margin-bottom: 0;
+}
+
+
+/*material icons*/
+
+.material-icons2 {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 28px; /* Preferred icon size */
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	float: right;
+	margin-right: 10px;
+	/* Support for all WebKit browsers. */
+	-webkit-font-smoothing: antialiased;
+	/* Support for Safari and Chrome. */
+	text-rendering: optimizeLegibility;
+	/* Support for Firefox. */
+	-moz-osx-font-smoothing: grayscale;
+	/* Support for IE. */
+	font-feature-settings: 'liga';
+}
+	.material-icons2:hover {
+		cursor: pointer;
+}
+
+
+.btn-primary-disabled, .btn-primary {
+	color: #ffffff;
+	background-color: #008cba;
+	border-color: #0079a1;
+}
+
+.btn-primary-disabled {
+	background-color: #808486;
+}
+
+md-input-container .md-input {
+	border-color: #008cba !important;
+	width: 98% !important;
+}
+
+
+.pageContent {
+	width: 70%;
+}
+.contentSize{
+    width: 600px;
+    height: 200px;
+    margin-top: 150px;
+}
+.custom-button-padding{
+    padding-left: 25px;
+    padding-right: 25px;
+}

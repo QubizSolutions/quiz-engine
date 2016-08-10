@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "AddSection";
+}
+<div class="container layout-column">
+    <section class="demo-container md-whiteframe-z1 contentSize">
+        <md-toolbar class="demo-toolbar md-primary _md qubiz-color">
+            <div class="md-toolbar-tools">
+                <h3 class="ng-binding">{{vm.Message}}</h3>
+            </div>
+        </md-toolbar>
+        <md-input-container class="md-icon-float md-block md-icon-left md-input-has-value">
+            <label for="input_324">{{vm.section.Name}}</label>  
+                <input type="text" class="ng-pristine ng-valid md-input ng-not-empty ng-touched " id="input_324" aria-invalid="false" ng-model="vm.section.Name"><div class="md-errors-spacer"></div>
+                </md-input-container>     
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-left button-padding">
+            <md-button class="md-raised md-primary custom-button" ng-click="vm.goBack('/sections')">Back</md-button>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-right button-padding">
+            <md-button class="md-raised md-primary custom-button" ng-click="vm.save()">Save</md-button>
+            <md-button class="md-raised md-primary custom-button" ng-click="vm.reset()">Reset</md-button>
+        </section>
+    </section>
+</div>
+

@@ -218,6 +218,7 @@
     <Content Include="Areas\M\Content\angular-material\admins.style.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
+    <Content Include="Areas\M\Content\angular-material\sections.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
@@ -718,6 +719,8 @@
     <Content Include="Areas\M\Views\Template\Test.cshtml" />
     <Content Include="Areas\M\Views\Template\AddAdmin.cshtml" />
     <Content Include="Areas\M\Views\Template\EditAdmin.cshtml" />
+    <Content Include="Areas\M\Views\Template\AddSection.cshtml" />
+    <Content Include="Areas\M\App\Sections\addEditSections.controller.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

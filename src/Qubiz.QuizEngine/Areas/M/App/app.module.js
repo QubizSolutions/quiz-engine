@@ -37,6 +37,11 @@
                 	controller: "EditAdminController",
                 	controllerAs: "EditCtrl"
                 })
+                .when('/addSection/:id', {
+                    templateUrl: "Template/AddSection",
+                    controller: "AddEditSectionController",
+                    controllerAs: "vm"
+                })
 		        .otherwise({ redirectTo: "/tests" });
         });
 })();

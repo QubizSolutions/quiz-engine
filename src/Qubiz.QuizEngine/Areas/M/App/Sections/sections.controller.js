@@ -5,25 +5,29 @@
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
     
-    SectionsController.$inject = ['sectionsDataService', '$mdDialog'];
+    SectionsController.$inject = ['sectionsDataService', '$mdDialog', '$location','guidsService'];
 
-    function SectionsController(sectionsDataService, mdDialog) {
+    function SectionsController(sectionsDataService, mdDialog,location,guidsService) {
         
         var vm = this;
-        vm.sections = {};
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
 
         getAllSections();
 
-        function getAllSections() {
-            vm.sections = sectionsDataService.getAllSections()
-                .then(getSectionsSuccess)
-                .catch(errorCallBack);
+        vm.addSection = function () {
+            location.path('/addSection/' + guidsService.getGuid());
+        }
+        vm.goBack = function (path) {
+            location.path(path);
         }
 
-        function getSectionsSuccess(sections) {
-            vm.sections = sections;
+        function getAllSections() {
+            vm.sections = sectionsDataService.getAllSections()
+                .then(function (sections) {
+                    vm.sections = sections;
+                })
+                .catch(errorCallBack);
         }
 
         function errorCallBack(errorMsg) {
@@ -32,15 +36,15 @@
 
         function deleteSection(id) {
             sectionsDataService.deleteSection(id)
-                .then(deleteSuccess)
+                .then(function () {
+                    getAllSections();
+                })
                 .catch(errorCallBack);
         }
 
-        function deleteSuccess(response) {
-            getAllSections();
+        vm.edit = function (sectionId) {
+            location.path('/addSection/' + sectionId);
         }
-
-        // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
                   .title('Are you sure you want to delete this section?')

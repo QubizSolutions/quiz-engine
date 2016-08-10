@@ -15,17 +15,17 @@
 					</label>
 					<input type="text" ng-model="searchSection">
 				</md-input-container>
-
+                <md-button class="md-raised md-primary custom-button add-section-button" ng-click="SectionsCtrl.addSection()">Add Section</md-button>
 			</div>
 			<br />
 			<md-virtual-repeat-container id="vertical-container">
 				<div md-virtual-repeat="section in SectionsCtrl.sections | filter:searchSection" class="repeated-item" flex="">
 					{{section.Name}}
 					<i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="SectionsCtrl.showConfirm($event,section)">delete</i>
-				</div>
+                    <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="SectionsCtrl.edit(section.ID)">edit</i>
+                </div>
 			</md-virtual-repeat-container>
 		</md-content>
-
 	</div>
 </div>
 
