@@ -44,8 +44,12 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         public async Task<IHttpActionResult> DeleteAdmin(Guid id)
         {
             ValidationError[] validationErrors = await adminService.DeleteAdminAsync(id, User.Identity.Name);
+
             if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance["GetAllAdmins()"] = null;
                 return Ok();
+            }
 
             return BadRequest();
         }
@@ -54,8 +58,12 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         public async Task<IHttpActionResult> UpdateAdmin([FromBody]Admin admin)
         {
             ValidationError[] validationErrors = await adminService.UpdateAdminAsync(admin, User.Identity.Name);
+
             if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance["GetAllAdmins()"] = null;
                 return Ok();
+            }
 
             return BadRequest();
         }
