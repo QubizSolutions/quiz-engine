@@ -28,9 +28,7 @@
                 method: 'POST',
                 url: 'api/NewAdmin/AddAdmin',
                 data: admin
-            }).then(function (result) {
-                return result;
-            })
+            });
         }
 
         function editAdmin(admin) {
@@ -38,9 +36,7 @@
                 method: 'PUT',
                 url: 'api/NewAdmin/UpdateAdmin',
                 data: admin
-            }).then(function (result) {
-                return result;
-            })
+            });
         }
 
         function getById(id) {
@@ -51,7 +47,6 @@
         }
 
         function getAllAdminsSuccess(response) {
-            console.log(response);
             return response.data;
         }
 
