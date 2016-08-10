@@ -9,13 +9,14 @@
     function QuestionListController(questionData) {
         var vm = this;
 
-        vm.itemsPerPage = 10;
+        vm.itemsPerPage = 8;
 
+        vm.addPage = addPage;
         vm.nextPage = nextPage;
         vm.prevPage = prevPage;
         vm.updatePage = updatePage;
         vm.selectQuestion = selectQuestion;
-        vm.deleteSelected = deleteSelected;
+        vm.deleteQuestion = deleteQuestion;
 
         vm.pageNumber = 0;
 
@@ -32,9 +33,8 @@
             vm.selectedQuestion = angular.copy(question);
         }
 
-        function deleteSelected() {
-            questionData.deleteQuestion(vm.selectedQuestion).then(function (result) {
-                vm.selectedQuestion = null;
+        function deleteQuestion(question) {
+            questionData.deleteQuestion(question).then(function (result) {
                 updatePage();
             });
         }
@@ -46,6 +46,10 @@
         function prevPage() {
             vm.pageNumber--;
             updatePage();
+        }
+
+        function addPage(){
+
         }
 
         function updatePage() {
