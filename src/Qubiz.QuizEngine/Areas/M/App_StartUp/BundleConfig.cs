@@ -19,8 +19,12 @@ namespace Qubiz.QuizEngine.Areas.M
             Bundle angularMaterialBundle = new Bundle("~/Areas/M/angular-material", cssTransforms);
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/angular-material.css");
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.style.css");
-            angularMaterialBundle.Include("~/Areas/M/Content/angular-material/sections.css");
             bundles.Add(angularMaterialBundle);
+
+            Bundle materialLiteBundle = new Bundle("~/Content/mdl", cssTransforms);
+            materialLiteBundle.Include("~/Content/mdl-v1.1.2/material.css");
+			materialLiteBundle.Include("~/Areas/M/Content/table.style.css");
+			bundles.Add(materialLiteBundle);
 
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
             angularBundle.Include("~/Areas/M/Scripts/angular.js");
@@ -28,6 +32,7 @@ namespace Qubiz.QuizEngine.Areas.M
             angularBundle.Include("~/Areas/M/Scripts/angular-animate.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-material.js");
             angularBundle.Include("~/Areas/M/Scripts/angular-route.js");
+            angularBundle.Include("~/Content/mdl-v1.1.2/material.js");
             bundles.Add(angularBundle);
 
             Bundle appModuleBundle = new Bundle("~/Areas/M/module", jsTransforms);
@@ -43,8 +48,7 @@ namespace Qubiz.QuizEngine.Areas.M
             Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
             controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
             controllerBundle.Include("~/Areas/M/App/Controllers/question-list.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Sections/addEditSections.controller.js");
+			controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
             bundles.Add(controllerBundle);
 
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);

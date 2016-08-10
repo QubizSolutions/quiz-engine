@@ -2,30 +2,31 @@
 @{
     ViewBag.Title = "Sections";
 }
-<div class="container">
-	<h2>Sections</h2>
-	<div ng-cloak="" class="virtualRepeatdemoDeferredLoading">
-		<md-content layout="column " style="background-color: transparent">
-			<br />
-			<div>
-				<md-input-container flex="">
-					<label>
-						Search
-						<i class="material-icons">search</i>
-					</label>
-					<input type="text" ng-model="searchSection">
-				</md-input-container>
-                <md-button class="md-raised md-primary custom-button add-section-button" ng-click="SectionsCtrl.addSection()">Add Section</md-button>
-			</div>
-			<br />
-			<md-virtual-repeat-container id="vertical-container">
-				<div md-virtual-repeat="section in SectionsCtrl.sections | filter:searchSection" class="repeated-item" flex="">
-					{{section.Name}}
-					<i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="SectionsCtrl.showConfirm($event,section)">delete</i>
-                    <i class="material-icons2 btn-primary" style="float:right; margin-right:10px" ng-click="SectionsCtrl.edit(section.ID)">edit</i>
-                </div>
-			</md-virtual-repeat-container>
-		</md-content>
-	</div>
+<div class="container qubiz-container">
+
+	<md-input-container flex="" class="col-md-4 col-md-offset-1">
+		<label class="qubiz-search-label">
+			Search section
+			<i class="material-icons">search</i>
+		</label>
+		<input valign="bottom" type="text" ng-model="searchSection">
+	</md-input-container>
+
+	<md-button class="CustomButton md-primary col-md-1 col-md-offset-4 qubiz-add-button" ng-href="#/addSection">
+		Add
+	</md-button>
+
+	<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp col-md-9 col-md-offset-1">
+		<tbody>
+			<tr ng-repeat="section in SectionsCtrl.sections | filter:searchSection" class="repeated-item" flex="">
+				<td class="qubiz-table-text-align">{{section.Name}}</td>
+				<td>
+					<i class="material-icons2 btn-primary qubiz-edit-button" ng-click="SectionsCtrl.showConfirm($event,section)">delete</i>
+					<a class="material-icons2 btn-primary" ng-href="#/editSection/{{section.ID}}">mode_edit</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
 </div>
 

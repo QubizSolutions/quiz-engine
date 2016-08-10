@@ -218,8 +218,8 @@
     <Content Include="Areas\M\Content\angular-material\admins.style.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
-    <Content Include="Areas\M\Content\angular-material\sections.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
+    <Content Include="Areas\M\Content\table.style.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
     <Content Include="Areas\M\Scripts\angular-aria.js" />
@@ -233,6 +233,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\mdl-v1.1.2\material.css" />
+    <Content Include="Content\mdl-v1.1.2\material.js" />
+    <Content Include="Content\mdl-v1.1.2\material.min.css" />
+    <Content Include="Content\mdl-v1.1.2\material.min.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -719,8 +723,11 @@
     <Content Include="Areas\M\Views\Template\Test.cshtml" />
     <Content Include="Areas\M\Views\Template\AddAdmin.cshtml" />
     <Content Include="Areas\M\Views\Template\EditAdmin.cshtml" />
-    <Content Include="Areas\M\Views\Template\AddSection.cshtml" />
-    <Content Include="Areas\M\App\Sections\addEditSections.controller.js" />
+    <Content Include="Content\mdl-v1.1.2\package.json" />
+    <Content Include="Content\mdl-v1.1.2\material.min.js.map" />
+    <Content Include="Content\mdl-v1.1.2\material.min.css.map" />
+    <Content Include="Content\mdl-v1.1.2\LICENSE" />
+    <Content Include="Content\mdl-v1.1.2\bower.json" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -798,7 +805,9 @@
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

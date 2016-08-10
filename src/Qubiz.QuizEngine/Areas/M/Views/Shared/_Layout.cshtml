@@ -4,6 +4,7 @@
     <title>QuizEngine1</title>
     <meta charset="utf-8" />
     @Styles.Render("~/Areas/M/angular-material")
+    @Styles.Render("~/Content/mdl")
     <link href="~/Areas/M/Content/bootstrap.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/Areas/M/App/MenuBar.StyleSheet.css" rel="stylesheet" />
@@ -17,9 +18,8 @@
                     <a class="customLogoLink" href="#/tests"><h2>Qubiz Quiz</h2></a>
                 </div>
                 <span flex></span>
-
-                <h4 style="padding-right: 5%" class="md-icon-button pull-right">
-                    @((Authorizer.IsAdmin(User.Identity.Name)) ? string.Format("Hello, {0}", User.Identity.Name.Substring(6)) : "Hello, Guest") !
+                <h4 style="padding-right: 5%; text-wrap: none">
+                    @((Authorizer.IsAdmin(User.Identity.Name)) ? string.Format("Hello, {0}", User.Identity.Name.Substring(6)) : "Hello, Guest")!
                 </h4>
             </div>
         </div>
@@ -28,7 +28,7 @@
     {
         <div ng-cloak ng-controller="MainBarTabsController as mainBarTabsCtrl">
             <md-content style="align-self:center center; align-content:center">
-                <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
+                <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom md-selected="$root.activeTab">
                     <md-tab md-on-select="mainBarTabsCtrl.testsTabClick()">
                         <div class="menuItem">Tests </div>
                     </md-tab>
