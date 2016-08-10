@@ -47,7 +47,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 
             if (validationErrors.Length == 0)
             {
-                ApplicationMemoryCache.Instance["GetAllAdmins()"] = null;
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
                 return Ok();
             }
 
@@ -61,7 +61,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 
             if (validationErrors.Length == 0)
             {
-                ApplicationMemoryCache.Instance["GetAllAdmins()"] = null;
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
                 return Ok();
             }
 

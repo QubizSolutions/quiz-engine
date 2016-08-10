@@ -19,10 +19,17 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-
-                if(admin.Name.Substring(0,6).ToUpper() == ("QUBIZ" + '\\'))
+                if (admin.Name.Length >= 6)
                 {
-                    admin.Name = admin.Name.Substring(6);
+
+                    if (admin.Name.Substring(0, 6).ToUpper() == ("QUBIZ" + '\\'))
+                    {
+                        admin.Name = admin.Name.Substring(6);
+                    }
+                    else
+                    {
+                        admin.Name = "QUBIZ" + '\\' + admin.Name;
+                    }
                 }
                 else
                 {
