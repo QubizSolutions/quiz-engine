@@ -1,4 +1,4 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,32 +6,46 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-    public class OptionRepository : BaseRepository<OptionDefinition>, IOptionRepository
+    public class OptionRepository : BaseRepository<Entities.OptionDefinition>, IOptionRepository
     {
         public OptionRepository(QuizEngineDataContext context, UnitOfWork unitOfWork)
             : base(context, unitOfWork)
         { }
 
-        public void DeleteOptions(OptionDefinition[] options)
+        public async void DeleteOptionsAsync(OptionDefinition[] options)
         {
-			foreach(var option in options)
-			{
-				dbSet.Remove(option);
-			}
+            Entities.OptionDefinition[] entityOptions = options.Select(o => new Entities.OptionDefinition
+            {
+                Answer = o.Answer,
+                ID = o.ID,
+                IsCorrectAnswer = o.IsCorrectAnswer,
+                Order = o.Order,
+                QuestionID = o.QuestionID
+            }).ToArray();
+            foreach (var option in entityOptions)
+            {
+                var entry = dbContext.Entry(option);
+                if (entry.State == System.Data.Entity.EntityState.Detached)
+                {
+                    dbSet.Attach(option);
+                }
+                dbSet.Remove(option);
+            }
+        }
+
+        public async Task<IEnumerable<OptionDefinition>> GetOptionsByQuestionIDAsync(Guid id)
+        {
+            return dbSet.Where(o => o.QuestionID == id).Select(o => new OptionDefinition
+            {
+                Answer = o.Answer,
+                ID = o.ID,
+                IsCorrectAnswer = o.IsCorrectAnswer,
+                Order = o.Order,
+                QuestionID = o.QuestionID
+            }).ToList(); 
 		}
 
-        public Task<OptionDefinition[]> GetOptionsByQuestionIDs(Guid[] ids)
-        {
-			/*List<OptionDefinition> list = new List<OptionDefinition>();
-			foreach (var id in ids)
-			{
-				list.Add(dbSet.Where(i => i.QuestionID == id).ToList()[0]);
-			}
-			return list.ToArray();*/
-			return null; 
-		}
-
-        public void UpdateOptions(Guid questionID, OptionDefinition[] options)
+        public async void UpdateOptionsAsync(Guid questionID, OptionDefinition[] options)
         {
             throw new NotImplementedException();
         }
