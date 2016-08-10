@@ -20,6 +20,7 @@
                     getGuid();
                 });
         }
+
         scope.showConfirm = function (ev, Admin) {
             var confirm = mdDialog.confirm()
                   .title('Are you sure you want to delete the admin '+Admin.Name+' ?')
@@ -48,8 +49,16 @@
             for (var i = 0; i < vm.admins.length; i++)
                 vm.admins[i].Name = vm.admins[i].Name.substring( 6);
         }
-        function getGuid()
-        {
+
+        function getAdmin(name) {
+            console.log(name);
+            for (var i = 0; i < vm.admins.length; i++)
+                if (name == vm.admins[i].Name)
+                    return vm.admins[i].Name;
+
+        }
+
+        function getGuid(){
 
             vm.Guid =guidsService.getGuid();
         }

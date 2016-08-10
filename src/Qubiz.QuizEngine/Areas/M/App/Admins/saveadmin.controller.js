@@ -8,50 +8,40 @@
     SaveAdminController.$inject = ['adminsService', '$location', '$mdDialog','$routeParams'];
 
     function SaveAdminController(adminsService, location, mdDialog,$routeParams) {
-
         var vm = this;
         var originalAdmin;
-        adminsService.GetById($routeParams.id)
+        adminsService.getById($routeParams.id)
         .then(function (result) {
-            vm.Admin = result.data;
-            if (vm.Admin != null) {
-                originalAdmin = vm.Admin.Name;
-                vm.Reset = function () {
-                    vm.Admin.Name = originalAdmin;
+            vm.admin = result.data;
+            if (vm.admin != null) {
+                originalAdmin = vm.admin.Name;
+                vm.reset = function () {
+                    vm.admin.Name = originalAdmin;
                 }
-                vm.Save = editAdmin;
+                vm.save = editAdmin;
             }
             else {
-                vm.Save = addAdmin;
-                vm.Admin = {};
-                vm.Admin.ID = $routeParams.id;
-                vm.Reset = reset;
-                console.log(vm.Admin);
-
+                vm.save = addAdmin;
+                vm.admin = {};
+                vm.admin.ID = $routeParams.id;
+                vm.admin.Name = "";
+                vm.reset = function () {
+                    vm.admin.Name = "";
+                }
             }
-        }
-        );
+        });
         
-    
-
-
-        function reset() {
-            vm.Admin = {};
-        }
-
-         
         function addAdmin() {
-
-            console.log(vm.Admin);
-            if (vm.Admin.Name == "")
+            if (vm.admin.Name =="")
             {
                 mdDialog.show(mdDialog
                     .alert()
                     .title('Error')
-                    .textContent('Admin name cannot be empty!')
+                    .textContent("Empty Name")
                     .ok('Ok!'));
+                return;
             }
-            adminsService.AddAdmin(vm.Admin)
+            adminsService.addAdmin(vm.admin)
                 .then(function () {
                             location.path('/administrators');
                 })
@@ -59,19 +49,32 @@
                    mdDialog.show(mdDialog
                   .alert()
                   .title('Error')
-                  .textContent('This admin already exists.')
+                  .textContent("Already Exists")
                   .ok('Ok!'));
                 });
-         }
-        function editAdmin()
-        {
-            adminsService.EditAdmin(vm.Admin)
+        }
+
+        function editAdmin() {
+            if (vm.admin.Name == "") {
+                mdDialog.show(mdDialog
+                    .alert()
+                    .title('Error')
+                    .textContent("Empty Name")
+                    .ok('Ok!'));
+                return;
+            }
+            adminsService.editAdmin(vm.admin)
                 .then(function () {
                     location.path('/administrators');
+                })
+                .catch(function (result) {
+                    mdDialog.show(mdDialog
+                        .alert()
+                        .title('Error')
+                        .textContent("Already Exists")
+                        .ok('Ok!'));
                 });
-
-          }
-
+         }
      }
     
 })();
