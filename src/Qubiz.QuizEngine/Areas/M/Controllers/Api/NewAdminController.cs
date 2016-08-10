@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
+    [Admin]
     public class NewAdminController : ApiController
     {
         private readonly IAdminService adminService;

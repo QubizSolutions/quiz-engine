@@ -22,19 +22,25 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 if (admin.Name.Length >= 6)
                 {
 
-                    if (admin.Name.Substring(0, 6).ToUpper() == ("QUBIZ" + '\\'))
+                    if (admin.Name.Substring(0, 6).ToUpper() == @"QUBIZ\")
                     {
                         admin.Name = admin.Name.Substring(6);
                     }
                     else
                     {
-                        admin.Name = "QUBIZ" + '\\' + admin.Name;
+                        admin.Name = @"QUBIZ\" + admin.Name;
                     }
                 }
                 else
                 {
-                    admin.Name = "QUBIZ" + '\\' + admin.Name;
+                    admin.Name = @"QUBIZ\" + admin.Name;
                 }
+
+                string withoutDomain = admin.Name.Substring(6);
+                if (withoutDomain.Contains(@"QUBIZ\"))
+                    return new ValidationError[1] { new ValidationError() { Message = "Invalid Name!" } };
+
+
                 Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
                 if (someAdmin != null)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
@@ -83,16 +89,30 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<ValidationError[]> UpdateAdminAsync(Admin admin, string originator)
         {
+
+
+
+
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (admin.Name.Substring(0, 6).ToUpper() != ("QUBIZ" + '\\'))
+                if (admin.Name.Length < 6)
                 {
-                    admin.Name = "QUBIZ" + '\\' + admin.Name;
+                    admin.Name = @"QUBIZ\" + admin.Name;
                 }
+                else
+                {
+                    if (admin.Name.Substring(0, 6) != @"QUBIZ\")
+                    {
+                        admin.Name = @"QUBIZ\" + admin.Name;
+                    }
+                }
+                string withoutDomain = admin.Name.Substring(6);
+                if (withoutDomain.Contains(@"QUBIZ\"))
+                    return new ValidationError[1] { new ValidationError() { Message = "Invalid Name!" } };
 
                 Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
                 Admin loggedIn = await unitOfWork.AdminRepository.GetByNameAsync(originator);
-                if (someAdmin!=null || loggedIn.ID==admin.ID)
+                if (someAdmin != null || loggedIn.ID == admin.ID)
                     return new ValidationError[1] { new ValidationError() { Message = "You can't change yourself!" } };
 
                 Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
