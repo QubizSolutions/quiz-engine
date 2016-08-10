@@ -102,6 +102,7 @@
 
 .btn-primary-disabled {
  background-color: #808486;
+ 
 }
 
 md-input-container .md-input {
@@ -122,3 +123,35 @@ md-input-container .md-input {
     padding-left: 25px;
     padding-right: 25px;
 }
+
+md-input-container .md-errors-spacer {
+ min-height: 0;
+}
+
+.qubiz-search-label {
+ font-size: 30px;
+ font-weight: 300;
+ padding-left: 7% !important;
+ color: grey !important;
+}
+
+.qubiz-add-button {
+ margin-left: 30.9% !important;
+ min-width: 10% !important;
+}
+
+.qubiz-container {
+ padding-top: 2%;
+}
+
+.qubiz-table-text-align {
+ text-align: left !important;
+}
+
+.qubiz-edit-button {
+ float: right !important;
+ margin-right: 10px !important;
+}
+.mdl-data-table tbody tr {
+    transition-duration: 0s !important;
+}    
