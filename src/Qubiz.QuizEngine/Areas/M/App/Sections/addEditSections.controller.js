@@ -10,8 +10,9 @@
     function AddEditSectionController(sectionsDataService, location, guidsService, routeParams) {
       
     	var vm = this;
-    	vm.section = {};
     	var clone = {};
+    	vm.section = {};
+    	vm.message = {};
 
     	activate();
 
@@ -22,32 +23,47 @@
         vm.reset = function () {
             vm.section = vm.clone;
         }
-
-        vm.save = ((vm.Message == "Add section") ? add : edit);
             
-        function add () {
+        function add() {
             vm.section.ID = routeParams.id;
+            if (vm.section.Name == null) {
+               return console.log("Name can't be empty");
+            }
         	sectionsDataService.addSection(vm.section)
-        	console.log(vm.section);
-        	location.path('/sections');
-                
+        	    .then(function () {
+        	        location.path("/sections");
+        	    });
         }
 
         function edit() {
-            if (!angular.equals(vm.section, clone)) {
-                dataService.editSection(routeParams.id, vm.section)
-                .then(function () {
-                    location.path("/sections");
-                });
+            if (vm.section.Name == "") {
+                return console.log("Name can't be empty");
             }
+            if (!angular.equals(vm.section, clone)) {
+                sectionsDataService.editSection(routeParams.id, vm.section)
+                    .then(function () {
+                        location.path("/sections");
+                    });
+                }
         }
 
         function activate() {
-            sectionsDataService.readSection(routeParams.id).then(function () {
-                vm.section = section;
-                clone = angular.copy(section);
+            sectionsDataService.readSection(routeParams.id).then(function (response) {
+
+                if (response == null) {
+                    vm.message = "Add section"
+                    vm.Name = "Name";
+                }
+                else {
+                    vm.message = "Edit section";
+                    vm.section = response;
+                }
+
+                vm.save = ((vm.message == "Add section") ? add : edit );
+
+                clone = angular.copy(vm.section);
             });
-            ((vm.section == null) ? vm.Message = "Add section" : vm.Message = "Edit section");
+           
         }
     }
 })();

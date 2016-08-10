@@ -1,0 +1,20 @@
+﻿.custom-button-padding {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.qubiz-button {
+    background-color: #008cba !important;
+    color: white !important;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: large;
+    min-width: 10% !important;
+}
+.custom-bar {
+    border-color: #008cba !important;
+    width: 95% !important;
+}
+.mdl-data-table tbody tr {
+    transition-duration: 0s !important;
+}

@@ -66,8 +66,10 @@ namespace Qubiz.QuizEngine.Services.SectionService
 				{
 					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
 				}
+                dbSection = await unitOfWork.SectionRepository.GetSectionByIDAsync(section.ID);
 
-				Mapper.Map(section, dbSection);
+                Mapper.Map(section, dbSection);
+
 				unitOfWork.SectionRepository.Update(dbSection);
 
 				await unitOfWork.SaveAsync();

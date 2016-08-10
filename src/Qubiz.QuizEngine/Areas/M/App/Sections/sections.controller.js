@@ -10,6 +10,7 @@
     function SectionsController(sectionsDataService, mdDialog,location,guidsService) {
         
         var vm = this;
+        vm.sections = {};
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
 
@@ -18,8 +19,9 @@
         vm.addSection = function () {
             location.path('/addSection/' + guidsService.getGuid());
         }
-        vm.goBack = function (path) {
-            location.path(path);
+
+        vm.editSection = function (sectionId) {
+            location.path('/addSection/' + sectionId);
         }
 
         function getAllSections() {
@@ -30,10 +32,6 @@
                 .catch(errorCallBack);
         }
 
-        function errorCallBack(errorMsg) {
-            console.log('Error message: ' + errorMsg);
-        }
-
         function deleteSection(id) {
             sectionsDataService.deleteSection(id)
                 .then(function () {
@@ -42,12 +40,13 @@
                 .catch(errorCallBack);
         }
 
-        vm.edit = function (sectionId) {
-            location.path('/addSection/' + sectionId);
+        function errorCallBack(errorMsg) {
+            console.log('Error message: ' + errorMsg);
         }
+
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
-                  .title('Are you sure you want to delete this section?')
+                  .title('Are you sure you want to delete ' + section.Name + ' ?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
                   .cancel('No')
