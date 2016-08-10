@@ -1,19 +1,25 @@
 ﻿(function () {
-    quizApp.controller("PrintController", PrintController);
+	quizApp.controller("PrintController", PrintController);
 
-    PrintController.$inject = ['$scope', '$routeParams', 'examData', 'testData'];
+	PrintController.$inject = ['$scope', '$routeParams', '$window', 'examData', 'testData'];
 
-    function PrintController($scope, $routeParams, examData, testData) {
+	function PrintController($scope, $routeParams, $window, examData, testData) {
 
-        var vm = this;
-        vm.getData = getData;
-        getData();
+		var vm = this;
+		vm.exam = undefined;
+		vm.getData = getData;
+		vm.print = print;
 
-        function getData() {
-            examData.getExam($routeParams.examID).then(function (data) {
-                $scope.SelectedExam = data;
-            });
-        }
+		getData();
 
-    }
+		function print() {
+			$window.print();
+		}
+
+		function getData() {
+			examData.getExam($routeParams.examID).then(function (exam) {
+				vm.exam = exam;
+			});
+		}
+	}
 })();
