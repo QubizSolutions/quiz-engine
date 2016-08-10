@@ -30,7 +30,7 @@
 		}
 
 		function deleteSection(id) {
-			return $http.delete('api/Section/DeleteSection/' + id)
+			return $http.delete('api/Section/Delete/' + id)
                 .then(deletedSuccess)
                 .catch(errorCallBack);
 		}

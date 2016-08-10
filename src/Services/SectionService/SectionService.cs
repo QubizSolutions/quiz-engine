@@ -41,14 +41,14 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			}
 		}
 
-		public async Task<ValidationError[]> AddSectionAsync(Section newSection)
+		public async Task<ValidationError[]> AddSectionAsync(Section section)
 		{
 			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
 			{
-				Section section = await unitOfWork.SectionRepository.GetSectionByNameAsync(newSection.Name);
-				if (section == null)
+				Section dbSection = await unitOfWork.SectionRepository.GetSectionByNameAsync(section.Name);
+				if (dbSection == null)
 				{
-					unitOfWork.SectionRepository.Create(newSection);
+					unitOfWork.SectionRepository.Create(section);
 					await unitOfWork.SaveAsync();
 					return new ValidationError[0];
 				}
@@ -57,22 +57,22 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			}
 		}
 
-		public async Task<ValidationError[]> UpdateSectionAsync(Section newSection)
+		public async Task<ValidationError[]> UpdateSectionAsync(Section section)
 		{
 			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
 			{
-				Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(newSection.ID);
-				if (section == null)
+				Section dbSection = await unitOfWork.SectionRepository.GetSectionByNameAsync(section.Name);
+				if (dbSection != null && dbSection.ID != section.ID)
 				{
 					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
 				}
 
-				Mapper.Map(newSection, section);
-				unitOfWork.SectionRepository.Update(section);
+				Mapper.Map(section, dbSection);
+				unitOfWork.SectionRepository.Update(dbSection);
 
 				await unitOfWork.SaveAsync();
 
-				return new ValidationError[0]; 
+				return new ValidationError[0];
 			}
 		}
 

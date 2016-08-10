@@ -219,6 +219,7 @@
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
+    <Content Include="Areas\M\Content\table.style.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
     <Content Include="Areas\M\Scripts\angular-aria.js" />

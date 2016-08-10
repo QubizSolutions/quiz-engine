@@ -27,6 +27,9 @@
 .CustomButton {
     background-color: #008cba;
 	color: white !important;
+	font-weight: 300; 
+ 	text-transform: capitalize; 
+ 	font-size: large;
 }
 
 #addAdminButton {
@@ -106,9 +109,8 @@
 
 md-input-container .md-input {
 	border-color: #008cba !important;
-	width: 150% !important;
+	width: 100% !important;
 }
-
 
 .pageContent {
 	width: 70%;
