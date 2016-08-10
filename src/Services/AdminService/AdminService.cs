@@ -19,26 +19,28 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (admin.Name.Length >= 6)
+
+                if (admin.Name.Length >= 7)
                 {
 
-                    if (admin.Name.Substring(0, 6).ToUpper() == @"QUBIZ\")
+                    if (admin.Name.Substring(6, 6).ToUpper() == @"QUBIZ\")
                     {
                         admin.Name = admin.Name.Substring(6);
                     }
                     else
-                    {
+                       if(admin.Name.Substring(0, 6).ToUpper() != @"QUBIZ\")
+                        {
                         admin.Name = @"QUBIZ\" + admin.Name;
-                    }
+                        }
                 }
                 else
                 {
                     admin.Name = @"QUBIZ\" + admin.Name;
                 }
-
                 string withoutDomain = admin.Name.Substring(6);
                 if (withoutDomain.Contains(@"QUBIZ\"))
                     return new ValidationError[1] { new ValidationError() { Message = "Invalid Name!" } };
+
 
 
                 Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
