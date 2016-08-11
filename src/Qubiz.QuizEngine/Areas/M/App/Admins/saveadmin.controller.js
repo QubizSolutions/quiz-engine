@@ -48,7 +48,7 @@
                 .then(function () {
                             location.path('/administrators');
                 })
-                .catch(function () {
+                .catch(function (result) {
                    mdDialog.show(mdDialog
                   .alert()
                   .title('Error')
