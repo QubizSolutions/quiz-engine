@@ -9,7 +9,6 @@
 
 	function sectionsDataService($http, $q) {
 
-
 		this.getAllSections = getAllSections;
 		this.deleteSection = deleteSection;
 		this.readSection = readSection;
@@ -27,9 +26,6 @@
 
 		function deleteSection(id) {
 			return $http.delete('api/section/delete/' + id)
-                .then(function () {
-                    getAllSections();
-                })
                 .catch(errorCallBack);
 		}
 

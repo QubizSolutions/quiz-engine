@@ -1,69 +1,63 @@
 ﻿(function () {
 	'use strict'
 
-    angular
+	angular
         .module('quizEngineMaterial')
         .controller('AddEditSectionController', AddEditSectionController)
-    
-    AddEditSectionController.$inject = ['sectionsDataService', '$location', 'guidsService', '$routeParams'];
 
-    function AddEditSectionController(sectionsDataService, location, guidsService, routeParams) {
-      
-    	var vm = this;
-    	var clone = {};
-    	vm.section = {};
-    	vm.message = {};
+	AddEditSectionController.$inject = ['sectionsDataService', '$location', 'guidsService', '$routeParams'];
 
-    	activate();
+	function AddEditSectionController(sectionsDataService, location, guidsService, routeParams) {
 
-        vm.goBack = function (path) {
-            location.path(path);
-        }
+		var vm = this;
+		vm.section = {};
+		vm.message = {};
+		vm.save = save;
+		vm.reset = reset;
 
-        vm.reset = function () {
-            vm.section = vm.clone;
-        }
-            
-        function add() {
-            vm.section.ID = routeParams.id;
-            if (vm.section.Name == null) {
-               return console.log("Name can't be empty");
-            }
-        	sectionsDataService.addSection(vm.section)
-        	    .then(function () {
-        	        location.path("/sections");
-        	    });
-        }
+		var clone = {};
+		var isAdd = false;
 
-        function edit() {
-            if (vm.section.Name == "") {
-                return console.log("Name can't be empty");
-            }
-            if (!angular.equals(vm.section, clone)) {
-                sectionsDataService.editSection(routeParams.id, vm.section)
-                    .then(function () {
-                        location.path("/sections");
-                    });
-                }
-        }
+		activate();
 
-        function activate() {
-            sectionsDataService.readSection(routeParams.id).then(function (response) {
+		function save() {
+			if (!vm.section.Name)
+				return;
 
-                if (response == null) {
-                    vm.message = "Add section"
-                    vm.Name = "Name";
-                }
-                else {
-                    vm.message = "Edit section";
-                    vm.section = response;
-                }
+			if (isAdd) {
+				vm.section.ID = routeParams.id;
+				sectionsDataService.addSection(vm.section)
+					.then(function () {
+						location.path("/sections");
+					});
+			}
+			else {
+				if (!angular.equals(vm.section, clone)) {
+					sectionsDataService.editSection(routeParams.id, vm.section)
+						.then(function () {
+							location.path("/sections");
+						});
+				}
+			}
+		}
 
-                vm.save = ((vm.message == "Add section") ? add : edit );
+		function reset() {
+			angular.copy(clone, vm.section);
+		}
 
-                clone = angular.copy(vm.section);
-            });
-           
-        }
-    }
+		function activate() {
+			sectionsDataService.readSection(routeParams.id).then(function (section) {
+				if (section == null) {
+					isAdd = true;
+					vm.message = "Add section"
+					vm.Name = "Name";
+				}
+				else {
+					vm.message = "Edit section";
+					vm.section = section;
+					clone = angular.copy(vm.section);
+				}
+			});
+		}
+	}
 })();

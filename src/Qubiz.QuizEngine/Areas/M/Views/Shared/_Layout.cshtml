@@ -3,8 +3,8 @@
 <head>
     <title>QuizEngine1</title>
     <meta charset="utf-8" />
-    @Styles.Render("~/Areas/M/angular-material")
     @Styles.Render("~/Content/mdl")
+    @Styles.Render("~/Areas/M/angular-material")
     <link href="~/Areas/M/Content/bootstrap.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -27,7 +27,7 @@
     {
         <div ng-cloak ng-controller="MainBarTabsController as mainBarTabsCtrl">
             <md-content style="align-self:center center; align-content:center">
-                <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom md-selected="$root.activeTab">
+                <md-tabs style="padding-left: 10%; padding-right: 10%" md-dynamic-height md-border-bottom>
                     <md-tab md-on-select="mainBarTabsCtrl.testsTabClick()">
                         <div class="menuItem">Tests </div>
                     </md-tab>
