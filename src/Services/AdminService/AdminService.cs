@@ -84,6 +84,8 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 if (dbAdmin != null && dbAdmin.ID != admin.ID)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
+                dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+
                 dbAdmin.Name = admin.Name.Substring(0, 6).ToUpper() + admin.Name.Substring(6);
 
                 unitOfWork.AdminRepository.Update(dbAdmin);
