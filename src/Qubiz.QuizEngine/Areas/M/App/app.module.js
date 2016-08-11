@@ -3,56 +3,28 @@
 
     angular
         .module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial'])
-		.run(function($rootScope) {
-			$rootScope.activeTab = 0;
-		})
         .config(function ($routeProvider) {
         	$routeProvider
                 .when("/tests", {
-                	templateUrl: "Template/Test",
-                	resolve: {
-                		"activeTab": function ($rootScope) {
-                			$rootScope.activeTab = 0;
-                		}
-                	}
+                	templateUrl: "Template/Test"
                 })
                 .when("/exams", {
-                	templateUrl: "Template/Exams",
-                	resolve: { 
-                		"activeTab" : function($rootScope) {
-                			$rootScope.activeTab = 1;
-                		}
-                	}
+                	templateUrl: "Template/Exams"
                 })
                 .when("/questions", {
 					templateUrl: "Template/Questions",
 					controller: "QuestionListController",
-					controllerAs: "questionCtrl",
-					resolve: {
-						"activeTab": function ($rootScope) {
-							$rootScope.activeTab = 2;
-						}
-					}
+					controllerAs: "questionCtrl"
                 })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
                     controller: "SectionsController",
-                    controllerAs: "SectionsCtrl",
-                    resolve: {
-                    	"activeTab": function ($rootScope) {
-                    		$rootScope.activeTab = 3;
-                    	}
-                    }
+                    controllerAs: "sectionsCtrl"
                 })
                 .when("/administrators", {
                 	templateUrl: "Template/Administrators",
                 	controller: "AdminsController",
-                	controllerAs: "AdminCtrl",
-                	resolve: {
-                		"activeTab": function ($rootScope) {
-                			$rootScope.activeTab = 4;
-                		}
-                	}
+                	controllerAs: "AdminCtrl"
                 })
                 .when('/addadmin', {
                 	templateUrl: "Template/AddAdmin",
