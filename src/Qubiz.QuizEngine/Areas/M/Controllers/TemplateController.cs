@@ -33,5 +33,9 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         {
             return PartialView();
         }
+        public ActionResult AddSection()
+        {
+            return PartialView();
+        }
     }
 }

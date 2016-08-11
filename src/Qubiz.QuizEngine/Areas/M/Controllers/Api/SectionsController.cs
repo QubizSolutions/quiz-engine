@@ -19,17 +19,45 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		}
 
 		[HttpGet]
-		public async Task<IHttpActionResult> GetSections()
+		public async Task<IHttpActionResult> Get()
 		{
 			Section[] sections = await sectionService.GetAllSectionsAsync();
 
 			return Ok(sections);
 		}
 
+		[HttpGet]
+		public async Task<IHttpActionResult> Get(Guid id)
+		{
+			Section section = await sectionService.GetSectionAsync(id);
+
+			return Ok(section);
+		}
+
 		[HttpDelete]
-		public async Task<IHttpActionResult> DeleteSection(Guid id)
+		public async Task<IHttpActionResult> Delete(Guid id)
 		{
 			ValidationError[] validationErrors = await sectionService.DeleteSectionAsync(id);
+			if (validationErrors.Any())
+				return BadRequest();
+
+			return Ok();
+		}
+
+		[HttpPost]
+		public async Task<IHttpActionResult> Post(Section section)
+		{
+			ValidationError[] validationErrors = await sectionService.AddSectionAsync(section);
+			if (validationErrors.Any())
+				return BadRequest();
+
+			return Ok();
+		}
+
+		[HttpPut]
+		public async Task<IHttpActionResult> Put(Section section)
+		{
+			ValidationError[] validationErrors = await sectionService.UpdateSectionAsync(section);
 			if (validationErrors.Any())
 				return BadRequest();
 
