@@ -5,7 +5,7 @@
        .module('quizEngineMaterial')
        .controller('AdminsController', AdminsController);
 
-    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog','guidsService','$location'];
+    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog', 'guidsService', '$location'];
 
     function AdminsController(adminsService, scope, mdDialog, guidsService, location) {
 

@@ -202,7 +202,6 @@
     <Content Include="Areas\M\App\Admins\saveadmin.controller.js" />
     <Content Include="Areas\M\App\Admins\admins.controller.js" />
     <Content Include="Areas\M\App\Admins\admins.service.js" />
-    <Content Include="Areas\M\App\Admins\admins.template.html" />
     <Content Include="Areas\M\App\app.module.js" />
     <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
