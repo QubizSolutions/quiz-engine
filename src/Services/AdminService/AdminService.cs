@@ -19,18 +19,17 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (!admin.Name.Contains(@"QUBIZ\") && !admin.Name.Contains(@"qubiz\") && !admin.Name.Contains(@"Qubiz\"))
-                {
+                if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
                     admin.Name = @"QUBIZ\" + admin.Name;
-                }
 
                 Admin adminUser = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
                 if (adminUser != null)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
-                admin.Name = admin.Name.Substring(0,6).ToUpper() + admin.Name.Substring(6);
+                admin.Name = admin.Name.Substring(0, 6).ToUpper() + admin.Name.Substring(6);
 
                 unitOfWork.AdminRepository.Create(admin);
+
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
@@ -47,6 +46,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
                     return new ValidationError[1] { new ValidationError() { Message = "Can't delete yourself" } };
 
                 unitOfWork.AdminRepository.Delete(admin);
+
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
@@ -73,22 +73,21 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (admin.Name.Substring(0, 6) != @"QUBIZ\")
-                {
+                if (admin.Name.ToLowerInvariant().Substring(0, 6) != @"qubiz\")
                     admin.Name = @"QUBIZ\" + admin.Name;
-                }
 
-            if(admin.Name == originator)
-            {
-                return new ValidationError[1] { new ValidationError() { Message = "You cannot edit yourself!" } };
-            }
-                Admin adminUser = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
-                if (adminUser != null)
-                    return new ValidationError[1] { new ValidationError() { Message = "User already exists!" } };
+                Admin dbAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (dbAdmin != null)
+                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
-                Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+                dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+                if (string.Compare(dbAdmin.Name, originator, true) == 0)
+                    return new ValidationError[1] { new ValidationError() { Message = "You cannot edit yourself!" } };
+
                 Mapper.Map(admin, dbAdmin);
+
                 unitOfWork.AdminRepository.Update(dbAdmin);
+
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
