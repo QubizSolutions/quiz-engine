@@ -32,7 +32,6 @@
                   .targetEvent(ev)
                   .cancel('No')
                   .ok('Yes');
-
             mdDialog.show(confirm).then(function () {
                 deleteAdmin(Admin.ID);
             });
@@ -55,12 +54,10 @@
             {
                 vm.admins[i] = withDomain[i];
                 vm.admins[i].Name=vm.admins[i].Name.substring(6);
-
             }
         }
 
         function goToSave(){
-
             vm.guid = guidsService.getGuid();
             location.path('/saveadmin/' + vm.guid);
         }
