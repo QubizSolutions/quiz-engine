@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
+    [Admin]
     public class NewAdminController : ApiController
     {
         private readonly IAdminService adminService;
@@ -35,29 +36,40 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         {
             ValidationError[] validationErrors = await adminService.AddAdminAsync(admin, User.Identity.Name);
             if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
                 return Ok();
+            }
 
-            return BadRequest();
+            return BadRequest(validationErrors[0].Message);
         }
 
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteAdmin(Guid id)
         {
             ValidationError[] validationErrors = await adminService.DeleteAdminAsync(id, User.Identity.Name);
-            if (validationErrors.Length == 0)
-                return Ok();
 
-            return BadRequest();
+            if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
+                return Ok();
+            }
+
+            return BadRequest(validationErrors[0].Message);
         }
 
         [HttpPut]
         public async Task<IHttpActionResult> UpdateAdmin([FromBody]Admin admin)
         {
             ValidationError[] validationErrors = await adminService.UpdateAdminAsync(admin, User.Identity.Name);
-            if (validationErrors.Length == 0)
-                return Ok();
 
-            return BadRequest();
+            if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
+                return Ok();
+            }
+
+            return BadRequest(validationErrors[0].Message);
         }
     }
 }
