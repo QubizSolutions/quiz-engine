@@ -73,7 +73,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (admin.Name.ToLowerInvariant().Substring(0, 6) != @"qubiz\")
+                if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
                     admin.Name = @"QUBIZ\" + admin.Name;
 
                 Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
