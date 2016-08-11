@@ -4,12 +4,12 @@
     angular
         .module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial'])
         .config(function ($routeProvider) {
-            $routeProvider
+        	$routeProvider
                 .when("/tests", {
-                    templateUrl: "Template/Test"
+                	templateUrl: "Template/Test"
                 })
                 .when("/exams", {
-                    templateUrl: "Template/Exams"
+                	templateUrl: "Template/Exams"
                 })
                 .when("/questions", {
 					templateUrl: "Template/Questions",
@@ -19,7 +19,7 @@
                 .when("/sections", {
                     templateUrl: "Template/Sections",
                     controller: "SectionsController",
-                    controllerAs : "SectionsCtrl"
+                    controllerAs: "sectionsCtrl"
                 })
                 .when("/administrators", {
                 	templateUrl: "Template/Administrators",
@@ -36,6 +36,11 @@
                 	templateUrl: "Template/EditAdmin",
                 	controller: "EditAdminController",
                 	controllerAs: "EditCtrl"
+                })
+                .when('/addSection/:id', {
+                    templateUrl: "Template/AddSection",
+                    controller: "AddEditSectionController",
+                    controllerAs: "vm"
                 })
 		        .otherwise({ redirectTo: "/tests" });
         });

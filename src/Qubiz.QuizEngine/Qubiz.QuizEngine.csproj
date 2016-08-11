@@ -207,8 +207,9 @@
     <Content Include="Areas\M\App\app.module.js" />
     <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
-    <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
     <Content Include="Areas\M\App\Common\Services\guids.service.js" />
+    <Content Include="Areas\M\App\MenuBar.StyleSheet.css" />
+    <Content Include="Areas\M\App\Sections\addEditSections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.service.js" />
     <Content Include="Areas\M\App\Services\question-data.service.js" />
@@ -218,7 +219,9 @@
     <Content Include="Areas\M\Content\angular-material\admins.style.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.css" />
     <Content Include="Areas\M\Content\angular-material\angular-material.min.css" />
+    <Content Include="Areas\M\Content\sections.css" />
     <Content Include="Areas\M\Content\bootstrap.css" />
+    <Content Include="Areas\M\Content\table.style.css" />
     <Content Include="Areas\M\Scripts\angular-animate.js" />
     <Content Include="Areas\M\Scripts\angular-animate.min.js" />
     <Content Include="Areas\M\Scripts\angular-aria.js" />
@@ -727,6 +730,7 @@
     <Content Include="Content\mdl-v1.1.2\material.min.css.map" />
     <Content Include="Content\mdl-v1.1.2\LICENSE" />
     <Content Include="Content\mdl-v1.1.2\bower.json" />
+    <Content Include="Areas\M\Views\Template\AddSection.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

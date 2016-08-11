@@ -5,9 +5,9 @@
         .module('quizEngineMaterial')
         .controller('SectionsController', SectionsController)
     
-    SectionsController.$inject = ['sectionsDataService', '$mdDialog'];
+    SectionsController.$inject = ['sectionsDataService', '$mdDialog', '$location', 'guidsService'];
 
-    function SectionsController(sectionsDataService, mdDialog) {
+    function SectionsController(sectionsDataService, mdDialog, location, guidsService) {
         
         var vm = this;
         vm.sections = {};
@@ -16,34 +16,37 @@
 
         getAllSections();
 
+        vm.addSection = function () {
+            location.path('/addSection/' + guidsService.getGuid());
+        }
+
+        vm.editSection = function (sectionId) {
+            location.path('/addSection/' + sectionId);
+        }
+
         function getAllSections() {
             vm.sections = sectionsDataService.getAllSections()
-                .then(getSectionsSuccess)
+                .then(function (sections) {
+                    vm.sections = sections;
+                })
                 .catch(errorCallBack);
         }
 
-        function getSectionsSuccess(sections) {
-            vm.sections = sections;
+        function deleteSection(id) {
+            sectionsDataService.deleteSection(id)
+                .then(function () {
+                	vm.sections.splice(vm.sections.indexOf(id), 1);
+                })
+                .catch(errorCallBack);
         }
 
         function errorCallBack(errorMsg) {
             console.log('Error message: ' + errorMsg);
         }
 
-        function deleteSection(id) {
-            sectionsDataService.deleteSection(id)
-                .then(deleteSuccess)
-                .catch(errorCallBack);
-        }
-
-        function deleteSuccess(response) {
-            getAllSections();
-        }
-
-        // pop up menu
         vm.showConfirm = function (ev, section) {
             var confirm = mdDialog.confirm()
-                  .title('Are you sure you want to delete this section?')
+                  .title('Are you sure you want to delete ' + section.Name + ' ?')
                   .textContent('This action cannot be undone.')
                   .targetEvent(ev)
                   .cancel('No')
