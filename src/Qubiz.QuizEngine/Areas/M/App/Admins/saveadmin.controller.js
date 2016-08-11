@@ -36,7 +36,7 @@
             });
 
         function addAdmin() {
-            if (vm.admin.Name) {
+            if (vm.admin.Name=="") {
                 mdDialog.show(mdDialog
                     .alert()
                     .title('Error')
@@ -58,7 +58,7 @@
         }
 
         function editAdmin() {
-            if (vm.admin.Name) {
+            if (vm.admin.Name=="") {
                 mdDialog.show(mdDialog
                     .alert()
                     .title('Error')
