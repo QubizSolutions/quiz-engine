@@ -28,6 +28,8 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 if (adminUser != null)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
+                admin.Name = admin.Name.Substring(0,6).ToUpper() + admin.Name.Substring(6);
+
                 unitOfWork.AdminRepository.Create(admin);
                 await unitOfWork.SaveAsync();
 
