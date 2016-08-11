@@ -41,7 +41,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(validationErrors[0].Message);
         }
 
         [HttpDelete]
@@ -55,7 +55,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(validationErrors[0].Message);
         }
 
         [HttpPut]
@@ -69,7 +69,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(validationErrors[0].Message);
         }
     }
 }

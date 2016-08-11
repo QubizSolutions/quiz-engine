@@ -8,28 +8,31 @@
     SaveAdminController.$inject = ['adminsService', '$location', '$mdDialog','$routeParams'];
 
     function SaveAdminController(adminsService, location, mdDialog,$routeParams) {
+
         var vm = this;
+
         var originalAdmin;
+
         adminsService.getById($routeParams.id)
-        .then(function (result) {
-            vm.admin = result.data;
-            if (vm.admin != null) {
-                originalAdmin = vm.admin.Name;
-                vm.reset = function () {
-                    vm.admin.Name = originalAdmin;
+            .then(function (result) {
+                vm.admin = result.data;
+                if (vm.admin != null) {
+                 originalAdmin = vm.admin.Name;
+                    vm.reset = function () {
+                        vm.admin.Name = originalAdmin;
+                    }
+                    vm.save = editAdmin;
                 }
-                vm.save = editAdmin;
-            }
-            else {
-                vm.save = addAdmin;
-                vm.admin = {};
-                vm.admin.ID = $routeParams.id;
-                vm.admin.Name = "";
-                vm.reset = function () {
+                else {
+                    vm.save = addAdmin;
+                    vm.admin = {};
+                    vm.admin.ID = $routeParams.id;
                     vm.admin.Name = "";
+                    vm.reset = function () {
+                        vm.admin.Name = "";
+                    }
                 }
-            }
-        });
+                });
         
         function addAdmin() {
             if (vm.admin.Name =="")
@@ -49,7 +52,7 @@
                    mdDialog.show(mdDialog
                   .alert()
                   .title('Error')
-                  .textContent("Already Exists")
+                  .textContent(result.data.Message)
                   .ok('Ok!'));
                 });
         }
@@ -71,7 +74,7 @@
                     mdDialog.show(mdDialog
                         .alert()
                         .title('Error')
-                        .textContent("Already Exists")
+                        .textContent(result.data.Message)
                         .ok('Ok!'));
                 });
          }

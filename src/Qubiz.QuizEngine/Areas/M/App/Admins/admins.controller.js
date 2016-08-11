@@ -5,25 +5,28 @@
        .module('quizEngineMaterial')
        .controller('AdminsController', AdminsController);
 
-    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog','guidsService'];
+    AdminsController.$inject = ['adminsService', '$scope', '$mdDialog','guidsService','$location'];
 
-    function AdminsController(adminsService, scope, mdDialog,guidsService) {
+    function AdminsController(adminsService, scope, mdDialog, guidsService, location) {
+
         var vm = this;
+
         vm.deleteAdmin = deleteAdmin;
+
         getAllAdmins();
+
+        vm.goToSave = goToSave;
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
                 .then(function (result) {
-                    vm.admins = result;
-                    displayList();
-                    getGuid();
+                    displayList(result.data);
                 });
         }
 
         scope.showConfirm = function (ev, Admin) {
             var confirm = mdDialog.confirm()
-                  .title('Are you sure you want to delete the admin '+Admin.Name+' ?')
+                  .title('Are you sure you want to delete the admin '+ Admin.Name +' ?')
                   .textContent('This action cannot be undone.')
                   .ariaLabel('Lucky day')
                   .targetEvent(ev)
@@ -45,22 +48,21 @@
                     scope.status = 'You cannot delete yourself.';
                 });
         }
-        function displayList() {
-            for (var i = 0; i < vm.admins.length; i++)
-                vm.admins[i].Name = vm.admins[i].Name.substring( 6);
+
+        function displayList(withDomain) {
+            vm.admins = [];
+            for (var i = 0; i < withDomain.length; i++)
+            {
+                vm.admins[i] = withDomain[i];
+                vm.admins[i].Name=vm.admins[i].Name.substring(6);
+
+            }
         }
 
-        function getAdmin(name) {
-            console.log(name);
-            for (var i = 0; i < vm.admins.length; i++)
-                if (name == vm.admins[i].Name)
-                    return vm.admins[i].Name;
+        function goToSave(){
 
-        }
-
-        function getGuid(){
-
-            vm.Guid =guidsService.getGuid();
+            vm.guid = guidsService.getGuid();
+            location.path('/saveadmin/' + vm.guid);
         }
         
     }
