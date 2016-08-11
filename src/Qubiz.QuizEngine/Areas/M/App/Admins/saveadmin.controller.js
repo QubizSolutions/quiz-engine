@@ -5,9 +5,9 @@
        .module('quizEngineMaterial')
        .controller('SaveAdminController', SaveAdminController);
 
-    SaveAdminController.$inject = ['adminsService', '$location', '$mdDialog','$routeParams'];
+    SaveAdminController.$inject = ['adminsService', '$location', '$mdDialog', '$routeParams'];
 
-    function SaveAdminController(adminsService, location, mdDialog,$routeParams) {
+    function SaveAdminController(adminsService, location, mdDialog, $routeParams) {
 
         var vm = this;
 
