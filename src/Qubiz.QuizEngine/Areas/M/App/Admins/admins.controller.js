@@ -10,12 +10,10 @@
     function AdminsController(adminsService, scope, mdDialog, guidsService, location) {
 
         var vm = this;
-
         vm.deleteAdmin = deleteAdmin;
+        vm.goToSave = goToSave;
 
         getAllAdmins();
-
-        vm.goToSave = goToSave;
 
         function getAllAdmins() {
             adminsService.getAllAdmins()
@@ -61,6 +59,5 @@
             vm.guid = guidsService.getGuid();
             location.path('/saveadmin/' + vm.guid);
         }
-        
     }
 })();

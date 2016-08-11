@@ -10,6 +10,7 @@
     function SaveAdminController(adminsService, location, mdDialog, $routeParams) {
 
         var vm = this;
+        vm.admin = undefined;
 
         var originalAdmin;
 
@@ -17,7 +18,7 @@
             .then(function (result) {
                 vm.admin = result.data;
                 if (vm.admin != null) {
-                 originalAdmin = vm.admin.Name;
+                    originalAdmin = vm.admin.Name;
                     vm.reset = function () {
                         vm.admin.Name = originalAdmin;
                     }
@@ -32,11 +33,10 @@
                         vm.admin.Name = "";
                     }
                 }
-                });
-        
+            });
+
         function addAdmin() {
-            if (vm.admin.Name =="")
-            {
+            if (vm.admin.Name) {
                 mdDialog.show(mdDialog
                     .alert()
                     .title('Error')
@@ -46,19 +46,19 @@
             }
             adminsService.addAdmin(vm.admin)
                 .then(function () {
-                            location.path('/administrators');
+                    location.path('/administrators');
                 })
                 .catch(function (result) {
-                   mdDialog.show(mdDialog
-                  .alert()
-                  .title('Error')
-                  .textContent(result.data.Message)
-                  .ok('Ok!'));
+                    mdDialog.show(mdDialog
+                   .alert()
+                   .title('Error')
+                   .textContent(result.data.Message)
+                   .ok('Ok!'));
                 });
         }
 
         function editAdmin() {
-            if (vm.admin.Name == "") {
+            if (vm.admin.Name) {
                 mdDialog.show(mdDialog
                     .alert()
                     .title('Error')
@@ -77,7 +77,7 @@
                         .textContent(result.data.Message)
                         .ok('Ok!'));
                 });
-         }
-     }
-    
+        }
+    }
+
 })();

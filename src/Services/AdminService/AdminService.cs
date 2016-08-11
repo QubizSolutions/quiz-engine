@@ -76,15 +76,15 @@ namespace Qubiz.QuizEngine.Services.AdminService
                 if (admin.Name.ToLowerInvariant().Substring(0, 6) != @"qubiz\")
                     admin.Name = @"QUBIZ\" + admin.Name;
 
-                Admin dbAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
-                if (dbAdmin != null)
-                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
-
-                dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+                Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
                 if (string.Compare(dbAdmin.Name, originator, true) == 0)
                     return new ValidationError[1] { new ValidationError() { Message = "You cannot edit yourself!" } };
 
-                Mapper.Map(admin, dbAdmin);
+                dbAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (dbAdmin != null && dbAdmin.ID != admin.ID)
+                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
+
+                dbAdmin.Name = admin.Name.Substring(0, 6).ToUpper() + admin.Name.Substring(6);
 
                 unitOfWork.AdminRepository.Update(dbAdmin);
 
