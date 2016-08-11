@@ -36,7 +36,10 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
         {
             ValidationError[] validationErrors = await adminService.AddAdminAsync(admin, User.Identity.Name);
             if (validationErrors.Length == 0)
+            {
+                ApplicationMemoryCache.Instance.Remove("GetAllAdmins()");
                 return Ok();
+            }
 
             return BadRequest();
         }

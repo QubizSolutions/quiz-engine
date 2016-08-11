@@ -19,36 +19,16 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-
-                if (admin.Name.Length >= 7)
-                {
-
-                    if (admin.Name.Substring(6, 6).ToUpper() == @"QUBIZ\")
-                    {
-                        admin.Name = admin.Name.Substring(6);
-                    }
-                    else
-                       if(admin.Name.Substring(0, 6).ToUpper() != @"QUBIZ\")
-                        {
-                        admin.Name = @"QUBIZ\" + admin.Name;
-                        }
-                }
-                else
+                if (!admin.Name.Contains(@"QUBIZ\") && !admin.Name.Contains(@"qubiz\") && !admin.Name.Contains(@"Qubiz\"))
                 {
                     admin.Name = @"QUBIZ\" + admin.Name;
                 }
-                string withoutDomain = admin.Name.Substring(6);
-                if (withoutDomain.Contains(@"QUBIZ\"))
-                    return new ValidationError[1] { new ValidationError() { Message = "Invalid Name!" } };
 
-
-
-                Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
-                if (someAdmin != null)
+                Admin adminUser = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (adminUser != null)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
                 unitOfWork.AdminRepository.Create(admin);
-
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
@@ -65,7 +45,6 @@ namespace Qubiz.QuizEngine.Services.AdminService
                     return new ValidationError[1] { new ValidationError() { Message = "Can't delete yourself" } };
 
                 unitOfWork.AdminRepository.Delete(admin);
-
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
@@ -86,45 +65,28 @@ namespace Qubiz.QuizEngine.Services.AdminService
             {
                 return await unitOfWork.AdminRepository.GetAllAdminsAsync();
             }
-
         }
 
         public async Task<ValidationError[]> UpdateAdminAsync(Admin admin, string originator)
         {
-
-
-
-
             using (IUnitOfWork unitOfWork = new UnitOfWork(config))
             {
-                if (admin.Name.Length < 6)
+                if (admin.Name.Substring(0, 6) != @"QUBIZ\")
                 {
                     admin.Name = @"QUBIZ\" + admin.Name;
                 }
-                else
-                {
-                    if (admin.Name.Substring(0, 6) != @"QUBIZ\")
-                    {
-                        admin.Name = @"QUBIZ\" + admin.Name;
-                    }
-                }
-                string withoutDomain = admin.Name.Substring(6);
-                if (withoutDomain.Contains(@"QUBIZ\"))
-                    return new ValidationError[1] { new ValidationError() { Message = "Invalid Name!" } };
 
-                Admin someAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
-                Admin loggedIn = await unitOfWork.AdminRepository.GetByNameAsync(originator);
-                if (someAdmin != null || loggedIn.ID == admin.ID)
-                    return new ValidationError[1] { new ValidationError() { Message = "You can't change yourself!" } };
+            if(admin.Name == originator)
+            {
+                return new ValidationError[1] { new ValidationError() { Message = "You cannot edit yourself!" } };
+            }
+                Admin adminUser = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (adminUser != null)
+                    return new ValidationError[1] { new ValidationError() { Message = "User already exists!" } };
 
                 Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
-
                 Mapper.Map(admin, dbAdmin);
-
-
-
                 unitOfWork.AdminRepository.Update(dbAdmin);
-
                 await unitOfWork.SaveAsync();
 
                 return new ValidationError[0];
