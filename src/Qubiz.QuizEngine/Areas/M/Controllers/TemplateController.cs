@@ -20,6 +20,15 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         {
             return PartialView();
         }
+        public ActionResult QuestionsEdit()
+        {
+            return PartialView();
+        }
+
+        public ActionResult QuestionsAdd()
+        {
+            return PartialView();
+        }
 
         public ActionResult Sections()
         {

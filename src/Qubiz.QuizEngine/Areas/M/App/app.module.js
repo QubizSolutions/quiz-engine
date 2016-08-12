@@ -16,6 +16,16 @@
 					controller: "QuestionListController",
 					controllerAs: "questionCtrl"
                 })
+                .when("/editquestion/:id", {
+					templateUrl: "Template/QuestionsEdit",
+					controller: "QuestionEditController",
+					controllerAs: "questionCtrl"
+                })
+                .when("/addquestion", {
+                    templateUrl: "Template/QuestionsAdd",
+                    controller: "QuestionAddController",
+                    controllerAs: "questionCtrl"
+                    })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
                     controller: "SectionsController",
