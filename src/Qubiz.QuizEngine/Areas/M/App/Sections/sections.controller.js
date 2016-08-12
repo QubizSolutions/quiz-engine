@@ -10,7 +10,7 @@
     function SectionsController(sectionsDataService, mdDialog, location, guidsService) {
         
         var vm = this;
-        vm.sections = {};
+        vm.sections = [];
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
 
@@ -25,17 +25,17 @@
         }
 
         function getAllSections() {
-            vm.sections = sectionsDataService.getAllSections()
-                .then(function (sections) {
-                    vm.sections = sections;
+            sectionsDataService.getAllSections()
+                .then(function (response) {
+                    vm.sections = response.data;
                 })
                 .catch(errorCallBack);
         }
 
-        function deleteSection(id) {
-            sectionsDataService.deleteSection(id)
+        function deleteSection(section) {
+            sectionsDataService.deleteSection(section.ID)
                 .then(function () {
-                	vm.sections.splice(vm.sections.indexOf(id), 1);
+                    vm.sections.splice(vm.sections.indexOf(section), 1);
                 })
                 .catch(errorCallBack);
         }
@@ -53,7 +53,7 @@
                   .ok('Yes');
 
             mdDialog.show(confirm).then(function () {
-                deleteSection(section.ID);
+                deleteSection(section);
                 vm.status = 'Section deleted successfuly.';
             }, function () {
                 vm.status = 'Deletion aborted.';
