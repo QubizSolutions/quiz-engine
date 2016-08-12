@@ -36,7 +36,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
                 QuestionText = q.QuestionText,
                 SectionID = q.SectionID,
                 Type = q.Type
-            }).ToList()[0];
+            }).FirstOrDefault();
         }
 
         public async Task UpdateQuestionAsync(QuestionDefinition question)
@@ -51,7 +51,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
         public async Task DeleteQuestionAsync(Guid id)
         {
-            Entities.QuestionDefinition question = dbSet.Where(i => i.ID == id).ToList()[0];
+            Entities.QuestionDefinition question = dbSet.Where(i => i.ID == id).FirstOrDefault();
             Delete(question);
         }
     }
