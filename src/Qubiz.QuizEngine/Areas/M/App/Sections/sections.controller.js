@@ -10,7 +10,7 @@
     function SectionsController(sectionsDataService, mdDialog, location, guidsService) {
         
         var vm = this;
-        vm.sections = {};
+        vm.sections = [];
         vm.getAllSections = getAllSections;
         vm.deleteSection = deleteSection;
 
@@ -25,9 +25,9 @@
         }
 
         function getAllSections() {
-            vm.sections = sectionsDataService.getAllSections()
-                .then(function (sections) {
-                    vm.sections = sections;
+            sectionsDataService.getAllSections()
+                .then(function (response) {
+                    vm.sections = response.data;
                 })
                 .catch(errorCallBack);
         }
