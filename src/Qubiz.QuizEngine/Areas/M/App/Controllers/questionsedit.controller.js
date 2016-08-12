@@ -17,8 +17,8 @@
         vm.setCorrectOption = setCorrectOption;
         vm.typeChanged = typeChanged;
 
-        sectionsDataService.getAllSections().then(function (sections) {
-            vm.Sections = sections;
+        sectionsDataService.getAllSections().then(function (response) {
+            vm.Sections = response.data;
         });
 
         questionData.getQuestionByID($routeParams.id).then(function (result) {
