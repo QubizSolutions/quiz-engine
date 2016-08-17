@@ -12,14 +12,11 @@ namespace Qubiz.QuizEngine.Services
     {
         private IConfig config;
 
-        public QuestionService(IConfig config)
-        {
-            this.config = config;
-        }
-
+       
+        UnitOfWorkFactory factory = new UnitOfWorkFactory();
         public async Task DeleteQuestionAsync(Guid id)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = factory.Create())
             {
                 await unitOfWork.QuestionRepository.DeleteQuestionAsync(id);
             }
@@ -27,7 +24,7 @@ namespace Qubiz.QuizEngine.Services
 
         public async Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pagenumber)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = factory.Create())
             {
                 IQueryable<Database.Entities.QuestionDefinition> questions = await unitOfWork.QuestionRepository.GetQuestionsAsync();
 
