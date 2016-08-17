@@ -1,8 +1,7 @@
 ﻿using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 
-
-namespace Qubiz.QuizEngine.Services
+namespace Qubiz.QuizEngine.Database
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
@@ -21,6 +20,6 @@ namespace Qubiz.QuizEngine.Services
         {
             return new UnitOfWork(config);
         }
-
+        public static UnitOfWorkFactory factory = new UnitOfWorkFactory();
     }
 }

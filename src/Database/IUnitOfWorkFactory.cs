@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 
-namespace Qubiz.QuizEngine.Services
+namespace Qubiz.QuizEngine.Database
 {
     public interface IUnitOfWorkFactory
     {
