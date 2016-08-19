@@ -1,0 +1,20 @@
+﻿<div class="container layout-column col-md-5 col-md-offset-3 qubiz-container">
+	<section class="demo-container md-whiteframe-z1 contentSize">
+		<md-toolbar class="demo-toolbar md-primary _md qubiz-color">
+			<div class="md-toolbar-tools">
+				<h3 class="ng-binding">{{vm.message}}</h3>
+			</div>
+		</md-toolbar>
+		<md-input-container class="md-icon-float md-block md-icon-left md-input-has-value custom-bar">
+			<label for="input_324">{{vm.Name}}</label>
+			<input type="text" class="ng-pristine ng-valid md-input ng-not-empty ng-touched custom-bar" id="input_324" aria-invalid="false" ng-model="vm.section.Name"><div class="md-errors-spacer"></div>
+		</md-input-container>
+		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-left button-padding">
+			<md-button class="md-raised md-primary custom-button-padding qubiz-button" ng-href="#/sections">Back</md-button>
+		</section>
+		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="pull-right button-padding">
+			<md-button class="md-raised md-primary custom-button-padding qubiz-button" ng-click="vm.save()">Save</md-button>
+			<md-button class="md-raised md-primary custom-button-padding qubiz-button" ng-click="vm.reset()">Reset</md-button>
+		</section>
+	</section>
+</div>

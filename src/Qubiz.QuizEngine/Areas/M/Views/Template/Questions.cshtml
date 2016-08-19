@@ -2,40 +2,40 @@
     ViewBag.Title = "Questions";
 }
 
-<div class="col-md-10 col-md-offset-1" style="margin-top: 20px;">
-    <div class="col-md-2">
-        <md-toolbar layout="row">
-            <div class="md-toolbar-tools qubiz-color">
-                <span>Questions({{questionCtrl.Questions.TotalCount}})</span>
-            </div>
-        </md-toolbar>
-        <md-content>
-            <md-list flex>
-                <md-list-item ng-repeat="question in questionCtrl.Questions.Items" ng-click="questionCtrl.selectQuestion(question)">
-                    <div class="md-list-item-text" layout="row">
-                        <b>{{question.Number}}</b> - ({{question.Section}})
+<div class="container" style="margin-top: 20px;">
+    <div class="col-md-6">
+        <a ng-href="#/addquestion/">
+            <md-button class="md-raised col-md-2 qubiz-color">
+                <i class="material-icons" style="margin-top: 12px;">add</i>
+            </md-button>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <md-button class="md-raised col-md-2 qubiz-color pull-right" ng-click="questionCtrl.nextPage()">
+            <i class="material-icons" style="margin-top: 12px;">skip_next</i>
+        </md-button>
+        <input ng-model="questionCtrl.pageNumber" ng-change="questionCtrl.updatePage()" class="col-md-2 pull-right" style="margin-top: 5px;height: 50px;">
+        <md-button class="md-raised col-md-2 qubiz-color pull-right" ng-click="questionCtrl.prevPage()">
+            <i class="material-icons" style="margin-top: 12px;">skip_previous</i>
+        </md-button>
+    </div>
+    <table class="mdl-data-table mdl-js-data-table col-md-12">
+        <thead>
+            <tr>
+                <th><h3 class="pull-left">Questions({{questionCtrl.Questions.TotalCount}} on {{questionCtrl.maxPages}} pages)</h3></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="question in questionCtrl.Questions.Items" style="cursor: pointer; transition-duration: 0s;">
+                <td>
+                    <div class="col-md-10" ng-click="questionCtrl.editQuestion(question)"><h3 class="pull-left"><b>{{question.Number}}</b> - ({{question.Section}})</h3></div>
+                    <div class="col-md-2">
+                        <md-button class="md-raised col-md-6 pull-right qubiz-color" ng-click="questionCtrl.deleteQuestion(question)">
+                            <i class="material-icons" style="margin-top: 12px;">delete</i>
+                        </md-button>
                     </div>
-                </md-list-item>
-            </md-list>
-        </md-content>
-        <div class="col-md-12">
-            <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.prevPage()">
-                <i class="material-icons" style="margin-top: 12px;">skip_previous</i>
-            </md-button>
-            <input ng-model="questionCtrl.pageNumber" ng-change="questionCtrl.updatePage()" class="col-md-3" style="margin-top: 5px;height: 50px;">
-            <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.nextPage()">
-                <i class="material-icons" style="margin-top: 12px;">skip_next</i>
-            </md-button>
-        </div>
-    </div>
-    <div class="col-md-10" ng-show="questionCtrl.selectedQuestion">
-        <div>
-            <div class="col-md-6" style="font-size: 32px;"><b>{{questionCtrl.selectedQuestion.Number}}</b> - ({{questionCtrl.selectedQuestion.Section}})</div>
-            <div class="col-md-3 pull-right">
-                <md-button class="md-raised col-md-3 qubiz-color" ng-click="questionCtrl.deleteSelected()">
-                    <i class="material-icons" style="margin-top: 12px;">delete</i>
-                </md-button>
-            </div>
-        </div>
-    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

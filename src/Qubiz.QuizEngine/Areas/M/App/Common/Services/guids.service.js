@@ -13,7 +13,6 @@
         this.loadGuids = loadGuids;
 
         var guidsCache = [];
-
         loadGuids();
 
         function getGuid() {
@@ -28,7 +27,7 @@
                 method: 'GET',
                 url: 'api/guids/'
             }).then(function (guids) {
-                guidsCache = guids;
+                guidsCache = guids.data;
             });
         }
     }

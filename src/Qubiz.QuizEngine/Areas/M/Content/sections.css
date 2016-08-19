@@ -1,0 +1,28 @@
+﻿.custom-button-padding {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.md-button.md-primary.md-raised.qubiz-button {
+    background-color: #008cba ;
+    color: white;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: large;
+    min-width: 10% ;
+}
+.md-button.md-primary.md-raised:not([disabled]):hover.qubiz-button {
+    background-color: #E6E6E6 ;
+    color: white;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: large;
+    min-width: 10% ;
+}
+.custom-bar {
+    border-color: #008cba;
+    width: 95% ;
+}
+.mdl-data-table tbody tr {
+    transition-duration: 0s !important;
+}

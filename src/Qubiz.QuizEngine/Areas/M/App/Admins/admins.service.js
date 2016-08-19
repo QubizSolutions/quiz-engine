@@ -9,18 +9,16 @@
 
     function adminsService($http, $q) {
         this.getAllAdmins = getAllAdmins;
-        this.AddAdmin = addAdmin;
+        this.addAdmin = addAdmin;
         this.deleteAdmin = deleteAdmin;
-        this.EditAdmin = editAdmin;
-        this.GetById = getById;
+        this.editAdmin = editAdmin;
+        this.getById = getById;
 
         function getAllAdmins() {
             return $http({
                 method: 'GET',
                 url: 'api/NewAdmin/GetAdmins'
             })
-            .then(getAllAdminsSuccess)
-            .catch(errorCallback);
         }
 
         function addAdmin(admin) {
@@ -28,9 +26,7 @@
                 method: 'POST',
                 url: 'api/NewAdmin/AddAdmin',
                 data: admin
-            })
-            .then()
-            .catch(errorCallback);
+            });
         }
 
         function editAdmin(admin) {
@@ -38,26 +34,14 @@
                 method: 'PUT',
                 url: 'api/NewAdmin/UpdateAdmin',
                 data: admin
-            })
-            .then()
-            .catch(errorCallback);
+            });
         }
 
         function getById(id) {
             return $http({
                 method: 'GET',
                 url: 'api/NewAdmin/GetAdmin/' + id
-            })
-            .then()
-            .catch();
-        }
-
-        function getAllAdminsSuccess(response) {
-            return response.data;
-        }
-
-        function errorCallback(response) {
-            return $q.reject('HTTP status: ' + response.status + ' - ' + response.statusText + '!');
+            });
         }
 
         function deleteAdmin(id) {

@@ -1,6 +1,7 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Repositories;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Controllers
@@ -17,12 +18,12 @@ namespace Qubiz.QuizEngine.Controllers
 
         public IHttpActionResult Get()
         {
-            return this.Ok(adminRepository.GetAllAdmins().OrderBy(s => s.Name));
+                return this.Ok(adminRepository.GetAllAdmins().OrderBy(s => s.Name));
         }
         public IHttpActionResult Post(Admin[] admins)
         {
-            adminRepository.UpdateAdmins(admins);
-            return Ok();
+                adminRepository.UpdateAdmins(admins);
+                return Ok();
         }
 
     }

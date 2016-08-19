@@ -16,12 +16,16 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             return PartialView();
         }
 
-        public ActionResult EditAdmin()
+        public ActionResult Questions()
+        {
+            return PartialView();
+        }
+        public ActionResult QuestionsEdit()
         {
             return PartialView();
         }
 
-        public ActionResult Questions()
+        public ActionResult QuestionsAdd()
         {
             return PartialView();
         }
@@ -30,13 +34,15 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         {
             return PartialView();
         }
-
-        public ActionResult AddAdmin()
+        public ActionResult SaveAdmin()
         {
             return PartialView();
         }
-
         public ActionResult Administrators()
+        {
+            return PartialView();
+        }
+        public ActionResult AddSection()
         {
             return PartialView();
         }

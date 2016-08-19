@@ -1,6 +1,5 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
-using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Threading.Tasks;
@@ -20,10 +19,14 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                if (originator == admin.Name)
+                if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
+                    admin.Name = @"QUBIZ\" + admin.Name;
+
+                Admin adminUser = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (adminUser != null)
                     return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
 
-                admin.ID = Guid.NewGuid();
+                admin.Name = admin.Name.Substring(0, 6).ToUpper() + admin.Name.Substring(6);
 
                 unitOfWork.AdminRepository.Create(admin);
 
@@ -64,19 +67,26 @@ namespace Qubiz.QuizEngine.Services.AdminService
             {
                 return await unitOfWork.AdminRepository.GetAllAdminsAsync();
             }
-
         }
 
         public async Task<ValidationError[]> UpdateAdminAsync(Admin admin, string originator)
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                if (originator == admin.Name)
-                    return new ValidationError[1] { new ValidationError() { Message = "You can't change yourself!" } };
+                if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
+                    admin.Name = @"QUBIZ\" + admin.Name;
 
                 Admin dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+                if (string.Compare(dbAdmin.Name, originator, true) == 0)
+                    return new ValidationError[1] { new ValidationError() { Message = "You cannot edit yourself!" } };
 
-                Mapper.Map(admin, dbAdmin);
+                dbAdmin = await unitOfWork.AdminRepository.GetByNameAsync(admin.Name);
+                if (dbAdmin != null && dbAdmin.ID != admin.ID)
+                    return new ValidationError[1] { new ValidationError() { Message = "Name already exists!" } };
+
+                dbAdmin = await unitOfWork.AdminRepository.GetByIDAsync(admin.ID);
+
+                dbAdmin.Name = admin.Name.Substring(0, 6).ToUpper() + admin.Name.Substring(6);
 
                 unitOfWork.AdminRepository.Update(dbAdmin);
 

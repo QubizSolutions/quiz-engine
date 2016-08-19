@@ -19,10 +19,13 @@ namespace Qubiz.QuizEngine.Areas.M
             Bundle angularMaterialBundle = new Bundle("~/Areas/M/angular-material", cssTransforms);
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/angular-material.css");
             angularMaterialBundle.Include("~/Areas/M/Content/angular-material/admins.style.css");
+            angularMaterialBundle.Include("~/Areas/M/Content/sections.css");
+            angularMaterialBundle.Include("~/Areas/M/App/MenuBar.StyleSheet.css");
             bundles.Add(angularMaterialBundle);
 
             Bundle materialLiteBundle = new Bundle("~/Content/mdl", cssTransforms);
             materialLiteBundle.Include("~/Content/mdl-v1.1.2/material.css");
+			materialLiteBundle.Include("~/Areas/M/Content/table.style.css");
             bundles.Add(materialLiteBundle);
 
             Bundle angularBundle = new Bundle("~/Areas/M/angular", jsTransforms);
@@ -46,12 +49,16 @@ namespace Qubiz.QuizEngine.Areas.M
 
             Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
             controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Controllers/question-list.controller.js");
+            controllerBundle.Include("~/Areas/M/App/Controllers/questions.controller.js");
 			controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
+            controllerBundle.Include("~/Areas/M/App/Controllers/questionsedit.controller.js");
+            controllerBundle.Include("~/Areas/M/App/Controllers/questionsadd.controller.js");
+            controllerBundle.Include("~/Areas/M/App/Controllers/ck-editor.directive.js");
+            controllerBundle.Include("~/Areas/M/App/Sections/addEditSections.controller.js");
             bundles.Add(controllerBundle);
 
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
-            serviceBundle.Include("~/Areas/M/App/Services/question-data.service.js");
+            serviceBundle.Include("~/Areas/M/App/Services/questions.service.js");
 			serviceBundle.Include("~/Areas/M/App/sections/sections.service.js");
             serviceBundle.Include("~/Areas/M/App/Common/Services/guids.service.js");
             bundles.Add(serviceBundle);

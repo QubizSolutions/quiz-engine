@@ -10,7 +10,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     public class GuidsController : ApiController
     {
-
         [HttpGet]
         public async Task<Guid[]> Get()
         {
@@ -22,6 +21,5 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 
             return guids.ToArray();
         }
-
     }
 }
