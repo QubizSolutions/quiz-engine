@@ -25,6 +25,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
         {
             QuestionDefinition question = dbSet.Where(i => i.ID == id).ToList()[0];
             dbSet.Remove(question);
+            dbContext.SaveChanges();
         }
     }
 }

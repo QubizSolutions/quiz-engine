@@ -1,6 +1,7 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
+using Qubiz.QuizEngine.Database;
 using System;
 using System.Threading.Tasks;
 
@@ -8,16 +9,16 @@ namespace Qubiz.QuizEngine.Services.SectionService
 {
 	public class SectionService : ISectionService
 	{
-		private readonly IConfig config;
+        private readonly IUnitOfWorkFactory unitOfWorkFactory;
 
-		public SectionService(IConfig config)
-		{
-			this.config = config;
-		}
+        public SectionService(IUnitOfWorkFactory unitOfWorkFactory)
+        {
+            this.unitOfWorkFactory = unitOfWorkFactory;
+        }
 
-		public async Task<ValidationError[]> DeleteSectionAsync(Guid id)
+        public async Task<ValidationError[]> DeleteSectionAsync(Guid id)
 		{
-			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
 				Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
 				if (section == null)
@@ -33,7 +34,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
 
 		public async Task<Section[]> GetAllSectionsAsync()
 		{
-			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
 				return await unitOfWork.SectionRepository.GetAllSectionsAsync();
 			}
