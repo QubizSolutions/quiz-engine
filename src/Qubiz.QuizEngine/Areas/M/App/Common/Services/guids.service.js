@@ -13,7 +13,6 @@
         this.loadGuids = loadGuids;
 
         var guidsCache = [];
-
         loadGuids();
 
         function getGuid() {

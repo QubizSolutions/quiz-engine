@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Qubiz.QuizEngine.Areas.Controllers.M.Api
+namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
     public class QuestionController : ApiController
     {
@@ -15,9 +15,29 @@ namespace Qubiz.QuizEngine.Areas.Controllers.M.Api
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetQuestionsPaged(int id)
+        public async Task<IHttpActionResult> GetQuestionsPaged(int pageNumber, int itemsPerPage)
         {
-            return Ok(await questionService.GetQuestionsByPageAsync(id));
+            return Ok(await questionService.GetQuestionsByPageAsync(pageNumber, itemsPerPage));
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> GetQuestion(String ID)
+        {
+            return Ok(await questionService.GetQuestionByID(Guid.Parse(ID)));
+        }
+
+        [HttpPut]
+        public async Task<IHttpActionResult> PutQuestion(Services.Models.QuestionDetail question)
+        {
+            await questionService.UpdateQuestionAsync(question);
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> PostQuestion(Services.Models.QuestionDetail question)
+        {
+            await questionService.AddQuestionAsync(question);
+            return Ok();
         }
 
         [HttpDelete]

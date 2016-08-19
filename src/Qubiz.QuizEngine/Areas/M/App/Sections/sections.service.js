@@ -16,12 +16,10 @@
 		this.editSection = editSection;
 
 		function getAllSections() {
-			return $http({
-				method: 'GET',
-				url: 'api/sections'
-			})
-				.then(getSectionsSuccess)
-		    	.catch(errorCallBack)
+		    return $http({
+		        method: 'GET',
+		        url: 'api/sections'
+		    });
 		}
 
 		function deleteSection(id) {

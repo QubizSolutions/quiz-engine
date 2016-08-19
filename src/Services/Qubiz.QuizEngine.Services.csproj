@@ -49,6 +49,11 @@
     <Compile Include="AdminService\IAdminService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="IQuestionService.cs" />
+    <Compile Include="Models\OptionDefinition.cs" />
+    <Compile Include="Models\PagedResult.cs" />
+    <Compile Include="Models\QuestionDefinition.cs" />
+    <Compile Include="Models\QuestionDefinitionDetail.cs" />
+    <Compile Include="Models\QuestionListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="SectionService\ISectionService.cs" />

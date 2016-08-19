@@ -25,6 +25,16 @@
                     controller: "QuestionListController",
                     controllerAs: "questionCtrl"
                 })
+                .when("/editquestion/:id", {
+					templateUrl: "Template/QuestionsEdit",
+					controller: "QuestionEditController",
+					controllerAs: "questionCtrl"
+                })
+                .when("/addquestion", {
+                    templateUrl: "Template/QuestionsAdd",
+                    controller: "QuestionAddController",
+                    controllerAs: "questionCtrl"
+                    })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
                     controller: "SectionsController",
@@ -35,16 +45,10 @@
                     controller: "AdminsController",
                     controllerAs: "AdminCtrl"
                 })
-                .when('/addadmin', {
-                    templateUrl: "Template/AddAdmin",
-                    controller: "AddAdminController",
-                    controllerAs: "AddAdminCtrl"
-                })
-                .when('/editadmin/:id',
-                {
-                    templateUrl: "Template/EditAdmin",
-                    controller: "EditAdminController",
-                    controllerAs: "EditCtrl"
+                .when('/saveadmin/:id', {
+                	templateUrl: "Template/SaveAdmin",
+                	controller: "SaveAdminController",
+                	controllerAs: "saveCtrl"
                 })
                 .when('/addSection/:id', {
                     templateUrl: "Template/AddSection",
