@@ -95,7 +95,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
                 var version = headerValues.FirstOrDefault();
                 return version;
             }
-            else return null;
+            return null;
         }
 
         public HttpControllerDescriptor SelectController(HttpRequestMessage request)
