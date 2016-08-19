@@ -5,14 +5,14 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
+namespace Qubiz.QuizEngine.Areas.Controllers.M.Api
 {
     [Admin]
-    public class NewAdminController : ApiController
+    public class AdminController : ApiController
     {
         private readonly IAdminService adminService;
 
-        public NewAdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService)
         {
             this.adminService = adminService;
         }

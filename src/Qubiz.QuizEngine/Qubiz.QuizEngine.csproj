@@ -157,11 +157,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
     <Compile Include="Areas\M\Controllers\Api\GuidsController.cs" />
-    <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\AdminController.cs" />
     <Compile Include="Areas\M\Controllers\Api\SectionsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
-    <Compile Include="Areas\M\Controllers\Api\QuestionsController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\QuestionController.cs" />
+    <Compile Include="Areas\M\Controllers\NamespaceHttpControllerSelector.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
