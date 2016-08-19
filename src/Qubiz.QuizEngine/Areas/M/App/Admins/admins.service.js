@@ -17,14 +17,14 @@
         function getAllAdmins() {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmins'
+                url: 'api/Admin/GetAdmins'
             })
         }
 
         function addAdmin(admin) {
             return $http({
                 method: 'POST',
-                url: 'api/NewAdmin/AddAdmin',
+                url: 'api/Admin/AddAdmin',
                 data: admin
             });
         }
@@ -32,7 +32,7 @@
         function editAdmin(admin) {
             return $http({
                 method: 'PUT',
-                url: 'api/NewAdmin/UpdateAdmin',
+                url: 'api/Admin/UpdateAdmin',
                 data: admin
             });
         }
@@ -40,12 +40,12 @@
         function getById(id) {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmin/' + id
+                url: 'api/Admin/GetAdmin/' + id
             });
         }
 
         function deleteAdmin(id) {
-            return $http.delete('api/NewAdmin/DeleteAdmin/' + id);
+            return $http.delete('api/Admin/DeleteAdmin/' + id);
         }
     }
 })()

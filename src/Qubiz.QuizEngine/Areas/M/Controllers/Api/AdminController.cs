@@ -8,11 +8,11 @@ using System.Web.Http;
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     [Admin]
-    public class NewAdminController : ApiController
+    public class AdminController : ApiController
     {
         private readonly IAdminService adminService;
 
-        public NewAdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService)
         {
             this.adminService = adminService;
         }

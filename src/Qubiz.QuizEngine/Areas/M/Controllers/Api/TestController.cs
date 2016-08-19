@@ -2,7 +2,7 @@
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
-    public class TestsController : ApiController
+    public class TestController : ApiController
     {
         [HttpGet]
         [AllowAnonymous]

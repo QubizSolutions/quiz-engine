@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using Qubiz.QuizEngine.Areas.M.Controllers;
+using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
 using System.Web.Optimization;
 
@@ -19,6 +21,8 @@ namespace Qubiz.QuizEngine.Areas.M
             RegisterRoutes(context);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerSelector), new NamespaceHttpControllerSelector(GlobalConfiguration.Configuration));
         }
 
         private void RegisterRoutes(AreaRegistrationContext context)

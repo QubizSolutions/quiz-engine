@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
-	[Admin]
+    [Admin]
 	public class SectionController : ApiController
 	{
 		private readonly ISectionService sectionService;
