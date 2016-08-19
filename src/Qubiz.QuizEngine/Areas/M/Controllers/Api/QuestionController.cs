@@ -3,13 +3,13 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Qubiz.QuizEngine.Areas.M.Controllers
+namespace Qubiz.QuizEngine.Areas.Controllers.M.Api
 {
-    public class NewQuestionController : ApiController
+    public class QuestionController : ApiController
     {
         private readonly IQuestionService questionService;
 
-        public NewQuestionController(IQuestionService questionService)
+        public QuestionController(IQuestionService questionService)
         {
             this.questionService = questionService;
         }

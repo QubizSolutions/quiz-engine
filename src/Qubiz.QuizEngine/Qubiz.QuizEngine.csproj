@@ -157,11 +157,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\M\App_Startup\BundleConfig.cs" />
     <Compile Include="Areas\M\Controllers\Api\GuidsController.cs" />
-    <Compile Include="Areas\M\Controllers\Api\NewAdminController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\AdminController.cs" />
     <Compile Include="Areas\M\Controllers\Api\SectionsController.cs" />
     <Compile Include="Areas\M\Controllers\Api\TestsController.cs" />
     <Compile Include="Areas\M\Controllers\HomeController.cs" />
-    <Compile Include="Areas\M\Controllers\Api\NewQuestionController.cs" />
+    <Compile Include="Areas\M\Controllers\Api\QuestionController.cs" />
+    <Compile Include="Areas\M\Controllers\NamespaceHttpControllerSelector.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
     <Compile Include="Authorizer.cs" />
@@ -205,6 +206,7 @@
     <Content Include="Areas\M\App\Admins\admins.template.html" />
     <Content Include="Areas\M\App\Admins\editadmin.controller.js" />
     <Content Include="Areas\M\App\app.module.js" />
+    <Content Include="Areas\M\App\Common\Services\headerInterceptor.js" />
     <Content Include="Areas\M\App\Controllers\question-list.controller.js" />
     <Content Include="Areas\M\App\MainBarController\MainBar.controller.js" />
     <Content Include="Areas\M\App\Common\Services\guids.service.js" />

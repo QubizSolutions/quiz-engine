@@ -3,18 +3,27 @@
 
     angular
         .module('quizEngineMaterial', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial'])
-        .config(function ($routeProvider) {
-        	$routeProvider
+        .factory('httpRequestInterceptor', function () {
+            return {
+                request: function (config) {
+                    config.headers['Version'] = "M";
+                    return config;
+                }
+            };
+        })
+        .config(function ($routeProvider, $httpProvider) {
+            $httpProvider.interceptors.push('httpRequestInterceptor');
+            $routeProvider
                 .when("/tests", {
-                	templateUrl: "Template/Test"
+                    templateUrl: "Template/Test"
                 })
                 .when("/exams", {
-                	templateUrl: "Template/Exams"
+                    templateUrl: "Template/Exams"
                 })
                 .when("/questions", {
-					templateUrl: "Template/Questions",
-					controller: "QuestionListController",
-					controllerAs: "questionCtrl"
+                    templateUrl: "Template/Questions",
+                    controller: "QuestionListController",
+                    controllerAs: "questionCtrl"
                 })
                 .when("/sections", {
                     templateUrl: "Template/Sections",
@@ -22,20 +31,20 @@
                     controllerAs: "sectionsCtrl"
                 })
                 .when("/administrators", {
-                	templateUrl: "Template/Administrators",
-                	controller: "AdminsController",
-                	controllerAs: "AdminCtrl"
+                    templateUrl: "Template/Administrators",
+                    controller: "AdminsController",
+                    controllerAs: "AdminCtrl"
                 })
                 .when('/addadmin', {
-                	templateUrl: "Template/AddAdmin",
-                	controller: "AddAdminController",
-                	controllerAs: "AddAdminCtrl"
+                    templateUrl: "Template/AddAdmin",
+                    controller: "AddAdminController",
+                    controllerAs: "AddAdminCtrl"
                 })
                 .when('/editadmin/:id',
                 {
-                	templateUrl: "Template/EditAdmin",
-                	controller: "EditAdminController",
-                	controllerAs: "EditCtrl"
+                    templateUrl: "Template/EditAdmin",
+                    controller: "EditAdminController",
+                    controllerAs: "EditCtrl"
                 })
                 .when('/addSection/:id', {
                     templateUrl: "Template/AddSection",
@@ -44,4 +53,5 @@
                 })
 		        .otherwise({ redirectTo: "/tests" });
         });
+        
 })();

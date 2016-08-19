@@ -15,7 +15,7 @@
         function getQuestionsPaged(pagenumber) {
             return $http({
                 method: 'GET',
-                url: 'api/NewQuestion/GetQuestionsPaged/' + pagenumber
+                url: 'api/Question/GetQuestionsPaged/' + pagenumber
             });
         }
 
@@ -23,7 +23,7 @@
             var id = question.ID;
             return $http({
                 method: 'DELETE',
-                url: 'api/NewQuestion/DeleteQuestion/' + id
+                url: 'api/Question/DeleteQuestion/' + id
             });
         }
     }

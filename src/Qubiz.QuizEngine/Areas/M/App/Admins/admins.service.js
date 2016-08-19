@@ -17,7 +17,7 @@
         function getAllAdmins() {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmins'
+                url: 'api/Admin/GetAdmins'
             })
             .then(getAllAdminsSuccess)
             .catch(errorCallback);
@@ -26,7 +26,7 @@
         function addAdmin(admin) {
             return $http({
                 method: 'POST',
-                url: 'api/NewAdmin/AddAdmin',
+                url: 'api/Admin/AddAdmin',
                 data: admin
             })
             .then()
@@ -36,7 +36,7 @@
         function editAdmin(admin) {
             return $http({
                 method: 'PUT',
-                url: 'api/NewAdmin/UpdateAdmin',
+                url: 'api/Admin/UpdateAdmin',
                 data: admin
             })
             .then()
@@ -46,7 +46,7 @@
         function getById(id) {
             return $http({
                 method: 'GET',
-                url: 'api/NewAdmin/GetAdmin/' + id
+                url: 'api/Admin/GetAdmin/' + id
             })
             .then()
             .catch();
@@ -61,7 +61,7 @@
         }
 
         function deleteAdmin(id) {
-            return $http.delete('api/NewAdmin/DeleteAdmin/' + id);
+            return $http.delete('api/Admin/DeleteAdmin/' + id);
         }
     }
 })()
