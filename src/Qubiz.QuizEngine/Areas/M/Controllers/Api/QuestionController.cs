@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Qubiz.QuizEngine.Areas.M.Controllers
+namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     public class QuestionController : ApiController
     {

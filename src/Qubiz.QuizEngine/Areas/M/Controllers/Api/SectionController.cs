@@ -6,14 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Qubiz.QuizEngine.Areas.Controllers.M.Api
+namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
     [Admin]
-	public class SectionsController : ApiController
+	public class SectionController : ApiController
 	{
 		private readonly ISectionService sectionService;
 
-		public SectionsController(ISectionService sectionService)
+		public SectionController(ISectionService sectionService)
 		{
 			this.sectionService = sectionService;
 		}

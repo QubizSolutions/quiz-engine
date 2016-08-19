@@ -18,19 +18,19 @@
 		function getAllSections() {
 		    return $http({
 		        method: 'GET',
-		        url: 'api/sections'
+		        url: 'api/section'
 		    });
 		}
 
 		function deleteSection(id) {
-			return $http.delete('api/sections/delete/' + id)
+			return $http.delete('api/section/delete/' + id)
                 .catch(errorCallBack);
 		}
 
 		function addSection(section) {
 		    return $http({
 		        method: 'POST',
-		        url: 'api/sections/post/' + section.ID,
+		        url: 'api/section/post/' + section.ID,
                 data: section
 		    })
                 .then(getSectionsSuccess)
@@ -40,7 +40,7 @@
 		function readSection(id) {
 		    return $http({
 		        method: 'GET',
-		        url: 'api/sections/get/' + id
+		        url: 'api/section/get/' + id
 		    })
                 .then(getSectionsSuccess)
 		        .catch(errorCallBack);
@@ -49,7 +49,7 @@
 		function editSection(id, section) {
 		    return $http({
 		        method: 'PUT',
-		        url: 'api/sections/put/' + id,
+		        url: 'api/section/put/' + id,
 		        data: section
 		    })
                 .catch(getSectionsSuccess)

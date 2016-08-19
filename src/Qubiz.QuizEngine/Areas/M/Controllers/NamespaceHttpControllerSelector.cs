@@ -28,11 +28,9 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             controllers = new Lazy<Dictionary<string, HttpControllerDescriptor>>(InitializeControllerDictionary);
         }
 
-        
-
         private Dictionary<string, HttpControllerDescriptor> InitializeControllerDictionary()
         {
-            var dictionary = new Dictionary<string, HttpControllerDescriptor>(StringComparer.OrdinalIgnoreCase);
+            var controllerList = new Dictionary<string, HttpControllerDescriptor>(StringComparer.OrdinalIgnoreCase);
 
             // Create a lookup table where key is "namespace.controller". The value of "namespace" is the last
             // segment of the full namespace. For example:
@@ -42,24 +40,29 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             
             ICollection<Type> controllerTypes = controllersResolver.GetControllerTypes(assembliesResolver);
 
-            foreach (Type t in controllerTypes)
+            foreach (Type controllerType in controllerTypes)
             {
-                var segments = t.Namespace.Split(Type.Delimiter);
+                var segments = controllerType.Namespace.Split(Type.Delimiter);
 
                 // For the dictionary key, strip "Controller" from the end of the type name.
                 // This matches the behavior of DefaultHttpControllerSelector.
-                var controllerName = t.Name.Remove(t.Name.Length - DefaultHttpControllerSelector.ControllerSuffix.Length);
+                var controllerName = controllerType.Name.Remove(controllerType.Name.Length - DefaultHttpControllerSelector.ControllerSuffix.Length);
 
                 var key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length-2], controllerName);
 
+                if (segments.Contains("M"))
+                {
+                    key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length - 3], controllerName);
+                }
+
                 // Check for duplicate keys.
-                if (dictionary.Keys.Contains(key))
+                if (controllerList.Keys.Contains(key))
                 {
                     duplicates.Add(key);
                 }
                 else
                 {
-                    dictionary[key] = new HttpControllerDescriptor(configuration, t.Name, t);
+                    controllerList[key] = new HttpControllerDescriptor(configuration, controllerType.Name, controllerType);
                 }
             }
 
@@ -67,9 +70,9 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             // For example, "Foo.V1.ProductsController" and "Bar.V1.ProductsController" both map to "v1.products".
             foreach (string s in duplicates)
             {
-                dictionary.Remove(s);
+                controllerList.Remove(s);
             }
-            return dictionary;
+            return controllerList;
         }
 
         // Get a value from the route data, if present.
@@ -84,7 +87,6 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             return default(T);
         }
 
-
         private string GetAppVersion(HttpRequestMessage request)
         {
             if (request.Headers.Contains("Version"))
@@ -97,8 +99,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         }
 
         public HttpControllerDescriptor SelectController(HttpRequestMessage request)
-        {
-           
+        {  
             IHttpRouteData routeData = request.GetRouteData();
 
             if (routeData == null)
@@ -107,11 +108,11 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
             }
 
             // Get the namespace and controller variables from the route data.
-            string @namespace = GetAppVersion(request);
+            string namespaceName = GetAppVersion(request);
 
-            if (string.IsNullOrEmpty(@namespace))
+            if (string.IsNullOrEmpty(namespaceName))
             {
-                @namespace = "QuizEngine";
+                namespaceName = "QuizEngine";
             }
 
             string controllerName = GetRouteVariable<string>(routeData, ControllerKey);
@@ -125,11 +126,10 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
                     return actionDescriptors.First().ControllerDescriptor;
                 }
             }
-
-            if (controllerName != null)
+            else
             {
                 // Find a matching controller.
-                string key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", @namespace, controllerName);
+                string key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", namespaceName, controllerName);
 
                 HttpControllerDescriptor controllerDescriptor;
                 
@@ -155,7 +155,5 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
         {
             return controllers.Value;
         }
-
-
     }
 }
