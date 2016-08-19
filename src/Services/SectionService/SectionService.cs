@@ -1,5 +1,6 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using Qubiz.QuizEngine.Database.Repositories;
+using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Threading.Tasks;
@@ -42,8 +43,8 @@ namespace Qubiz.QuizEngine.Services.SectionService
 
 		public async Task<ValidationError[]> AddSectionAsync(Section section)
 		{
-			using (IUnitOfWork unitOfWork = new UnitOfWork(config))
-			{
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
+            {
 				Section dbSection = await unitOfWork.SectionRepository.GetSectionByNameAsync(section.Name);
 				if (dbSection == null)
 				{
