@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qubiz.QuizEngine", "Qubiz.QuizEngine\Qubiz.QuizEngine.csproj", "{066EF2BF-B7E1-488F-AA18-CC723A556DF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79D1215B-80A3-4A3B-ADB6-01FEAA24BF35}"
+	ProjectSection(SolutionItems) = preProject
+		..\.travis.yml = ..\.travis.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qubiz.QuizEngine.Database", "Database\Qubiz.QuizEngine.Database.csproj", "{B2D10802-A03B-4231-A9F8-C0A757740869}"
 EndProject
