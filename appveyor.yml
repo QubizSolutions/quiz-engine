@@ -1,4 +1,9 @@
-language: csharp
-solution: ./src/Qubiz.QuizEngine.sln
-install:
-  - nuget restore ./src/Qubiz.QuizEngine.sln
+version: 1.0.{build}
+
+branches:
+  # whitelist 
+  only:
+    - master
+
+before_build:
+  - nuget restore src\Qubiz.QuizEngine.sln
