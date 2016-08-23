@@ -1,8 +1,7 @@
 ﻿using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
-using Qubiz.QuizEngine.Database;
 
-namespace Qubiz.QuizEngine.Database
+namespace Qubiz.QuizEngine.Services
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {

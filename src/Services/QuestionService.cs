@@ -5,17 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Qubiz.QuizEngine.Database;
 namespace Qubiz.QuizEngine.Services
 {
     public class QuestionService : IQuestionService
-	{
-		private readonly IUnitOfWorkFactory unitOfWorkFactory;
+    {
+        private readonly IUnitOfWorkFactory unitOfWorkFactory;
 
-		public QuestionService(IUnitOfWorkFactory unitOfWorkFactory)
-		{
-			this.unitOfWorkFactory = unitOfWorkFactory;
-		}
+        public QuestionService(IUnitOfWorkFactory unitOfWorkFactory)
+        {
+            this.unitOfWorkFactory = unitOfWorkFactory;
+        }
 
         public async Task DeleteQuestionAsync(Guid id)
         {
@@ -98,7 +97,7 @@ namespace Qubiz.QuizEngine.Services
                     pageNumber = 0;
                 }
 
-				var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
+                var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
 
                 IEnumerable<Qubiz.QuizEngine.Database.Entities.Section> sections = await unitOfWork.SectionRepository.GetAllSectionsAsync();
 
