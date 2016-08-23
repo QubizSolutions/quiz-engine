@@ -4,6 +4,7 @@ branches:
   # whitelist 
   only:
     - master
+	- ci-appveyor
 
 before_build:
   - nuget restore src\Qubiz.QuizEngine.sln
