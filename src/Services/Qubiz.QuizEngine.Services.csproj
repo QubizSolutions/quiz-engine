@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="AdminService\AdminService.cs" />
     <Compile Include="AdminService\IAdminService.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="IQuestionService.cs" />
     <Compile Include="Models\OptionDefinition.cs" />
     <Compile Include="Models\PagedResult.cs" />

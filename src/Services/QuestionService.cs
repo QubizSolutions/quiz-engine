@@ -1,25 +1,25 @@
 ﻿using Qubiz.QuizEngine.Database.Repositories;
+using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Qubiz.QuizEngine.Services
 {
     public class QuestionService : IQuestionService
     {
-        private IConfig config;
+        private readonly IUnitOfWorkFactory unitOfWorkFactory;
 
-        public QuestionService(IConfig config)
+        public QuestionService(IUnitOfWorkFactory unitOfWorkFactory)
         {
-            this.config = config;
+            this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
         public async Task DeleteQuestionAsync(Guid id)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 await unitOfWork.QuestionRepository.DeleteQuestionAsync(id);
                 IEnumerable<Database.Models.OptionDefinition> options = await unitOfWork.OptionRepository.GetOptionsByQuestionIDAsync(id);
@@ -30,7 +30,7 @@ namespace Qubiz.QuizEngine.Services
 
         public async Task<QuestionDetail> GetQuestionByID(Guid id)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 //List<Database.Models.QuestionDefinition> list = new List<Database.Models.QuestionDefinition>();
                 QuestionDetail question = (await unitOfWork.QuestionRepository.GetQuestionByIDAsync(id)).DeepCopyTo<QuestionDetail>();
@@ -49,7 +49,7 @@ namespace Qubiz.QuizEngine.Services
 
         public async Task UpdateQuestionAsync(QuestionDetail question)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 await unitOfWork.QuestionRepository.UpdateQuestionAsync(question.DeepCopyTo<Database.Models.QuestionDefinition>());
                 unitOfWork.OptionRepository.DeleteOptionsAsync((await unitOfWork.OptionRepository.GetOptionsByQuestionIDAsync(question.ID)).ToArray());
@@ -67,7 +67,7 @@ namespace Qubiz.QuizEngine.Services
 
         public async Task AddQuestionAsync(QuestionDetail question)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 await unitOfWork.QuestionRepository.AddQuestionAsync(question.DeepCopyTo<Database.Models.QuestionDefinition>());
                 unitOfWork.OptionRepository.AddOptionsAsync(question.Options.Select(o => new Database.Models.OptionDefinition
@@ -84,7 +84,7 @@ namespace Qubiz.QuizEngine.Services
 
         public async Task<PagedResult<QuestionListItem>> GetQuestionsByPageAsync(int pageNumber, int itemsPerPage)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 IEnumerable<Database.Models.QuestionDefinition> questions = await unitOfWork.QuestionRepository.GetQuestionsAsync();
 

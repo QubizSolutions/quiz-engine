@@ -1,4 +1,5 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
+using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 using System;
@@ -8,16 +9,16 @@ namespace Qubiz.QuizEngine.Services.AdminService
 {
     public class AdminService : IAdminService
     {
-        private readonly IConfig config;
+        private readonly IUnitOfWorkFactory unitOfWorkFactory;
 
-        public AdminService(IConfig config)
+        public AdminService(IUnitOfWorkFactory unitOfWorkFactory)
         {
-            this.config = config;
+            this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
         public async Task<ValidationError[]> AddAdminAsync(Admin admin, string originator)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
                     admin.Name = @"QUBIZ\" + admin.Name;
@@ -38,7 +39,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<ValidationError[]> DeleteAdminAsync(Guid id, string originator)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 Admin admin = await unitOfWork.AdminRepository.GetByIDAsync(id);
 
@@ -55,7 +56,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<Admin> GetAdminAsync(Guid id)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 return await unitOfWork.AdminRepository.GetByIDAsync(id);
             }
@@ -63,7 +64,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<Admin[]> GetAllAdminsAsync()
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 return await unitOfWork.AdminRepository.GetAllAdminsAsync();
             }
@@ -71,7 +72,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
 
         public async Task<ValidationError[]> UpdateAdminAsync(Admin admin, string originator)
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(config))
+            using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
                 if (!admin.Name.ToLowerInvariant().Contains(@"qubiz\"))
                     admin.Name = @"QUBIZ\" + admin.Name;
