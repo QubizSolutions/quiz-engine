@@ -1,7 +1,6 @@
 using Microsoft.Practices.Unity;
 using Qubiz.QuizEngine.Core;
 using Qubiz.QuizEngine.Database;
-using Qubiz.QuizEngine.Services;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Infrastructure.Logger;
 using Qubiz.QuizEngine.Repositories;

@@ -66,6 +66,7 @@
     <Compile Include="Entities\TestDefinition.cs" />
     <Compile Include="Entities\TestQuestion.cs" />
     <Compile Include="Entities\TestSection.cs" />
+    <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Migrations\201508131437164_InitialCreate.cs" />
     <Compile Include="Migrations\201508131437164_InitialCreate.Designer.cs">
       <DependentUpon>201508131437164_InitialCreate.cs</DependentUpon>
@@ -101,6 +102,7 @@
     <Compile Include="Repositories\Test\TestSectionRepository.cs" />
     <Compile Include="Repositories\Test\TestRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="UnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

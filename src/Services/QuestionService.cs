@@ -1,4 +1,5 @@
 ﻿using Qubiz.QuizEngine.Database.Repositories;
+using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.Models;
 using System;

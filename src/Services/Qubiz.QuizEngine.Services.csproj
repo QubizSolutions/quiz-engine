@@ -57,8 +57,6 @@
     <Compile Include="QuestionService.cs" />
     <Compile Include="SectionService\ISectionService.cs" />
     <Compile Include="SectionService\SectionService.cs" />
-    <Compile Include="UnitOfWorkFactory.cs" />
-	 <Compile Include="IUnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Database\Qubiz.QuizEngine.Database.csproj">

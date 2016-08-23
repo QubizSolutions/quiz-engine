@@ -1,6 +1,6 @@
 ﻿using Qubiz.QuizEngine.Database.Repositories;
 
-namespace Qubiz.QuizEngine.Services
+namespace Qubiz.QuizEngine.Database
 {
     public interface IUnitOfWorkFactory
     {
