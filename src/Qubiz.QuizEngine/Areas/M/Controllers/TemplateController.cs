@@ -2,7 +2,7 @@
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers
 {
-    [Admin]
+    [AllowAnonymous]
     public class TemplateController : Controller
     {
         [AllowAnonymous]

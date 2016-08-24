@@ -15,7 +15,7 @@
     <AssemblyName>Qubiz.QuizEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -213,6 +213,7 @@
     <Content Include="Areas\M\App\Sections\addEditSections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.service.js" />
+    <Content Include="Areas\M\App\Services\httpwrapper.service.js" />
     <Content Include="Areas\M\App\Services\questions.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
@@ -730,7 +731,7 @@
     <Content Include="Content\mdl-v1.1.2\LICENSE" />
     <Content Include="Content\mdl-v1.1.2\bower.json" />
     <Content Include="Areas\M\Views\Template\SaveAdmin.cshtml" />
-	<Content Include="Areas\M\Views\Template\AddSection.cshtml" />
+    <Content Include="Areas\M\Views\Template\AddSection.cshtml" />
     <Content Include="Areas\M\Views\Template\QuestionsEdit.cshtml" />
     <Content Include="Areas\M\Views\Template\QuestionsAdd.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />

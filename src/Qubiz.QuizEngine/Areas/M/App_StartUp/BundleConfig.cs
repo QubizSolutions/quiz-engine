@@ -60,6 +60,7 @@ namespace Qubiz.QuizEngine.Areas.M
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
             serviceBundle.Include("~/Areas/M/App/Services/questions.service.js");
 			serviceBundle.Include("~/Areas/M/App/sections/sections.service.js");
+            serviceBundle.Include("~/Areas/M/App/Services/httpwrapper.service.js");
             serviceBundle.Include("~/Areas/M/App/Common/Services/guids.service.js");
             bundles.Add(serviceBundle);
 		}
