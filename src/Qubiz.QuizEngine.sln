@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qubiz.QuizEngine", "Qubiz.Q
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79D1215B-80A3-4A3B-ADB6-01FEAA24BF35}"
 	ProjectSection(SolutionItems) = preProject
+		..\.travis.yml = ..\.travis.yml
 		..\appveyor.yml = ..\appveyor.yml
 	EndProjectSection
 EndProject
