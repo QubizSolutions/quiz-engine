@@ -3,72 +3,59 @@
 
     angular
         .module('quizEngineMaterial')
-        .service("wrapperService", wrapperService);
+        .service("httpWrapperService", httpWrapperService);
 
-    wrapperService.$inject = ['$http', '$q'];
+    httpWrapperService.$inject = ['$http', '$q'];
 
-    function wrapperService($http, $q) {
+    function httpWrapperService($http, $q) {
 
         this.get = get;
-        this.getById = getById;
         this.post = post;
         this.put = put;
-        this.delete = newDelete;
-        var deferred = $q.defer();
+        this.delete = del;
 
-        function get(getUrl) {
-            return $http.get(getUrl)
-            .then(function (response) {
-                deferred.resolve(response.data);
-                return deferred.promise;
-            }, function (response) {
-                deferred.reject(response);
-                return deferred.promise;
-            });
-        };
-
-        function getById(getUrl, data) {
-            return $http.get(getUrl + data.ID)
-                .then(function (response) {
-                    deferred.resolve(response.data);
-                    return deferred.promise;
-                }, function (response) {
-                    deferred.reject(response);
-                    return deferred.promise;
+        function get(getUrl, data) {
+            var defer = $q.defer();
+            $http.get(getUrl)
+                .then(function(response) {
+                    defer.resolve(response.data);
+                },function(response) {
+                    defer.reject(response);
                 });
-        }
+            return defer.promise;
+            }
 
         function post(postUrl, data) {
-            return $http.post(postUrl + data.ID)
-           .then(function (response) {
-               deferred.resolve(response.data);
-               return deferred.promise;
-           }, function (response) {
-               deferred.reject(response);
-               return deferred.promise;
-           });
+            var defer = $q.defer();
+            $http.post(postUrl + data.ID)
+                 .then(function(response) {
+                     defer.resolve(response.data);
+                 },function (response) {
+                     defer.reject(response);
+                 });
+            return defer.promise;
         }
 
-        function put(puttUrl, data) {
-            return $http.put(putUrl + data.ID)
-             .then(function (response) {
-                 deferred.resolve(response.data);
-                 return deferred.promise;
-             }, function (response) {
-                 deferred.reject(response);
-                 return deferred.promise;
-             });
+        function put(putUrl, data) {
+            var defer = $q.defer();
+            $http.put(putUrl + data.ID)
+                .then(function(response) {
+                    defer.resolve(response.data);
+                },function (response) {
+                    defer.reject(response);
+                });
+            return defer.promise;
         }
 
-        function newDelete(deletetUrl, data) {
-            return $http.delete(deletetUrl + data.ID)
-             .then(function (response) {
-                 deferred.resolve(response.data);
-                 return deferred.promise;
-             }, function (response) {
-                 deferred.reject(response);
-                 return deferred.promise;
-             });
+        function del(deleteUrl, data) {
+            var defer = $q.defer();
+            $http.delete(deleteUrl + data.ID)
+              .then(function(response) {
+                  defer.resolve(response.data);
+              },function (response) {
+                  defer.reject(response);
+              });
+            return defer.promise;
         }
     }
 })();
