@@ -1,4 +1,0 @@
-language: csharp
-solution: ./src/Qubiz.QuizEngine.sln
-install:
-  - nuget restore ./src/Qubiz.QuizEngine.sln
