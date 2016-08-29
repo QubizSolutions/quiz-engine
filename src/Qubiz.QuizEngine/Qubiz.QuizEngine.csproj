@@ -15,7 +15,7 @@
     <AssemblyName>Qubiz.QuizEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -214,6 +214,7 @@
     <Content Include="Areas\M\App\Sections\addEditSections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.controller.js" />
     <Content Include="Areas\M\App\Sections\sections.service.js" />
+    <Content Include="Areas\M\App\Services\httpWrapper.service.js" />
     <Content Include="Areas\M\App\Services\questions.service.js" />
     <Content Include="Areas\M\App\Tests\Services\tests.service.js" />
     <Content Include="Areas\M\App\Tests\tests.controller.js" />
