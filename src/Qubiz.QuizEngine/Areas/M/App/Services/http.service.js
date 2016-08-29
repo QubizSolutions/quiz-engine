@@ -3,58 +3,66 @@
 
     angular
         .module('quizEngineMaterial')
-        .service("httpWrapperService", httpWrapperService);
+        .service("httpWrapperService", httpService);
 
     httpWrapperService.$inject = ['$http', '$q'];
 
-    function httpWrapperService($http, $q) {
+    function httpService($http, $q) {
 
         this.get = get;
         this.post = post;
         this.put = put;
-        this.delete = del;
+        this.del = del;
 
-        function get(getUrl, data) {
+        function get(url, data) {
             var defer = $q.defer();
-            $http.get(getUrl)
+
+            $http.get(url)
                 .then(function (response) {
                     defer.resolve(response.data);
                 }, function (response) {
                     defer.reject(response);
                 });
+
             return defer.promise;
         }
 
-        function post(postUrl, data) {
+        function post(url, data) {
             var defer = $q.defer();
-            $http.post(postUrl + data.ID)
+
+            $http.post(url + data.ID)
                  .then(function (response) {
                      defer.resolve(response.data);
                  }, function (response) {
                      defer.reject(response);
                  });
+
             return defer.promise;
         }
 
-        function put(putUrl, data) {
+        function put(url, data) {
             var defer = $q.defer();
-            $http.put(putUrl + data.ID)
+
+            $http.put(url + data.ID)
                 .then(function (response) {
                     defer.resolve(response.data);
                 }, function (response) {
                     defer.reject(response);
                 });
+
             return defer.promise;
         }
 
-        function del(deleteUrl, data) {
+        function del(url, data) {
             var defer = $q.defer();
-            $http.delete(deleteUrl + data.ID)
+
+            $http.delete(url + data.ID)
               .then(function (response) {
                   defer.resolve(response.data);
               }, function (response) {
                   defer.reject(response);
               });
+
             return defer.promise;
         }
     }
