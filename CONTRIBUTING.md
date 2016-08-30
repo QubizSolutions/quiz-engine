@@ -18,6 +18,30 @@ The following coding guide lines are going to help you write consistent code
 ### Layer guide lines(this applies to each layer of the application)
  * Each layer should **accept** and **return** its own ***data types***
 
+
+#### Repository guidelines
+ * Repository method naming conventions are as follows:
+    * **List**: When listing a collection of object. Append the filter name if applied(Ex: ***ListByAdmin***, ***ListByType***, ***ListByAdminAndType***)
+  <pre><code class='language-cs'>
+    public interface IFoo
+    {
+        Foo[] List();
+        Foo[] ListByAdmin();
+        Foo[] ListByType();
+        Foo[] ListByAdminAndType();
+    }
+  </code></pre>
+  * **Get**: When listing a single object. Append the filter name if applied(Ex: ***GetByID***, ***GetByAdmin***, ***GetByType***, ***GetByAdminAndType***)
+  <pre><code class='language-cs'>
+    public interface IFoo
+    {
+        Foo GetByID();
+        Foo GetByAdmin();
+        Foo GetByType();
+        Foo GetByAdminAndType();
+    }
+  </code></pre>
+
 ## Commit Message Guidelines
 These have been imported from https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit and slightly modified.
 
