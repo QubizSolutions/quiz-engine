@@ -41,27 +41,26 @@ namespace Qubiz.QuizEngine.Areas.M
             appModuleBundle.Include("~/Areas/M/App/app.module.js");
             bundles.Add(appModuleBundle);
 
-            Bundle testsBundle = new Bundle("~/Areas/M/tests", jsTransforms);
-            testsBundle.Include("~/Areas/M/App/Tests/Services/tests.service.js");
-            testsBundle.Include("~/Areas/M/App/Tests/tests.controller.js");
-            bundles.Add(testsBundle);
-
-
             Bundle controllerBundle = new Bundle("~/Areas/M/AngularControllers", jsTransforms);
-            controllerBundle.Include("~/Areas/M/App/MainBarController/MainBar.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Controllers/questions.controller.js");
-			controllerBundle.Include("~/Areas/M/App/Sections/sections.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Controllers/questionsedit.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Controllers/questionsadd.controller.js");
-            controllerBundle.Include("~/Areas/M/App/Controllers/ck-editor.directive.js");
-            controllerBundle.Include("~/Areas/M/App/Sections/addEditSections.controller.js");
+            controllerBundle.Include("~/Areas/M/App/mainbar/mainbar.controller.js");
+            controllerBundle.Include("~/Areas/M/App/ckeditor/ck-editor.directive.js");
+            controllerBundle.Include("~/Areas/M/App/tests/tests.controller.js");
+            controllerBundle.Include("~/Areas/M/App/questions/questions.controller.js");
+            controllerBundle.Include("~/Areas/M/App/questions/questions-edit.controller.js");
+            controllerBundle.Include("~/Areas/M/App/questions/questions-add.controller.js");
+            controllerBundle.Include("~/Areas/M/App/sections/sections.controller.js");
+            controllerBundle.Include("~/Areas/M/App/sections/section-save.controller.js");
+            controllerBundle.Include("~/Areas/M/App/admins/admins.controller.js");
+            controllerBundle.Include("~/Areas/M/App/admins/admin-save.controller.js");
             bundles.Add(controllerBundle);
 
             Bundle serviceBundle = new Bundle("~/Areas/M/AngularServices", jsTransforms);
-            serviceBundle.Include("~/Areas/M/App/Services/questions.service.js");
-            serviceBundle.Include("~/Areas/M/App/Services/httpWrapper.service.js");
+            serviceBundle.Include("~/Areas/M/App/common/services/guids.service.js");
+            serviceBundle.Include("~/Areas/M/App/common/services/httpService.service.js");
+            serviceBundle.Include("~/Areas/M/App/tests/tests.service.js");
+            serviceBundle.Include("~/Areas/M/App/questions/questions.service.js");
             serviceBundle.Include("~/Areas/M/App/sections/sections.service.js");
-            serviceBundle.Include("~/Areas/M/App/Common/Services/guids.service.js");
+            serviceBundle.Include("~/Areas/M/App/admins/admins.service.js");
             bundles.Add(serviceBundle);
 		}
     }
