@@ -1,5 +1,5 @@
 # Contributing to Quiz-Engine
-If you would like to contribute to this project, here are a few guidelines we would like you to follow:
+If you would like to contribute to this project, here are a few guidelines you should follow:
 
 - [Coding guidelines](#coding-guidelines)
 - [Commit Message Guidelines](#commit-message-guidelines)
