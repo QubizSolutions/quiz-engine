@@ -26,9 +26,9 @@ The following coding guide lines are going to help you write consistent code
     public interface IFoo
     {
         Foo[] List();
-        Foo[] ListByAdmin();
-        Foo[] ListByType();
-        Foo[] ListByAdminAndType();
+        Foo[] ListByAdmin(Guid adminID);
+        Foo[] ListByType(FooType type);
+        Foo[] ListByAdminAndType(Guid adminID, FooType type);
     }
   </code></pre>
   * **Get**: When listing a single object. Append the filter name if applied(Ex: ***GetByID***, ***GetByAdmin***, ***GetByType***, ***GetByAdminAndType***)
