@@ -7,10 +7,16 @@ If you would like to contribute to this project, here are a few guidelines you s
 ## Coding guidelines
 The following coding guide lines are going to help you write consistent code
 
-###Global guide lines(these do not apply for Javascript)
+### Global guide lines(these do not apply for Javascript)
  * Pascal case for class and method names
  * Camel case for local variables, parameters and private variables
  * Dependency injected variables should be declared as ***private readonly*** and the constructor parameter should have the same name as the variable. Use **this** for variable assignment inside the constructor
+ * When checking if a **Nullable< T >** has a value assigned, use **Nullable< T >.HasValue**
+ * Use the **AutoMapper** extensions,  **.DeepCopyTo< T >** and **Map(source, dest)**, whenever possible to streamline the flow. This implies having the same property names on both objects which in fact is a must where possible
+
+
+### Layer guide lines(this applies to each layer of the application)
+ * Each layer should **accept** and **return** its own ***data types***
 
 ## Commit Message Guidelines
 These have been imported from https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit and slightly modified.
