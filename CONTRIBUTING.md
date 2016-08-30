@@ -36,10 +36,10 @@ The following coding guide lines are going to help you write consistent code
   <pre><code class='language-cs'>
     public interface IFoo
     {
-        Foo GetByID();
-        Foo GetByAdmin();
-        Foo GetByType();
-        Foo GetByAdminAndType();
+        Foo GetByID(Guid id);
+        Foo GetByAdmin(Guid adminID);
+        Foo GetByType(FooType type);
+        Foo GetByAdminAndType(Guid adminID, FooType type);
     }
   </code></pre>
 
@@ -47,10 +47,10 @@ The following coding guide lines are going to help you write consistent code
   <pre><code class='language-cs'>
     public interface IFoo
     {
-        void DeleteByID();
-        void DeleteByAdmin();
-        void DeleteByType();
-        void DeleteByAdminAndType();
+        void DeleteByID(Guid id);
+        void DeleteByAdmin(Guid adminID);
+        void DeleteByType(FooType type);
+        void DeleteByAdminAndType(Guid adminID, FooType type);
     }
   </code></pre>
 
