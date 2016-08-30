@@ -20,7 +20,7 @@ The following coding guide lines are going to help you write consistent code
 
 
 #### Repository guidelines
- * Repository method naming conventions are as follows:
+ * Repository method naming conventions are as follows(try and follow them as much as possible, exceptions might occur):
     * **List**: When listing a collection of object. Append the filter name if applied(Ex: ***ListByAdmin***, ***ListByType***, ***ListByAdminAndType***)
   <pre><code class='language-cs'>
     public interface IFoo
@@ -32,6 +32,7 @@ The following coding guide lines are going to help you write consistent code
     }
   </code></pre>
   * **Get**: When listing a single object. Append the filter name if applied(Ex: ***GetByID***, ***GetByAdmin***, ***GetByType***, ***GetByAdminAndType***)
+
   <pre><code class='language-cs'>
     public interface IFoo
     {
@@ -41,6 +42,18 @@ The following coding guide lines are going to help you write consistent code
         Foo GetByAdminAndType();
     }
   </code></pre>
+
+  * **Delete**: When deleting object(s). Append the filter name if applied(Ex: ***DeleteByID***, ***DeleteByAdmin***, ***DeleteByType***, ***DeleteByAdminAndType***)
+  <pre><code class='language-cs'>
+    public interface IFoo
+    {
+        void DeleteByID();
+        void DeleteByAdmin();
+        void DeleteByType();
+        void DeleteByAdminAndType();
+    }
+  </code></pre>
+
 
 ## Commit Message Guidelines
 These have been imported from https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit and slightly modified.
