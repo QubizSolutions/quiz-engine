@@ -70,6 +70,8 @@
   <ItemGroup>
     <Compile Include="Database\Config.cs" />
     <Compile Include="Database\FeatureFlagRepositoryTest.cs" />
+    <Compile Include="Database\AdminRepositoryTest.cs" />
+    <Compile Include="Database\UnitTest2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
