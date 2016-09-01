@@ -11,7 +11,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-        public async Task<Admin[]> GetAllAdminsAsync()
+        public async Task<Admin[]> ListAsync()
         {
             return await dbSet.ToArrayAsync();
         }
