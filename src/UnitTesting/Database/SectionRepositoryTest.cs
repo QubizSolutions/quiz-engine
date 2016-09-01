@@ -38,13 +38,13 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 ID = Guid.NewGuid(),
                 Name = "TestSection2"
             };
-            sectionRepository.Upsert(section1);
+            sectionRepository.Upsert(section2);
             Section section3 = new Section()
             {
                 ID = Guid.NewGuid(),
                 Name = "TestSection3"
             };
-            sectionRepository.Upsert(section1);
+            sectionRepository.Upsert(section3);
             sections.Add(section1);
             sections.Add(section2);
             sections.Add(section3);
