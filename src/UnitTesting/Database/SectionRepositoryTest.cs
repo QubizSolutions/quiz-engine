@@ -20,8 +20,36 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         private Section sectionCreate()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "TestSection" };
-
+            sectionRepository.Upsert(section);
             return section;
+        }
+
+        private List<Section> sectionsListCreate()
+        {
+            List<Section> sections = new List<Section>(); 
+            Section section1 = new Section()
+            {
+                ID = Guid.NewGuid(),
+                Name = "TestSection1"
+            };
+            sectionRepository.Upsert(section1);
+            Section section2 = new Section()
+            {
+                ID = Guid.NewGuid(),
+                Name = "TestSection2"
+            };
+            sectionRepository.Upsert(section1);
+            Section section3 = new Section()
+            {
+                ID = Guid.NewGuid(),
+                Name = "TestSection3"
+            };
+            sectionRepository.Upsert(section1);
+            sections.Add(section1);
+            sections.Add(section2);
+            sections.Add(section3);
+
+            return sections;
         }
 
         [TestInitialize]
@@ -39,49 +67,35 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
 
         [TestMethod]
-
-        public void List_ExistingSections_ReturnArrayOfSections()
+        public void ListAsync_ExistingSections_ReturnArrayOfSections()
         {
-            Section section1 = new Section()
+            List<Section> mockSections = sectionsListCreate();
+            Section[] sections = sectionRepository.ListAsync().Result;
+            foreach (Section section in mockSections)
             {
-                ID = Guid.NewGuid(),
-                Name = "TestSection1"
-            };
-            Section section2 = new Section()
-            {
-                ID = Guid.NewGuid(),
-                Name = "TestSection2"
-            };
-
-            sectionRepository.Upsert(section1);
-            sectionRepository.Upsert(section2);
-
-            Section[] sections = sectionRepository.List().Result;
-            Assert.IsTrue(sections.Any(x => x.ID == section1.ID && x.Name == section1.Name));
-            Assert.IsTrue(sections.Any(x => x.ID == section1.ID && x.Name == section1.Name));
+                Assert.IsTrue(sections.Any(x => x.ID == section.ID && x.Name == section.Name));
+            }
         }
 
         [TestMethod]
-        public void GetByID_ExistingSection_ReturnsSectionByID()
+        public void GetByIDAsync_ExistingSection_ReturnsSectionByID()
         {
-            var section = sectionCreate();
+            Section section = sectionCreate();
 
-            sectionRepository.Upsert(section);
-
-            var dbSection = sectionRepository.GetByID(section.ID).Result;
+            Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
             Assert.AreEqual(section.ID, dbSection.ID);
             Assert.AreEqual(section.Name, dbSection.Name);
         }
 
         [TestMethod]
-        public void GetByName_ExistingSection_ReturnsSectionByName()
+        public void GetByNameAsync_ExistingSection_ReturnsSectionByName()
         {
-            var section = sectionCreate();
+            Section section = sectionCreate();
 
             sectionRepository.Upsert(section);
 
-            var dbSection = sectionRepository.GetByName(section.Name).Result;
+            Section dbSection = sectionRepository.GetByNameAsync(section.Name).Result;
 
             Assert.AreEqual(section.ID, dbSection.ID);
             Assert.AreEqual(section.Name, dbSection.Name);

@@ -7,11 +7,11 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
      public interface ISectionRepository : IBaseRepository<Section>
 	{
-        Task<Section[]> List();
+        Task<Section[]> ListAsync();
 
-		Task<Section> GetByName(string name);
+		Task<Section> GetByNameAsync(string name);
 
-		Task<Section> GetByID(Guid id);
+		Task<Section> GetByIDAsync(Guid id);
 
 	}
 }
