@@ -17,6 +17,20 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         private QuizEngineDataContext dbContext;
         private SectionRepository sectionRepository;
 
+        private void AssertSectionEqual(Section expected, Section actual)
+        {
+            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.Name, actual.Name);
+        }
+
+        private void AssertSectionsIsTrue(List<Section> expected, List<Section> actual)
+        {
+            foreach (Section expectedSection in expected)
+            {
+                Assert.IsTrue(actual.Any(section => section.ID == expectedSection.ID && section.Name == expectedSection.Name));
+            }
+        }
+
         private Section sectionCreate()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "TestSection" };
@@ -32,22 +46,25 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 ID = Guid.NewGuid(),
                 Name = "TestSection1"
             };
-            sectionRepository.Upsert(section1);
             Section section2 = new Section()
             {
                 ID = Guid.NewGuid(),
                 Name = "TestSection2"
             };
-            sectionRepository.Upsert(section2);
             Section section3 = new Section()
             {
                 ID = Guid.NewGuid(),
                 Name = "TestSection3"
             };
-            sectionRepository.Upsert(section3);
+
             sections.Add(section1);
             sections.Add(section2);
             sections.Add(section3);
+
+            foreach (Section section in sections)
+            {
+                sectionRepository.Upsert(section);
+            }
 
             return sections;
         }
@@ -70,11 +87,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         public void ListAsync_ExistingSections_ReturnArrayOfSections()
         {
             List<Section> mockSections = sectionsListCreate();
-            Section[] sections = sectionRepository.ListAsync().Result;
-            foreach (Section section in mockSections)
-            {
-                Assert.IsTrue(sections.Any(x => x.ID == section.ID && x.Name == section.Name));
-            }
+            List<Section> sections = sectionRepository.ListAsync().Result.ToList();
+            AssertSectionsIsTrue(mockSections, sections);
         }
 
         [TestMethod]
@@ -84,8 +98,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
             Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
-            Assert.AreEqual(section.ID, dbSection.ID);
-            Assert.AreEqual(section.Name, dbSection.Name);
+            AssertSectionEqual(section, dbSection);
         }
 
         [TestMethod]
@@ -93,12 +106,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         {
             Section section = sectionCreate();
 
-            sectionRepository.Upsert(section);
-
             Section dbSection = sectionRepository.GetByNameAsync(section.Name).Result;
 
-            Assert.AreEqual(section.ID, dbSection.ID);
-            Assert.AreEqual(section.Name, dbSection.Name);
+            AssertSectionEqual(section, dbSection);
         }
     }
 }
