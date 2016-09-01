@@ -40,7 +40,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
         [TestMethod]
 
-        public void GetAllSectionsAsync_ExistingSections_ReturnArrayOfSections()
+        public void List_ExistingSections_ReturnArrayOfSections()
         {
             Section section1 = new Section()
             {
@@ -56,32 +56,32 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
             sectionRepository.Upsert(section1);
             sectionRepository.Upsert(section2);
 
-            Section[] sections = sectionRepository.GetAllSectionsAsync().Result;
+            Section[] sections = sectionRepository.List().Result;
             Assert.IsTrue(sections.Any(x => x.ID == section1.ID && x.Name == section1.Name));
             Assert.IsTrue(sections.Any(x => x.ID == section1.ID && x.Name == section1.Name));
         }
 
         [TestMethod]
-        public void GetSectionByIDAsync_ExistingSection_ReturnsSectionByID()
+        public void GetByID_ExistingSection_ReturnsSectionByID()
         {
             var section = sectionCreate();
 
             sectionRepository.Upsert(section);
 
-            var dbSection = sectionRepository.GetSectionByIDAsync(section.ID).Result;
+            var dbSection = sectionRepository.GetByID(section.ID).Result;
 
             Assert.AreEqual(section.ID, dbSection.ID);
             Assert.AreEqual(section.Name, dbSection.Name);
         }
 
         [TestMethod]
-        public void GetSectionByNameAsync_ExistingSection_ReturnsSectionByName()
+        public void GetByName_ExistingSection_ReturnsSectionByName()
         {
             var section = sectionCreate();
 
             sectionRepository.Upsert(section);
 
-            var dbSection = sectionRepository.GetSectionByNameAsync(section.Name).Result;
+            var dbSection = sectionRepository.GetByName(section.Name).Result;
 
             Assert.AreEqual(section.ID, dbSection.ID);
             Assert.AreEqual(section.Name, dbSection.Name);

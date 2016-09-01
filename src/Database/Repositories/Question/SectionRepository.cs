@@ -11,17 +11,17 @@ namespace Qubiz.QuizEngine.Database.Repositories
             : base(context, unitOfWork)
         { }
 
-        public async Task<Section[]> GetAllSectionsAsync()
+        public async Task<Section[]> List()
         {
 			return await dbSet.ToArrayAsync();
         }
 
-		public async Task<Section> GetSectionByNameAsync(string name)
+		public async Task<Section> GetByName(string name)
 		{
 			return await dbSet.FirstOrDefaultAsync(s => s.Name == name);
 		}
 
-		public async Task<Section> GetSectionByIDAsync(Guid id)
+		public async Task<Section> GetByID(Guid id)
 		{
 			return await dbSet.FirstOrDefaultAsync(s => s.ID == id);
 		}
