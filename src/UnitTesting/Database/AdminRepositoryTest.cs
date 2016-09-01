@@ -34,201 +34,88 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
         
         [TestMethod]
-        public async Task GetAllAdminsAsync_GetAdminsFromDatabase_ReturnListOfAdmins()
+        public void GetListAsync_GetAdminsFromDatabase_ReturnListOfAdmins()
         {
-            /*
-             *  Scenario with 2 Admins
-             */
-
-            Admin newAdmin1 = new Admin
+            Admin adminToAdd1 = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "Admin1"
             };
-            Admin newAdmin2 = new Admin
+            Admin adminToAdd2 = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "Admin2"
             };
 
-            adminRepository.Upsert(newAdmin1);
-            adminRepository.Upsert(newAdmin2);
+            adminRepository.Upsert(adminToAdd1);
+            adminRepository.Upsert(adminToAdd2);
 
-            Admin[] admins = await adminRepository.ListAsync();
+            Admin[] admins = adminRepository.ListAsync().Result;
 
             int adminRepositorySize = admins.Length;
             Assert.IsTrue(adminRepositorySize == 2);
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == newAdmin1.ID && admin.Name == newAdmin1.Name));
+            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd1.ID && admin.Name == adminToAdd1.Name));
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == newAdmin2.ID && admin.Name == newAdmin2.Name));
-
-        }
-
-        [TestMethod]
-        public async Task GetAllAdminsAsync_GetAdminsFromDatabase_ReturnListOfAdmins2()
-        {
-            /*
-             *  Scenario with more than 2 Admins
-             */
-
-            List<Admin> inMemoryAdmins = new List<Admin>();
-
-            for(int i = 0; i < 100; i++)
-            {
-                Admin newAdmin = new Admin
-                {
-                    ID = Guid.NewGuid(),
-                    Name = "Admin1" + i.ToString()
-                };
-
-                inMemoryAdmins.Add(newAdmin);
-
-                adminRepository.Upsert(newAdmin);
-
-            }
-
-
-            Admin[] adminsFromDb = await adminRepository.ListAsync();
-
-            foreach(Admin adminFromMemory in inMemoryAdmins)
-            {
-                Assert.IsTrue(adminsFromDb.Any(admin => admin.ID == adminFromMemory.ID && admin.Name == adminFromMemory.Name));
-            }
+            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd2.ID && admin.Name == adminToAdd2.Name));
 
         }
-
+        
         [TestMethod]
-        public async Task AddAdminsAsync_CreateAndAddAdmin_ReturnCreatedAdmin()
+        public void AddAdminsAsync_CreateAndAddAdmin_ReturnCreatedAdmin()
         {
-            Admin newAdmin1 = new Admin
+            Admin adminToAdd = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
             
-            adminRepository.Upsert(newAdmin1);
+            adminRepository.Upsert(adminToAdd);
 
-            Admin[] admins = await adminRepository.ListAsync();
+            Admin[] admins = adminRepository.ListAsync().Result;
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == newAdmin1.ID && admin.Name == newAdmin1.Name));
+            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd.ID && admin.Name == adminToAdd.Name));
 
         }
 
         [TestMethod]
-        public async Task GetAdminByIdAsync_CreateAndAddAdmin_ReturnAdminWithGivenId()
+        public void GetAdminByIdAsync_CreateAndAddAdmin_ReturnAdminWithGivenId()
         {
-            /*
-             * Scenario with only one Admin in the database
-             */
-
-            Admin newAdmin1 = new Admin
+            Admin adminToAdd = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
 
-            adminRepository.Upsert(newAdmin1);
+            adminRepository.Upsert(adminToAdd);
 
-            Admin adminFoundById = await adminRepository.GetByIDAsync(newAdmin1.ID);
+            Admin adminFoundById = adminRepository.GetByIDAsync(adminToAdd.ID).Result;
 
             Assert.IsNotNull(adminFoundById);
 
-            Assert.IsTrue(adminFoundById.ID == newAdmin1.ID && adminFoundById.Name == newAdmin1.Name);
+            Assert.IsTrue(adminFoundById.ID == adminToAdd.ID && adminFoundById.Name == adminToAdd.Name);
 
         }
 
         [TestMethod]
-        public async Task GetAdminByIdAsync_CreateAndAddAdmin_ReturnAdminWithGivenId2()
+        public void GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName()
         {
-            /*
-             * Scenario with more than one Admin in the database
-             */
-
-            Admin newAdmin = new Admin
+            Admin adminToAdd = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
 
-            adminRepository.Upsert(newAdmin);
+            adminRepository.Upsert(adminToAdd);
 
-
-            for(int i = 0; i < 100; i++)
-            {
-                Admin newAdmin1 = new Admin
-                {
-                    ID = Guid.NewGuid(),
-                    Name = "AddAdminTestAdmin" + i.ToString()
-                };
-
-                adminRepository.Upsert(newAdmin1);
-
-            }
-
-            Admin adminFoundById = await adminRepository.GetByIDAsync(newAdmin.ID);
-
-            Assert.IsNotNull(adminFoundById);
-
-            Assert.IsTrue(adminFoundById.ID == newAdmin.ID && adminFoundById.Name == newAdmin.Name);
-
-        }
-
-        [TestMethod]
-        public async Task GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName()
-        {
-            /*
-             * Scenario with only one Admin in the database
-             */
-
-            Admin newAdmin1 = new Admin
-            {
-                ID = Guid.NewGuid(),
-                Name = "AddAdminTestAdmin"
-            };
-
-            adminRepository.Upsert(newAdmin1);
-
-            Admin adminFoundByName = await adminRepository.GetByNameAsync(newAdmin1.Name);
+            Admin adminFoundByName = adminRepository.GetByNameAsync(adminToAdd.Name).Result;
 
             Assert.IsNotNull(adminFoundByName);
 
-            Assert.IsTrue(adminFoundByName.ID == newAdmin1.ID && adminFoundByName.Name == newAdmin1.Name);
+            Assert.IsTrue(adminFoundByName.ID == adminToAdd.ID && adminFoundByName.Name == adminToAdd.Name);
         }
 
-        [TestMethod]
-        public async Task GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName2()
-        {
-            /*
-             * Scenario with more than only one Admin in the database
-             */
-
-            Admin newAdmin = new Admin
-            {
-                ID = Guid.NewGuid(),
-                Name = "AddAdminTestAdmin"
-            };
-
-            adminRepository.Upsert(newAdmin);
-
-            for (int i = 0; i < 100; i++)
-            {
-                Admin newAdmin1 = new Admin
-                {
-                    ID = Guid.NewGuid(),
-                    Name = "AddAdminTestAdmin" + i.ToString()
-                };
-
-                adminRepository.Upsert(newAdmin1);
-
-            }
-
-            Admin adminFoundById = await adminRepository.GetByNameAsync(newAdmin.Name);
-
-            Assert.IsNotNull(adminFoundById);
-
-            Assert.IsTrue(adminFoundById.ID == newAdmin.ID && adminFoundById.Name == newAdmin.Name);
-        }
+        
     }
 
 }
