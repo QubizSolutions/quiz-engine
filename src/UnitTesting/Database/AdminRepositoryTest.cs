@@ -33,6 +33,12 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
             dbContext.Database.ExecuteSqlCommand("DELETE FROM [dbo].[Admins]");
         }
         
+        private void AssertAdminsEqual(Admin expected,Admin actual)
+        {
+            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.Name, actual.Name);
+        }
+
         [TestMethod]
         public void GetListAsync_GetAdminsFromDatabase_ReturnListOfAdmins()
         {
@@ -52,12 +58,12 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
             Admin[] admins = adminRepository.ListAsync().Result;
 
-            int adminRepositorySize = admins.Length;
-            Assert.IsTrue(adminRepositorySize == 2);
+            Assert.AreEqual(2, admins.Length);
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd1.ID && admin.Name == adminToAdd1.Name));
+            AssertAdminsEqual(adminToAdd1, admins.First(admin =>admin.ID == adminToAdd1.ID));
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd2.ID && admin.Name == adminToAdd2.Name));
+            AssertAdminsEqual(adminToAdd2, admins.First(admin => admin.ID == adminToAdd2.ID));
+            
 
         }
         
@@ -74,7 +80,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
             Admin[] admins = adminRepository.ListAsync().Result;
 
-            Assert.IsTrue(admins.Any(admin => admin.ID == adminToAdd.ID && admin.Name == adminToAdd.Name));
+            AssertAdminsEqual(adminToAdd, admins.First(admin => admin.ID == adminToAdd.ID));
 
         }
 
@@ -91,28 +97,24 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
             Admin adminFoundById = adminRepository.GetByIDAsync(adminToAdd.ID).Result;
 
-            Assert.IsNotNull(adminFoundById);
-
-            Assert.IsTrue(adminFoundById.ID == adminToAdd.ID && adminFoundById.Name == adminToAdd.Name);
+            AssertAdminsEqual(adminToAdd, adminFoundById);
 
         }
 
         [TestMethod]
         public void GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName()
         {
-            Admin adminToAdd = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
 
-            adminRepository.Upsert(adminToAdd);
+            adminRepository.Upsert(admin);
 
-            Admin adminFoundByName = adminRepository.GetByNameAsync(adminToAdd.Name).Result;
+            Admin adminFoundByName = adminRepository.GetByNameAsync(admin.Name).Result;
 
-            Assert.IsNotNull(adminFoundByName);
-
-            Assert.IsTrue(adminFoundByName.ID == adminToAdd.ID && adminFoundByName.Name == adminToAdd.Name);
+            AssertAdminsEqual(admin, adminFoundByName);
         }
 
         
