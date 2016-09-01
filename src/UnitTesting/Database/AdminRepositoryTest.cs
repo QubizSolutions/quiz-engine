@@ -95,26 +95,26 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 
             adminRepository.Upsert(adminToAdd);
 
-            Admin adminFoundById = adminRepository.GetByIDAsync(adminToAdd.ID).Result;
+            Admin dbAdmin = adminRepository.GetByIDAsync(adminToAdd.ID).Result;
 
-            AssertAdminsEqual(adminToAdd, adminFoundById);
+            AssertAdminsEqual(adminToAdd, dbAdmin);
 
         }
 
         [TestMethod]
         public void GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName()
         {
-            Admin admin = new Admin
+            Admin adminToAdd = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
 
-            adminRepository.Upsert(admin);
+            adminRepository.Upsert(adminToAdd);
 
-            Admin adminFoundByName = adminRepository.GetByNameAsync(admin.Name).Result;
+            Admin dbAdmin = adminRepository.GetByNameAsync(adminToAdd.Name).Result;
 
-            AssertAdminsEqual(admin, adminFoundByName);
+            AssertAdminsEqual(adminToAdd, dbAdmin);
         }
 
         
