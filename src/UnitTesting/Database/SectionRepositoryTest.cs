@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Database;
@@ -13,14 +11,13 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
     [TestClass]
     public class SectionRepositoryTest
     {
-        private IConfig config;
         private QuizEngineDataContext dbContext;
         private SectionRepository sectionRepository;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            config = new Config();
+            IConfig config = new Config();
             dbContext = new QuizEngineDataContext(config.ConnectionString);
             sectionRepository = new SectionRepository(dbContext, null);
         }
@@ -51,7 +48,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
             Section section = new Section { ID = Guid.NewGuid(), Name = "TestSection" };
 
             sectionRepository.Upsert(section);
-            
+
             Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
             AssertSectionEqual(section, dbSection);
@@ -73,6 +70,32 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         {
             Assert.AreEqual(expected.ID, actual.ID);
             Assert.AreEqual(expected.Name, actual.Name);
+        }
+
+        [TestMethod]
+        public void ListAsync_UnexistingSections_ReturnEmptyList()
+        {
+            Section[] sections = sectionRepository.ListAsync().Result;
+
+            Assert.IsTrue(sections.Count() == 0);
+        }
+
+        [TestMethod]
+        public void GetByIDAsync_UnexistingSection_ReturnsNull()
+        {
+            Guid id = Guid.NewGuid();
+
+            Section section = sectionRepository.GetByIDAsync(id).Result;
+
+            Assert.IsNull(section);
+        }
+
+        [TestMethod]
+        public void GetByNameAsync_UnexistingSection_ReturnsNull()
+        {
+            Section section = sectionRepository.GetByNameAsync("UnexistingSection").Result;
+
+            Assert.IsNull(section);
         }
     }
 }

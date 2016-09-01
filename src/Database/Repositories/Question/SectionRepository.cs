@@ -1,8 +1,8 @@
 ﻿using Qubiz.QuizEngine.Database.Entities;
 using System;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
+
 namespace Qubiz.QuizEngine.Database.Repositories
 {
 	public class SectionRepository : BaseRepository<Section>, ISectionRepository
@@ -25,6 +25,5 @@ namespace Qubiz.QuizEngine.Database.Repositories
 		{
 			return await dbSet.FirstOrDefaultAsync(s => s.ID == id);
 		}
-
 	}
 }
