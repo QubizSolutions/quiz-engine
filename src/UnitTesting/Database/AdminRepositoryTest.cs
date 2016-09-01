@@ -13,14 +13,13 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
     [TestClass]
     public class AdminRepositoryTest
     {
-        private IConfig config;
         private QuizEngineDataContext dbContext;
         private AdminRepository adminRepository;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            config = new Config();
+            IConfig config = new Config();
 
             dbContext = new QuizEngineDataContext(config.ConnectionString);
 
@@ -34,7 +33,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
 
         [TestMethod]
-        public void GetListAsync_GetAdminsFromDatabase_ReturnListOfAdmins()
+        public void GetListAsync_ExistingAdminsInDatabase_ReturnListOfAdmins()
         {
             Admin admin1 = new Admin
             {
@@ -59,7 +58,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
         
         [TestMethod]
-        public void AddAdminsAsync_CreateAndAddAdmin_ReturnCreatedAdmin()
+        public void AddAdminsAsync_ExistingAdmin_ReturnCreatedAdmin()
         {
             Admin admin = new Admin
             {
@@ -75,7 +74,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
 
         [TestMethod]
-        public void GetAdminByIdAsync_CreateAndAddAdmin_ReturnAdminWithGivenId()
+        public void GetAdminByIdAsync_ExistingAdmin_ReturnAdminWithGivenId()
         {
             Admin admin = new Admin
             {
@@ -91,7 +90,29 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
 
         [TestMethod]
-        public void GetAdminByNameAsync_CreateAdminAddAdmin_ReturnAdminWithGivenName()
+        public void GetAdminByIdAsync_ExistingAdmin_ReturnNull()
+        {
+            Admin admin = new Admin
+            {
+                ID = Guid.NewGuid(),
+                Name = "AddAdminTestAdmin"
+            };
+
+            Admin admin2 = new Admin
+            {
+                ID = Guid.NewGuid(),
+                Name = "AddAdminTestAdmin"
+            };
+
+            adminRepository.Upsert(admin);
+
+            Admin dbAdmin = adminRepository.GetByIDAsync(admin2.ID).Result;
+
+            Assert.IsNull(dbAdmin);
+        }
+
+        [TestMethod]
+        public void GetAdminByNameAsync_ExistingAdmin_ReturnAdminWithGivenName()
         {
             Admin admin = new Admin
             {
@@ -106,6 +127,27 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
             AssertAdminsEqual(admin, dbAdmin);
         }
 
+        [TestMethod]
+        public void GetAdminByNameAsync_ExistingAdmin_ReturnNull()
+        {
+            Admin admin = new Admin
+            {
+                ID = Guid.NewGuid(),
+                Name = "AddAdminTestAdmin"
+            };
+
+            Admin admin2 = new Admin
+            {
+                ID = Guid.NewGuid(),
+                Name = "ThisShouldBeNull"
+            };
+
+            adminRepository.Upsert(admin);
+
+            Admin dbAdmin = adminRepository.GetByNameAsync(admin2.Name).Result;
+
+            Assert.IsNull(dbAdmin);
+        }
 
         private void AssertAdminsEqual(Admin expected, Admin actual)
         {
@@ -114,6 +156,3 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         }
     }
 }
-        
-            
-    
