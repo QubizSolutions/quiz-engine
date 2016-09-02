@@ -98,16 +98,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
-
-            Admin admin2 = new Admin
-            {
-                ID = Guid.NewGuid(),
-                Name = "AddAdminTestAdmin"
-            };
+            
 
             adminRepository.Upsert(admin);
 
-            Admin dbAdmin = await adminRepository.GetByIDAsync(admin2.ID);
+            Admin dbAdmin = await adminRepository.GetByIDAsync(Guid.NewGuid());
 
             Assert.IsNull(dbAdmin);
         }
@@ -136,16 +131,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 ID = Guid.NewGuid(),
                 Name = "AddAdminTestAdmin"
             };
-
-            Admin admin2 = new Admin
-            {
-                ID = Guid.NewGuid(),
-                Name = "ThisShouldBeNull"
-            };
-
+            
             adminRepository.Upsert(admin);
 
-            Admin dbAdmin = await adminRepository.GetByNameAsync(admin2.Name);
+            Admin dbAdmin = await adminRepository.GetByNameAsync("Qubiz");
 
             Assert.IsNull(dbAdmin);
         }
