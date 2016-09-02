@@ -20,10 +20,17 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 {
                     XDocument moduleConfig = XDocument.Load(localConfigFilePath);
 
-                    _ConnectionString = moduleConfig.XPathSelectElements("/configuration/test").Select(x => x.Attribute("connectionString").Value).First();
+                    _ConnectionString = GetConnectionString();
                 }
                 return _ConnectionString;
             }
+        }
+        private string GetConnectionString()
+        {
+            // To avoid storing the connection string in your code, 
+            // you can retrieve it from a configuration file.
+            return "Data Source=localhost;Initial Catalog=QubizQuizEngineTest;"
+                + "Integrated Security=SSPI;";
         }
     }
 }
