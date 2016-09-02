@@ -20,7 +20,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                Section section = await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
+                Section section = await unitOfWork.SectionRepository.GetByIDAsync(id);
                 if (section == null)
                     return new ValidationError[1] { new ValidationError() { Message = "Deletion failed! There is no Section instance with this ID!" } };
 
@@ -36,7 +36,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                return await unitOfWork.SectionRepository.GetAllSectionsAsync();
+                return await unitOfWork.SectionRepository.ListAsync();
             }
         }
 
@@ -44,7 +44,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                Section dbSection = await unitOfWork.SectionRepository.GetSectionByNameAsync(section.Name);
+                Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.Name);
                 if (dbSection == null)
                 {
                     unitOfWork.SectionRepository.Create(section);
@@ -60,11 +60,11 @@ namespace Qubiz.QuizEngine.Services.SectionService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                Section dbSection = await unitOfWork.SectionRepository.GetSectionByNameAsync(section.Name);
+                Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.Name);
                 if (dbSection != null && dbSection.ID != section.ID)
                     return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
 
-                dbSection = await unitOfWork.SectionRepository.GetSectionByIDAsync(section.ID);
+                dbSection = await unitOfWork.SectionRepository.GetByIDAsync(section.ID);
 
                 Mapper.Map(section, dbSection);
 
@@ -80,7 +80,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                return await unitOfWork.SectionRepository.GetSectionByIDAsync(id);
+                return await unitOfWork.SectionRepository.GetByIDAsync(id);
             }
         }
     }

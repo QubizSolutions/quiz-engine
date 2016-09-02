@@ -3,9 +3,9 @@
 
     angular
         .module('quizEngineMaterial')
-        .service("httpWrapperService", httpService);
+        .service("httpService", httpService);
 
-    httpWrapperService.$inject = ['$http', '$q'];
+    httpService.$inject = ['$http', '$q'];
 
     function httpService($http, $q) {
 

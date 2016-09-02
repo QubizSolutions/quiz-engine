@@ -100,7 +100,7 @@ namespace Qubiz.QuizEngine.Services
 
                 var questionsFiltered = questions.Select(q => new { ID = q.ID, Number = q.Number, SectionID = q.SectionID }).ToArray();
 
-                IEnumerable<Qubiz.QuizEngine.Database.Entities.Section> sections = await unitOfWork.SectionRepository.GetAllSectionsAsync();
+                IEnumerable<Qubiz.QuizEngine.Database.Entities.Section> sections = await unitOfWork.SectionRepository.ListAsync();
 
                 return new PagedResult<QuestionListItem>
                 {
