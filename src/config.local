@@ -4,5 +4,5 @@
 	<dev name="qubizQuizEngineTest" connectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=QubizQuizEngineTest;persist security info=True; Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
 	
 	<!--Test-->
-	<test name="qubizQuizEngineTest" connectionString="Data Source=localhost;Initial Catalog=QubizQuizEngineTest;persist security info=True; Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+	<test name="qubizQuizEngineTest" connectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=QubizQuizEngineTest;persist security info=True; Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
 </configuration>
