@@ -99,7 +99,6 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 Name = "AddAdminTestAdmin"
             };
             
-
             adminRepository.Upsert(admin);
 
             Admin dbAdmin = await adminRepository.GetByIDAsync(Guid.NewGuid());
