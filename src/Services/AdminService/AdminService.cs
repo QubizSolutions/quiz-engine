@@ -66,7 +66,7 @@ namespace Qubiz.QuizEngine.Services.AdminService
         {
             using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
             {
-                return await unitOfWork.AdminRepository.GetAllAdminsAsync();
+                return await unitOfWork.AdminRepository.ListAsync();
             }
         }
 
