@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
-     public interface ISectionRepository : IBaseRepository<Section>
-	{
+    public interface ISectionRepository : IBaseRepository<Section>
+    {
         Task<Section[]> ListAsync();
 
-		Task<Section> GetByNameAsync(string name);
+        Task<Section> GetByNameAsync(string name);
 
-		Task<Section> GetByIDAsync(Guid id);
-
-	}
+        Task<Section> GetByIDAsync(Guid id);
+    }
 }
