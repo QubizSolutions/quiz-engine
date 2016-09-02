@@ -10,7 +10,7 @@ Below you can find information regarding the technical details of the solution
  * Layered architecture
  * REST
 
-### Design pattersn
+### Design pattern
  * Task-based Asynchronous Pattern(TAP)
  * Dependency Injection Pattern (DI)
  * Repository and Unit of Work Pattern
