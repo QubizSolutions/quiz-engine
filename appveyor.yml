@@ -8,6 +8,4 @@ branches:
 before_build:
   - nuget restore src\Qubiz.QuizEngine.sln
 
-test:
-  assemblies:
-    - '**\*.UnitTesting.dll'
+test:on
