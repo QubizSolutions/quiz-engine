@@ -11,4 +11,7 @@ before_build:
 services:
   - mssql2014
 
-test: on
+test:
+  assemblies:
+    - '**\*.UnitTesting.dll'
+
