@@ -8,5 +8,6 @@ branches:
 before_build:
   - nuget restore src\Qubiz.QuizEngine.sln
 
-# to disable automatic tests
-test: off
+test:
+  assemblies:
+    - '**\*.UnitTesting.dll'
