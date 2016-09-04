@@ -14,14 +14,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         {
             get
             {
-                string localConfigFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", ""), @"..\..\..\")) + "config.local";
+                if (_ConnectionString == null)
+                    _ConnectionString = ConfigurationManager.ConnectionStrings["qubizQuizEngineTest"].ConnectionString;
 
-                if (File.Exists(localConfigFilePath))
-                {
-                    XDocument moduleConfig = XDocument.Load(localConfigFilePath);
-
-                    _ConnectionString = moduleConfig.XPathSelectElements("/configuration/test").Select(x => x.Attribute("connectionString").Value).First();
-                }
                 return _ConnectionString;
             }
         }
