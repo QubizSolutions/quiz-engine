@@ -14,23 +14,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
         {
             get
             {
-                string localConfigFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", ""), @"..\..\..\")) + "config.local";
+                if (_ConnectionString == null)
+                    _ConnectionString = ConfigurationManager.ConnectionStrings["qubizQuizEngine"].ConnectionString;
 
-                if (File.Exists(localConfigFilePath))
-                {
-                    XDocument moduleConfig = XDocument.Load(localConfigFilePath);
-
-                    _ConnectionString = GetConnectionString();
-                }
                 return _ConnectionString;
             }
-        }
-        private string GetConnectionString()
-        {
-            // To avoid storing the connection string in your code, 
-            // you can retrieve it from a configuration file.
-            return "Data Source=localhost;Initial Catalog=QubizQuizEngineTest;"
-                + "Integrated Security=SSPI;";
         }
     }
 }
