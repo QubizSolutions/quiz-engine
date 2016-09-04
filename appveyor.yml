@@ -8,4 +8,4 @@ branches:
 before_build:
   - nuget restore src\Qubiz.QuizEngine.sln
 
-test:on
+test: on
