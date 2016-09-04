@@ -15,4 +15,3 @@ test:
   assemblies:
     - '**\*.UnitTesting.dll'
 
-test: on
