@@ -1,6 +1,6 @@
 # Coding guidelines
 
-## Global guide lines(these do not apply for Javascript)
+## Global guidelines(these do not apply to Javascript)
   * Pascal case for class and method names
   * Camel case for local variables, parameters and private variables
   * Dependency injected variables should be declared as ***private readonly*** and the constructor parameter should have the same name as the variable. Use **this** for variable assignment inside the constructor
@@ -48,5 +48,49 @@
         void DeleteByAdmin(Guid adminID);
         void DeleteByType(FooType type);
         void DeleteByAdminAndType(Guid adminID, FooType type);
+    }
+    ```
+
+## Unit and integration testing guidelines
+Examples contain references to [Moq](https://github.com/moq/moq4) which is the most popular and friendly mocking framework for .NET
+
+  * Individual tests should follow the naming convention of ***TestMethod_Scenario_ExpectedResult*** and be as descriptive as possible
+
+    ``` c#
+    [TestMethod]
+    public void Create_WhenDuplicateName_ThenReturnsError()
+    {
+        // test method body
+    }
+    ```
+    
+  * Keep unit tests small, test **ONLY ONE** specific scenario. Try not to test the same thing multiple times. Unit tests should be quick to write and easy to maintain
+  * Mocking should be used where possible so that only the specific code being tested needs to be executed
+  * Mocked objects should reflect as much as possible what the real object would return
+  * Every mocked object should be prefixed with **Mock** and declared as a ***private field***
+  * Use **MockBehavior.Strict** whenever possible and verify them all at the end of each test
+  * Always use the TestInitialize and TestCleanup methods to instantiate mocked objects and the tested object and respectively verify all mocks
+
+    ``` c#
+    [TestClass]
+    public class FooTest
+    {
+        private Mock<IBar> barMock;
+        
+        private Foo foo;
+    
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            barMock = new Mock<IBar>(MockBehavior.Strict);
+            
+            foo = new Foo(barMock.Object);
+        }
+        
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            barMock.VerifyAll();
+        }
     }
     ```
