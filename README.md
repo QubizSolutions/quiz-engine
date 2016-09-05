@@ -10,7 +10,7 @@ Below you can find information regarding the technical details of the solution
  * Layered architecture
  * REST
 
-### Design pattersn
+### Design pattern
  * Task-based Asynchronous Pattern(TAP)
  * Dependency Injection Pattern (DI)
  * Repository and Unit of Work Pattern
@@ -24,3 +24,6 @@ Below you can find information regarding the technical details of the solution
  * Entity Framework
  * Bootstrap
  * Material design / Material design lite
+
+## Contribute & Develop
+Here you can find a document with the [contribution guidelines](https://github.com/QubizSolutions/quiz-engine/blob/master/CONTRIBUTING.md)
