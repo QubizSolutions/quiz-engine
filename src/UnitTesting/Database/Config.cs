@@ -9,7 +9,6 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 {
     public class Config : IConfig
     {
-        private string _ConnectionString;
         public string ConnectionString
         {
             get
@@ -20,9 +19,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
                 {
                     XDocument moduleConfig = XDocument.Load(localConfigFilePath);
 
-                    _ConnectionString = moduleConfig.XPathSelectElements("/configuration/test").Select(x => x.Attribute("connectionString").Value).First();
+                    return moduleConfig.XPathSelectElements("/configuration/test").Select(x => x.Attribute("connectionString").Value).First();
                 }
-                return _ConnectionString;
+
+                return ConfigurationManager.ConnectionStrings["qubizQuizEngineTest"].ConnectionString;
             }
         }
     }
