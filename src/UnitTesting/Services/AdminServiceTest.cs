@@ -67,7 +67,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task AddAdminAsync_ExistingAdmins_ValidationErrorIsEmpty()
+        public async Task AddAdminAsync_NonExistingAdmins_ValidationErrorIsEmpty()
         {
             Admin admin1 = new Admin
             {
@@ -85,11 +85,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             ValidationError[] validationError = await adminService.AddAdminAsync(admin1, originator);
             
             Assert.AreEqual(validationError.Length, 0);
-            
         }
 
         [TestMethod]
-        public async Task AddAdminAsync_AddExistingAdmin_ValidationErrorNotEmpty()
+        public async Task AddAdminAsync_NonExistingAdmin_ValidationErrorNotEmpty()
         {
             Admin admin1 = new Admin
             {
@@ -207,7 +206,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_ExistingAdminName_ValidationErrorEmpty()
+        public async Task UpdateAdminAsync_ExistingAdminName_ValidationErrorNotEmpty()
         {
             Admin admin1 = new Admin
             {
@@ -233,7 +232,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_UpdateCurrentAdmin_ValidationErrorEmpty()
+        public async Task UpdateAdminAsync_UpdateCurrentAdmin_ValidationErrorNotEmpty()
         {
             Admin admin1 = new Admin
             {
@@ -252,6 +251,5 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             Assert.AreEqual(validationError.Length, 1);
             Assert.AreEqual(validationError[0].Message, "You cannot edit yourself!");
         }
-
     }
 }

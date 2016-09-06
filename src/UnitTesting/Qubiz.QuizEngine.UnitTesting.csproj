@@ -81,9 +81,6 @@
     <Compile Include="Database\AdminRepositoryTest.cs" />
     <Compile Include="Database\SectionRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AdminRespositoryMock.cs" />
-    <Compile Include="Services\UnitOfWorkFactoryMock.cs" />
-    <Compile Include="Services\UnitOfWorkMock.cs" />
     <Compile Include="Services\AdminServiceTest.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
