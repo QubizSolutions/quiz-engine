@@ -14,18 +14,20 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
     [TestClass]
     public class SectionServiceTest
     {
-        private SectionService sectionService;
         private Mock<ISectionRepository> sectionRepositoryMock;
         private Mock<IUnitOfWorkFactory> unitOfWorkFactoryMock;
         private Mock<IUnitOfWork> unitOfWorkMock;
+        private SectionService sectionService;
 
         [TestInitialize]
         public void TestInitialize()
         {
             unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
-            sectionRepositoryMock = new Mock<ISectionRepository>(MockBehavior.Strict);
             unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            sectionRepositoryMock = new Mock<ISectionRepository>(MockBehavior.Strict);
+
             sectionService = new SectionService(unitOfWorkFactoryMock.Object);
+
             unitOfWorkFactoryMock.Setup(method => method.Create()).Returns(unitOfWorkMock.Object);
             unitOfWorkMock.Setup(method => method.Dispose());
         }
@@ -33,29 +35,30 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         [TestCleanup]
         public void TestCleanUp()
         {
-            sectionRepositoryMock.VerifyAll();
             unitOfWorkFactoryMock.VerifyAll();
             unitOfWorkMock.VerifyAll();
+            sectionRepositoryMock.VerifyAll();
         }
 
         [TestMethod]
-        public async Task DeleteSectionAsync_ExistingSection_RemoveSection()
+        public async Task DeleteSectionAsync_ExistingSection_ReturnsNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
             unitOfWorkMock.Setup(repository => repository.SectionRepository).Returns(sectionRepositoryMock.Object);
-            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
 
             sectionRepositoryMock.Setup(method => method.GetByIDAsync(section.ID)).Returns(Task.FromResult(section));
             sectionRepositoryMock.Setup(method => method.Delete(section));
-
+            
+            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
+            
             ValidationError[] errors = await sectionService.DeleteSectionAsync(section.ID);
 
-            Assert.IsTrue(errors.Length == 0);
+            Assert.AreEqual(0, errors.Count());
         }
 
         [TestMethod]
-        public async Task DeleteSectionAsync_UnexistingSection_ThrowValidationError()
+        public async Task DeleteSectionAsync_UnexistingSection_ReturnsError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -65,7 +68,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] errors = await sectionService.DeleteSectionAsync(section.ID);
 
-            Assert.IsTrue(errors.Length != 0);
+            Assert.AreEqual(1,errors.Count());
+            Assert.AreEqual("Deletion failed! There is no Section instance with this ID!", errors[0].Message);
+
         }
 
         [TestMethod]
@@ -88,16 +93,16 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task AddSectionAsync_AddUnexistingSection_AddSection()
+        public async Task AddSectionAsync_AddUnexistingSection_ReturnNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
-            Section dbSection = null;
 
             unitOfWorkMock.Setup(repository => repository.SectionRepository).Returns(sectionRepositoryMock.Object);
-            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
 
-            sectionRepositoryMock.Setup(method => method.GetByNameAsync(section.Name)).Returns(Task.FromResult(dbSection));
+            sectionRepositoryMock.Setup(method => method.GetByNameAsync(section.Name)).Returns(Task.FromResult((Section)null));
             sectionRepositoryMock.Setup(method => method.Create(section));
+
+            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
 
             ValidationError[] errors = await sectionService.AddSectionAsync(section);
 
@@ -116,19 +121,21 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             ValidationError[] error = await sectionService.AddSectionAsync(section);
 
             Assert.AreEqual(error.Count(), 1);
+            Assert.AreEqual("Add failed! There already exists a Section instance with this name!", error[0].Message);
         }
 
         [TestMethod]
-        public async Task UpdateSectionAsync_UpdateExistingSection_UpdateSection()
+        public async Task UpdateSectionAsync_UpdateExistingSection_ReturnsNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
             unitOfWorkMock.Setup(repository => repository.SectionRepository).Returns(sectionRepositoryMock.Object);
-            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
 
             sectionRepositoryMock.Setup(method => method.GetByNameAsync(section.Name)).Returns(Task.FromResult(section));
             sectionRepositoryMock.Setup(method => method.GetByIDAsync(section.ID)).Returns(Task.FromResult(section));
             sectionRepositoryMock.Setup(method => method.Update(section));
+
+            unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
 
             ValidationError[] errors = await sectionService.UpdateSectionAsync(section);
 
@@ -136,7 +143,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateSectionAsync_UpdateUnexistingSection_ThrowValidationError()
+        public async Task UpdateSectionAsync_UpdateUnexistingSection_ReturnValidationError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
             Section dbSection = new Section { ID = Guid.NewGuid(), Name = "Error Test" };
