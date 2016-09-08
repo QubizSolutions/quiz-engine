@@ -81,6 +81,7 @@
     <Compile Include="Database\AdminRepositoryTest.cs" />
     <Compile Include="Database\SectionRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdminServiceTest.cs" />
     <Compile Include="Services\SectionServiceTest.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -93,15 +94,24 @@
       <Project>{B80C7772-2868-4AA9-9127-A01B607D47E3}</Project>
       <Name>Qubiz.QuizEngine.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Qubiz.QuizEngine\Qubiz.QuizEngine.csproj">
+      <Project>{066EF2BF-B7E1-488F-AA18-CC723A556DF1}</Project>
+      <Name>Qubiz.QuizEngine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\Qubiz.QuizEngine.Services.csproj">
       <Project>{2EF828B7-5DE9-4688-9EBE-FC7661DC87F4}</Project>
       <Name>Qubiz.QuizEngine.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
