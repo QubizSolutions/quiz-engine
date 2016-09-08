@@ -7,7 +7,6 @@
   * When checking if a **Nullable< T >** has a value assigned, use **Nullable< T >.HasValue**
   * Use the **AutoMapper** extensions,  **.DeepCopyTo< T >** and **Map(source, dest)**, whenever possible to streamline the flow. This implies having the same property names on both objects which in fact is a must where possible
 
-
 ## Layer guide lines(this applies to each layer of the application)
   * Each layer should **accept** and **return** its own ***data types***
 
@@ -54,7 +53,7 @@
 ## Unit and integration testing guidelines
 Examples contain references to [Moq](https://github.com/moq/moq4) which is the most popular and friendly mocking framework for .NET
 
-  * Individual tests should follow the naming convention of ***TestMethod_Scenario_ExpectedResult*** and be as descriptive as possible
+  * Individual tests should follow the naming convention of ***TestMethod_WhenScenario_ThenExpectedResult*** and be as descriptive as possible
 
     ``` c#
     [TestMethod]
@@ -63,7 +62,27 @@ Examples contain references to [Moq](https://github.com/moq/moq4) which is the m
         // test method body
     }
     ```
-    
+  
+  * Never use **DateTime.Now** in a test, always declare your own ***DateTime*** using the year, month, day or other parts if needed
+
+    ``` c#
+    [TestMethod]
+    public void Some_Test_Method()
+    {
+        // lets say the DateTime.Now is equal to new DateTime(2010, 01, 01)
+        DateTime now = DateTime.Now;
+        
+        DateTime birthDate = new DateTime(1980, 01, 01);
+        
+        int age = bar.Age(birthDate, now);
+        
+        // If we run this today, we get proper results
+        // If we run this after a period of time, lets say a year,
+        // it's gonna fail misserably since is going to see that the age went
+        // up a notch which is perfectly correct, 'now' is going to be new DateTime(2011, 01, 01)
+    }
+    ```
+  
   * Keep unit tests small, test **ONLY ONE** specific scenario. Try not to test the same thing multiple times. Unit tests should be quick to write and easy to maintain
   * Mocking should be used where possible so that only the specific code being tested needs to be executed
   * Mocked objects should reflect as much as possible what the real object would return
