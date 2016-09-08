@@ -41,7 +41,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task DeleteSectionAsync_ExistingSection_ReturnsNoError()
+        public async Task DeleteSectionAsync_WhenSectionExists_ThenReturnsNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -49,16 +49,16 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             sectionRepositoryMock.Setup(method => method.GetByIDAsync(section.ID)).Returns(Task.FromResult(section));
             sectionRepositoryMock.Setup(method => method.Delete(section));
-            
+
             unitOfWorkMock.Setup(method => method.SaveAsync()).Returns(Task.CompletedTask);
-            
+
             ValidationError[] errors = await sectionService.DeleteSectionAsync(section.ID);
 
-            Assert.AreEqual(0, errors.Count());
+            Assert.AreEqual(0, errors.Length);
         }
 
         [TestMethod]
-        public async Task DeleteSectionAsync_UnexistingSection_ReturnsError()
+        public async Task DeleteSectionAsync_WhenSectionDontExists_ThenReturnsError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -68,13 +68,13 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] errors = await sectionService.DeleteSectionAsync(section.ID);
 
-            Assert.AreEqual(1,errors.Count());
+            Assert.AreEqual(1, errors.Length);
             Assert.AreEqual("Deletion failed! There is no Section instance with this ID!", errors[0].Message);
 
         }
 
         [TestMethod]
-        public async Task GetAllSectionsAsync_ExistingSections_ReturnListOfSections()
+        public async Task GetAllSectionsAsync_WhenSectionsExists_ThenReturnListOfSections()
         {
             Section[] sectionsList = new Section[]
             {
@@ -93,7 +93,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task AddSectionAsync_AddUnexistingSection_ReturnNoError()
+        public async Task AddSectionAsync_WhenAddingUnexistingSection_ThenReturnNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -106,11 +106,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] errors = await sectionService.AddSectionAsync(section);
 
-            Assert.AreEqual(errors.Length, 0);
+            Assert.AreEqual(0, errors.Length);
         }
 
         [TestMethod]
-        public async Task AddSectionAsync_AddExistingSection_ThrowValidationError()
+        public async Task AddSectionAsync_WhenAddingExistingSection_ThenReturnError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -120,12 +120,12 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] error = await sectionService.AddSectionAsync(section);
 
-            Assert.AreEqual(error.Count(), 1);
+            Assert.AreEqual(1, error.Length);
             Assert.AreEqual("Add failed! There already exists a Section instance with this name!", error[0].Message);
         }
 
         [TestMethod]
-        public async Task UpdateSectionAsync_UpdateExistingSection_ReturnsNoError()
+        public async Task UpdateSectionAsync_WhenUpdateExistingSection_ThenReturnsNoError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -139,11 +139,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] errors = await sectionService.UpdateSectionAsync(section);
 
-            Assert.IsTrue(errors.Count() == 0);
+            Assert.AreEqual(0, errors.Length);
         }
 
         [TestMethod]
-        public async Task UpdateSectionAsync_UpdateUnexistingSection_ReturnValidationError()
+        public async Task UpdateSectionAsync_WhenUpdateUnexistingSection_ThenReturnError()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
             Section dbSection = new Section { ID = Guid.NewGuid(), Name = "Error Test" };
@@ -154,11 +154,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] errors = await sectionService.UpdateSectionAsync(section);
 
-            Assert.IsTrue(errors.Count() != 0);
+            Assert.AreEqual(1, errors.Length);
         }
 
         [TestMethod]
-        public async Task GetSectionAsync_ExistingSection_ReturnExistingSection()
+        public async Task GetSectionAsync_WhenExistingSection_ThenReturnExistingSection()
         {
             Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
