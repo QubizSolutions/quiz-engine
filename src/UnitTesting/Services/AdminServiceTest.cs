@@ -43,113 +43,121 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         [TestMethod]
         public async Task GetAllAdminsAsync_ExistingAdmins_ReturnsAdmins()
         {
-            List<Admin> dbAdmins = new List<Admin>()
+            Admin admin1 = new Admin
             {
-                new Admin
-                {
-                    ID = Guid.NewGuid(),
-                    Name = "Name1"
-                },
-                new Admin
-                {
-                    ID = Guid.NewGuid(),
-                    Name = "Name2"
-                }
+                ID = Guid.NewGuid(),
+                Name = "Name1"
+            },
+            admin2 = new Admin
+            {
+                ID = Guid.NewGuid(),
+                Name = "Name2"
+            };
+            Admin[] dbAdmins = new Admin[]
+            {
+                admin1.DeepCopyTo<Admin>(),
+                admin2.DeepCopyTo<Admin>()       
             };
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
 
-            adminRepositoryMock.Setup(x => x.ListAsync()).Returns(Task.FromResult(dbAdmins.ToArray()));
+            adminRepositoryMock.Setup(x => x.ListAsync()).Returns(Task.FromResult(dbAdmins));
 
             Admin[] admins = await adminService.GetAllAdminsAsync();
 
             Assert.AreEqual(2, admins.Length);
+            AssertAreAdminsEqual(admin1,admins[0]);
+            AssertAreAdminsEqual(admin2, admins[1]);
         }
 
         [TestMethod]
-        public async Task AddAdminAsync_NonExistingAdmins_ValidationErrorIsEmpty()
+        public async Task AddAdminAsync_WhenAdminWithTheSameNameDoesNotExist_ThenNoValidationErrorAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
-            String originator = "someUser";
+
+            string originator = "someUser";
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
             unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(Task.FromResult(0));
 
-            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin1.Name)).Returns(Task.FromResult((Admin)null));
-            adminRepositoryMock.Setup(x => x.Create(admin1));
+            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin.Name)).Returns(Task.FromResult((Admin)null));
+            adminRepositoryMock.Setup(x => x.Create(admin));
             
-            ValidationError[] validationError = await adminService.AddAdminAsync(admin1, originator);
+            ValidationError[] validationError = await adminService.AddAdminAsync(admin, originator);
             
             Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
-        public async Task AddAdminAsync_NonExistingAdmin_ValidationErrorNotEmpty()
+        public async Task AddAdminAsync_WhenAdminWithTheSAmeNameExists_ThenValidationErrorsAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
-            String originator = "someUser";
+
+            string originator = "someUser";
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
 
-            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin1.Name)).Returns(Task.FromResult(admin1));
+            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin.Name)).Returns(Task.FromResult(admin));
 
-            ValidationError[] validationError = await adminService.AddAdminAsync(admin1, originator);
+            ValidationError[] validationError = await adminService.AddAdminAsync(admin, originator);
 
             Assert.AreEqual(validationError.Length, 1);
             Assert.AreEqual(validationError[0].Message, "Name already exists!");
         }
 
         [TestMethod]
-        public async Task DeleteAdminAsync_ExistingAdmin_ValidationErrorEmpty()
+        public async Task DeleteAdminAsync_WhenAdminWithGivenIDExists_ThenNoValidationErrorsAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
-            String originator = "someUser";
+
+            string originator = "someUser";
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
             unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(Task.FromResult(0));
 
-            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
-            adminRepositoryMock.Setup(x => x.Delete(admin1));
+            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin.ID)).Returns(Task.FromResult(admin));
+            adminRepositoryMock.Setup(x => x.Delete(admin));
 
-            ValidationError[] validationError = await adminService.DeleteAdminAsync(admin1.ID, originator);
+            ValidationError[] validationError = await adminService.DeleteAdminAsync(admin.ID, originator);
 
             Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
-        public async Task DeleteAdminAsync_DeleteCurrentAdmin_ValidationErrorNotEmpty()
+        public async Task DeleteAdminAsync_WhenAdminWithGivenIdIsTheCurrentAdmin_ThenValidationErrorsAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
-            String originator = "QUBIZ\\Name1";
+
+            string originator = "QUBIZ\\Name1";
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
 
-            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
+            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin.ID)).Returns(Task.FromResult(admin));
             
-            ValidationError[] validationError = await adminService.DeleteAdminAsync(admin1.ID, originator);
+            ValidationError[] validationError = await adminService.DeleteAdminAsync(admin.ID, originator);
 
             Assert.AreEqual(1, validationError.Length);
             Assert.AreEqual("Can't delete yourself", validationError[0].Message);
         }
 
         [TestMethod]
-        public async Task GetAdminAsync_ExistingAdmin_ReturnAdmin()
+        public async Task GetAdminAsync_WhenAdminWhitGivenIDExists_ThenAdminWhitGivenIDIsReturned()
         {
             Admin admin1 = new Admin
             {
@@ -165,7 +173,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task GetAdminAsync_NonExistingAdmin_ReturnNull()
+        public async Task GetAdminAsync_WhenAdminWithGivenIDDoesNotExist_ThenNullIsReturned()
         {
             Admin admin1 = new Admin
             {
@@ -183,30 +191,30 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_ExistingAdmin_ValidationErrorEmpty()
+        public async Task UpdateAdminAsync_WhenAdminExists_ThenNoValidationErrorsAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
 
-            String originator = "someUser";
+            string originator = "someUser";
 
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
             unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(Task.FromResult(0));
 
-            adminRepositoryMock.Setup(x => x.Update(admin1));
-            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
-            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin1.Name)).Returns(Task.FromResult(admin1));
+            adminRepositoryMock.Setup(x => x.Update(admin));
+            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin.ID)).Returns(Task.FromResult(admin));
+            adminRepositoryMock.Setup(x => x.GetByNameAsync(admin.Name)).Returns(Task.FromResult(admin));
 
-            ValidationError[] validationError = await adminService.UpdateAdminAsync(admin1, originator);
+            ValidationError[] validationError = await adminService.UpdateAdminAsync(admin, originator);
 
             Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_ExistingAdminName_ValidationErrorNotEmpty()
+        public async Task UpdateAdminAsync_WhenTryingToUpdateWithAnAlredyExistingName_ThenValidationErrorsAreReturned()
         {
             Admin admin1 = new Admin
             {
@@ -218,6 +226,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
             };
+
             string originator = "someUser";
 
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
@@ -232,9 +241,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_UpdateCurrentAdmin_ValidationErrorNotEmpty()
+        public async Task UpdateAdminAsync_WhenTryingToUpdateCurrentAdmin_ThenValidationErrorsAreReturned()
         {
-            Admin admin1 = new Admin
+            Admin admin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
@@ -244,12 +253,18 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
             
-            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
+            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin.ID)).Returns(Task.FromResult(admin));
 
-            ValidationError[] validationError = await adminService.UpdateAdminAsync(admin1, originator);
+            ValidationError[] validationError = await adminService.UpdateAdminAsync(admin, originator);
 
             Assert.AreEqual(1, validationError.Length);
             Assert.AreEqual("You cannot edit yourself!", validationError[0].Message);
+        }
+
+        public void AssertAreAdminsEqual(Admin expected, Admin actual)
+        {
+            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.Name, actual.Name);
         }
     }
 }
