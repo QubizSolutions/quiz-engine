@@ -49,6 +49,12 @@ namespace Qubiz.QuizEngine.Infrastructure
 			if (destinationType.IsArray)
 				actualDestinationType = destinationType.GetElementType();
 
+			if (sourceType.IsGenericType && sourceType.GetGenericTypeDefinition() == typeof(List<>))
+				actualSourceType = sourceType.GetGenericArguments()[0];
+
+			if (destinationType.IsGenericType && destinationType.GetGenericTypeDefinition() == typeof(List<>))
+				actualDestinationType = destinationType.GetGenericArguments()[0];
+
 			typeof(AutoMapper.Mapper)
 				.GetMethods(BindingFlags.Static | BindingFlags.Public)
 				.First(mi => mi.Name == "CreateMap")

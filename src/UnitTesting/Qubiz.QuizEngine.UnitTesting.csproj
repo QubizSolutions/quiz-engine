@@ -80,6 +80,7 @@
     <Compile Include="Database\FeatureFlagRepositoryTest.cs" />
     <Compile Include="Database\AdminRepositoryTest.cs" />
     <Compile Include="Database\SectionRepositoryTest.cs" />
+    <Compile Include="Infrastructure\MapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SectionServiceTest.cs" />
     <Compile Include="Startup.cs" />
