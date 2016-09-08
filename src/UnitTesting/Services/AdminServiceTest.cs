@@ -63,7 +63,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             Admin[] admins = await adminService.GetAllAdminsAsync();
 
-            Assert.AreEqual(admins.Length, 2);
+            Assert.AreEqual(2, admins.Length);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             
             ValidationError[] validationError = await adminService.AddAdminAsync(admin1, originator);
             
-            Assert.AreEqual(validationError.Length, 0);
+            Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
@@ -125,7 +125,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] validationError = await adminService.DeleteAdminAsync(admin1.ID, originator);
 
-            Assert.AreEqual(validationError.Length, 0);
+            Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
@@ -144,8 +144,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             
             ValidationError[] validationError = await adminService.DeleteAdminAsync(admin1.ID, originator);
 
-            Assert.AreEqual(validationError.Length, 1);
-            Assert.AreEqual(validationError[0].Message, "Can't delete yourself");
+            Assert.AreEqual(1, validationError.Length);
+            Assert.AreEqual("Can't delete yourself", validationError[0].Message);
         }
 
         [TestMethod]
@@ -202,7 +202,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] validationError = await adminService.UpdateAdminAsync(admin1, originator);
 
-            Assert.AreEqual(validationError.Length, 0);
+            Assert.AreEqual(0, validationError.Length);
         }
 
         [TestMethod]
@@ -227,8 +227,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] validationError = await adminService.UpdateAdminAsync(admin1, originator);
 
-            Assert.AreEqual(validationError.Length, 1);
-            Assert.AreEqual(validationError[0].Message, "Name already exists!");
+            Assert.AreEqual(1, validationError.Length);
+            Assert.AreEqual("Name already exists!", validationError[0].Message);
         }
 
         [TestMethod]
@@ -248,8 +248,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] validationError = await adminService.UpdateAdminAsync(admin1, originator);
 
-            Assert.AreEqual(validationError.Length, 1);
-            Assert.AreEqual(validationError[0].Message, "You cannot edit yourself!");
+            Assert.AreEqual(1, validationError.Length);
+            Assert.AreEqual("You cannot edit yourself!", validationError[0].Message);
         }
     }
 }
