@@ -21,18 +21,17 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpGet]
 		public async Task<IHttpActionResult> Get()
 		{
-			Services.SectionService.Contract.Section[] dbSections = await sectionService.GetAllSectionsAsync();
-			Section[] sections = dbSections.DeepCopyTo<Section[]>();
+			Services.SectionService.Contract.Section[] sections = await sectionService.GetAllSectionsAsync();
 
-			return Ok(sections);
+			return Ok(sections.DeepCopyTo<Section[]>());
 		}
 
 		[HttpGet]
 		public async Task<IHttpActionResult> Get(Guid id)
 		{
-			Services.SectionService.Contract.Section dbSection = await sectionService.GetSectionAsync(id);
-			Section section = dbSection.DeepCopyTo<Section>();
-			return Ok(section);
+			Services.SectionService.Contract.Section section = await sectionService.GetSectionAsync(id);
+
+			return Ok(section.DeepCopyTo<Section>());
 		}
 
 		[HttpDelete]

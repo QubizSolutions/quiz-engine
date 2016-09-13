@@ -26,6 +26,8 @@ namespace Qubiz.QuizEngine.Services.SectionService
 
 				unitOfWork.SectionRepository.Delete(section);
 
+				await unitOfWork.SaveAsync();
+
 				return new ValidationError[0];
 			}
 		}
@@ -50,6 +52,9 @@ namespace Qubiz.QuizEngine.Services.SectionService
 				if (dbSection == null)
 				{
 					unitOfWork.SectionRepository.Create(section.DeepCopyTo<Database.Repositories.Section.Contract.Section>());
+
+					await unitOfWork.SaveAsync();
+
 					return new ValidationError[0];
 				}
 				return new ValidationError[1] { new ValidationError() { Message = "Add failed! There already exists a Section instance with this name!" } };
@@ -70,6 +75,8 @@ namespace Qubiz.QuizEngine.Services.SectionService
 
 				unitOfWork.SectionRepository.Update(dbSection);
 
+				await unitOfWork.SaveAsync();
+
 				return new ValidationError[0];
 			}
 		}
@@ -79,6 +86,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
 				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByIDAsync(id);
+
 				Section section = dbSection.DeepCopyTo<Section>();
 
 				return section;

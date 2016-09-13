@@ -36,7 +36,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			Section section2 = new Section { ID = Guid.NewGuid(), Name = "Section2" };
 
 			sectionRepository.Upsert(section1);
+			dbContext.SaveChanges();
 			sectionRepository.Upsert(section2);
+			dbContext.SaveChanges();
 
 			Section[] dbSections = await sectionRepository.ListAsync();
 
@@ -58,6 +60,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			Section section = SectionProvider();
 
 			sectionRepository.Upsert(section);
+			dbContext.SaveChanges();
 
 			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
 
@@ -80,6 +83,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			Section section = SectionProvider();
 
 			sectionRepository.Upsert(section);
+			dbContext.SaveChanges();
 
 			Section dbSection = await sectionRepository.GetByNameAsync(section.Name);
 
@@ -100,6 +104,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			Section section = SectionProvider();
 
 			sectionRepository.Create(section);
+			dbContext.SaveChanges();
 
 			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
@@ -140,11 +145,18 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		public void Update_WhenSectionExists_ThenUpdateCurrentSection()
 		{
 			Section section = SectionProvider();
+
 			sectionRepository.Create(section);
+			dbContext.SaveChanges();
+
 			var updatedName = "This is a new Name";
 			section.Name = updatedName;
+
 			sectionRepository.Update(section);
+			dbContext.SaveChanges();
+
 			section = sectionRepository.GetByIDAsync(section.ID).Result;
+
 			Assert.AreEqual(updatedName, section.Name);
 		}
 
@@ -167,9 +179,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		public void Update_WhenNothingChanged_ThenKeepSameSection()
 		{
 			Section section = SectionProvider();
-			sectionRepository.Create(section);
 
+			sectionRepository.Create(section);
+			dbContext.SaveChanges();
 			sectionRepository.Update(section);
+			dbContext.SaveChanges();
 
 			Section sameSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
@@ -180,9 +194,14 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		public void Delete_WhenSectionExists_ThenDeleteSection()
 		{
 			Section section = SectionProvider();
+
 			sectionRepository.Create(section);
+			dbContext.SaveChanges();
 			sectionRepository.Delete(section);
+			dbContext.SaveChanges();
+
 			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
+
 			Assert.IsNull(dbSection);
 		}
 
@@ -204,7 +223,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		public void Upsert_WhenSectionDontExists_ThenAddSection()
 		{
 			Section section = SectionProvider();
+
 			sectionRepository.Upsert(section);
+			dbContext.SaveChanges();
+
 			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
 			AssertSectionEqual(section, dbSection);
@@ -215,9 +237,14 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		{
 			Section section = SectionProvider();
 			sectionRepository.Create(section);
+			dbContext.SaveChanges();
+
 			var newName = "This is a new Name";
 			section.Name = newName;
+
 			sectionRepository.Upsert(section);
+			dbContext.SaveChanges();
+
 			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
 
 			Assert.AreEqual(newName, dbSection.Name);

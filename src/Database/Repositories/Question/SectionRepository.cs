@@ -42,8 +42,6 @@ namespace Qubiz.QuizEngine.Database.Repositories
 		public void Create(Section.Contract.Section section)
 		{
 			dbSet.Add(section.DeepCopyTo<Entities.Section>());
-
-			dbContext.SaveChanges();
 		}
 
 		public void Update(Section.Contract.Section section)
@@ -55,8 +53,6 @@ namespace Qubiz.QuizEngine.Database.Repositories
 				dbSet.Attach(dbSection);
 			}
 			dbContext.Entry(dbSection).State = EntityState.Modified;
-
-			dbContext.SaveChanges();
 		}
 
 		public void Delete(Section.Contract.Section section)
@@ -67,11 +63,9 @@ namespace Qubiz.QuizEngine.Database.Repositories
 			{
 				dbSet.Attach(dbSection);
 			}
-
 			dbSet.Remove(dbSection);
-
-			dbContext.SaveChanges();
 		}
+
 		public virtual void Upsert(Section.Contract.Section section)
 		{
 			if (section == null) throw new System.NullReferenceException("Value cannot be null");
@@ -86,7 +80,6 @@ namespace Qubiz.QuizEngine.Database.Repositories
 			{
 				Mapper.Map(section, existingSection);
 			}
-			dbContext.SaveChanges();
 		}
 	}
 }
