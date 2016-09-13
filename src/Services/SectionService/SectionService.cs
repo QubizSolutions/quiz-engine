@@ -36,11 +36,9 @@ namespace Qubiz.QuizEngine.Services.SectionService
 		{
 			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
-				Database.Repositories.Section.Contract.Section[] dbSections = await unitOfWork.SectionRepository.ListAsync();
+				Database.Repositories.Section.Contract.Section[] sections = await unitOfWork.SectionRepository.ListAsync();
 
-				Section[] sections = dbSections.DeepCopyTo<Section[]>();
-
-				return sections;
+				return sections.DeepCopyTo<Section[]>();
 			}
 		}
 
@@ -85,11 +83,9 @@ namespace Qubiz.QuizEngine.Services.SectionService
 		{
 			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
-				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByIDAsync(id);
+				Database.Repositories.Section.Contract.Section section = await unitOfWork.SectionRepository.GetByIDAsync(id);
 
-				Section section = dbSection.DeepCopyTo<Section>();
-
-				return section;
+				return section.DeepCopyTo<Section>();
 			}
 		}
 	}

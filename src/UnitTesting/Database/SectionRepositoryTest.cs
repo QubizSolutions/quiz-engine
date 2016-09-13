@@ -20,7 +20,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		{
 			IConfig config = new Config();
 			dbContext = new QuizEngineDataContext(config.ConnectionString);
-			sectionRepository = new SectionRepository(dbContext, null);
+			sectionRepository = new SectionRepository(dbContext);
 		}
 
 		[TestCleanup]

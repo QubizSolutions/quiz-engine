@@ -7,36 +7,34 @@ namespace Qubiz.QuizEngine.Database.Repositories
 {
 	public class SectionRepository : ISectionRepository
 	{
-		private DbContext dbContext;
-		private DbSet<Entities.Section> dbSet;
-		private UnitOfWork unitOfWork;
+		private readonly QuizEngineDataContext context;
+		private readonly DbSet<Entities.Section> dbSet;
 
-		public SectionRepository(QuizEngineDataContext context, UnitOfWork unitOfWork)
+		public SectionRepository(QuizEngineDataContext context)
 		{
-			this.dbContext = context;
-			this.dbSet = dbContext.Set<Entities.Section>();
-			this.unitOfWork = unitOfWork;
+			this.context = context;
+			this.dbSet = context.Set<Entities.Section>();
 		}
 
 		public async Task<Section.Contract.Section[]> ListAsync()
 		{
-			Entities.Section[] dbSections = await dbSet.ToArrayAsync();
-			Section.Contract.Section[] sections = dbSections.DeepCopyTo<Section.Contract.Section[]>();
-			return sections;
+			Entities.Section[] sections = await dbSet.ToArrayAsync();
+
+			return sections.DeepCopyTo<Section.Contract.Section[]>();
 		}
 
 		public async Task<Section.Contract.Section> GetByNameAsync(string name)
 		{
-			Entities.Section dbSection = await dbSet.FirstOrDefaultAsync(s => s.Name == name);
-			Section.Contract.Section section = dbSection.DeepCopyTo<Section.Contract.Section>();
-			return section;
+			Entities.Section section = await dbSet.FirstOrDefaultAsync(s => s.Name == name);
+
+			return section.DeepCopyTo<Section.Contract.Section>(); ;
 		}
 
 		public async Task<Section.Contract.Section> GetByIDAsync(Guid id)
 		{
-			Entities.Section dbSection = await dbSet.FirstOrDefaultAsync(s => s.ID == id);
-			Section.Contract.Section section = dbSection.DeepCopyTo<Section.Contract.Section>();
-			return section;
+			Entities.Section section = await dbSet.FirstOrDefaultAsync(s => s.ID == id);
+
+			return section.DeepCopyTo<Section.Contract.Section>(); ;
 		}
 
 		public void Create(Section.Contract.Section section)
@@ -47,34 +45,31 @@ namespace Qubiz.QuizEngine.Database.Repositories
 		public void Update(Section.Contract.Section section)
 		{
 			var dbSection = dbSet.Find(section.ID);
-			if (dbSection != null)
-			{
-				dbSection.Name = section.Name;
-				dbSet.Attach(dbSection);
-			}
-			dbContext.Entry(dbSection).State = EntityState.Modified;
+
+			dbSection.Name = section.Name;
+			dbSet.Attach(dbSection);
+
+			context.Entry(dbSection).State = EntityState.Modified;
 		}
 
 		public void Delete(Section.Contract.Section section)
 		{
 			var dbSection = dbSet.Find(section.ID);
 
-			if (dbContext.Entry(dbSection).State == EntityState.Detached)
+			if (context.Entry(dbSection).State == EntityState.Detached)
 			{
 				dbSet.Attach(dbSection);
 			}
 			dbSet.Remove(dbSection);
 		}
 
-		public virtual void Upsert(Section.Contract.Section section)
+		public void Upsert(Section.Contract.Section section)
 		{
-			if (section == null) throw new System.NullReferenceException("Value cannot be null");
-
-			Entities.Section existingSection = dbContext.Set<Entities.Section>().Find(section.DeepCopyTo<Entities.Section>().ID);
+			Entities.Section existingSection = dbSet.Find(section.DeepCopyTo<Entities.Section>().ID);
 
 			if (existingSection == null)
 			{
-				dbContext.Set<Entities.Section>().Add(section.DeepCopyTo<Entities.Section>());
+				dbSet.Add(section.DeepCopyTo<Entities.Section>());
 			}
 			else
 			{
