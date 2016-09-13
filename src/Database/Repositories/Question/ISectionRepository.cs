@@ -11,8 +11,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
 		Task<Section.Contract.Section> GetByIDAsync(Guid id);
 
-		void Create(Section.Contract.Section section);
-		void Update(Section.Contract.Section section);
 		void Delete(Section.Contract.Section section);
+
+		void Upsert(Section.Contract.Section section);
 	}
 }

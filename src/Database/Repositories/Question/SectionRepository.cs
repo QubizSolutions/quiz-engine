@@ -37,24 +37,9 @@ namespace Qubiz.QuizEngine.Database.Repositories
 			return section.DeepCopyTo<Section.Contract.Section>(); ;
 		}
 
-		public void Create(Section.Contract.Section section)
-		{
-			dbSet.Add(section.DeepCopyTo<Entities.Section>());
-		}
-
-		public void Update(Section.Contract.Section section)
-		{
-			var dbSection = dbSet.Find(section.ID);
-
-			dbSection.Name = section.Name;
-			dbSet.Attach(dbSection);
-
-			context.Entry(dbSection).State = EntityState.Modified;
-		}
-
 		public void Delete(Section.Contract.Section section)
 		{
-			var dbSection = dbSet.Find(section.ID);
+			Entities.Section dbSection = dbSet.Find(section.ID);
 
 			if (context.Entry(dbSection).State == EntityState.Detached)
 			{
@@ -65,7 +50,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
 
 		public void Upsert(Section.Contract.Section section)
 		{
-			Entities.Section existingSection = dbSet.Find(section.DeepCopyTo<Entities.Section>().ID);
+			Entities.Section existingSection = dbSet.Find(section.ID);
 
 			if (existingSection == null)
 			{

@@ -49,7 +49,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
 				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.Name);
 				if (dbSection == null)
 				{
-					unitOfWork.SectionRepository.Create(section.DeepCopyTo<Database.Repositories.Section.Contract.Section>());
+					unitOfWork.SectionRepository.Upsert(section.DeepCopyTo<Database.Repositories.Section.Contract.Section>());
 
 					await unitOfWork.SaveAsync();
 
@@ -63,15 +63,11 @@ namespace Qubiz.QuizEngine.Services.SectionService
 		{
 			using (IUnitOfWork unitOfWork = unitOfWorkFactory.Create())
 			{
-				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.DeepCopyTo<Database.Repositories.Section.Contract.Section>().Name);
+				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.Name);
 				if (dbSection != null && dbSection.ID != section.ID)
 					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
 
-				dbSection = await unitOfWork.SectionRepository.GetByIDAsync(section.ID);
-
-				Mapper.Map(section, dbSection);
-
-				unitOfWork.SectionRepository.Update(dbSection);
+				unitOfWork.SectionRepository.Upsert(section.DeepCopyTo<Qubiz.QuizEngine.Database.Repositories.Section.Contract.Section>());
 
 				await unitOfWork.SaveAsync();
 

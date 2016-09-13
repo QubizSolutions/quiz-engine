@@ -99,103 +99,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public void Create_WhenSectionDontExists_ThenAddSectionToDatabase()
-		{
-			Section section = SectionProvider();
-
-			sectionRepository.Create(section);
-			dbContext.SaveChanges();
-
-			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
-
-			AssertSectionEqual(section, dbSection);
-		}
-
-		[TestMethod]
-		public void Create_WhenSectionExists_ThenThrowException()
-		{
-			Section section = SectionProvider();
-			sectionRepository.Create(section);
-
-			Section section2 = section;
-			try
-			{
-				sectionRepository.Create(section2);
-			}
-			catch (Exception ex)
-			{
-				Assert.IsNotNull(ex);
-			}
-		}
-		[TestMethod]
-		public void Create_WhenSectionIsNull_ThenThrowException()
-		{
-			Section section = null;
-			try
-			{
-				sectionRepository.Create(section);
-			}
-			catch (Exception ex)
-			{
-				Assert.IsNotNull(ex);
-			}
-		}
-
-		[TestMethod]
-		public void Update_WhenSectionExists_ThenUpdateCurrentSection()
-		{
-			Section section = SectionProvider();
-
-			sectionRepository.Create(section);
-			dbContext.SaveChanges();
-
-			var updatedName = "This is a new Name";
-			section.Name = updatedName;
-
-			sectionRepository.Update(section);
-			dbContext.SaveChanges();
-
-			section = sectionRepository.GetByIDAsync(section.ID).Result;
-
-			Assert.AreEqual(updatedName, section.Name);
-		}
-
-		[TestMethod]
-		public void Update_WhenSectionDontExists_ThenThrowException()
-		{
-			Section section = SectionProvider();
-			section.Name = "This is a new Name";
-			try
-			{
-				sectionRepository.Update(section);
-			}
-			catch (Exception ex)
-			{
-				Assert.IsNotNull(ex);
-			}
-		}
-
-		[TestMethod]
-		public void Update_WhenNothingChanged_ThenKeepSameSection()
-		{
-			Section section = SectionProvider();
-
-			sectionRepository.Create(section);
-			dbContext.SaveChanges();
-			sectionRepository.Update(section);
-			dbContext.SaveChanges();
-
-			Section sameSection = sectionRepository.GetByIDAsync(section.ID).Result;
-
-			AssertSectionEqual(section, sameSection);
-		}
-
-		[TestMethod]
 		public void Delete_WhenSectionExists_ThenDeleteSection()
 		{
 			Section section = SectionProvider();
 
-			sectionRepository.Create(section);
+			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 			sectionRepository.Delete(section);
 			dbContext.SaveChanges();
@@ -236,7 +144,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		public void Upsert_WhenSectionExists_ThenUpdateSection()
 		{
 			Section section = SectionProvider();
-			sectionRepository.Create(section);
+			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
 			var newName = "This is a new Name";

@@ -100,7 +100,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
 			sectionRepositoryMock.Setup(x => x.GetByNameAsync(section.Name)).Returns(Task.FromResult((Section)null));
 
-			sectionRepositoryMock.Setup(x => x.Create(It.Is<Section>(s => HaveEqualState(section, s))));
+			sectionRepositoryMock.Setup(x => x.Upsert(It.Is<Section>(s => HaveEqualState(section, s))));
 
 			unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(()=>Task.CompletedTask);
 
@@ -132,8 +132,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 			unitOfWorkMock.Setup(repository => repository.SectionRepository).Returns(sectionRepositoryMock.Object);
 
 			sectionRepositoryMock.Setup(x => x.GetByNameAsync(section.Name)).Returns(Task.FromResult(section));
-			sectionRepositoryMock.Setup(x => x.GetByIDAsync(section.ID)).Returns(Task.FromResult(section));
-			sectionRepositoryMock.Setup(x => x.Update(section));
+			sectionRepositoryMock.Setup(x => x.Upsert(It.Is<Section>(s=>HaveEqualState(s,section))));
 			unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(() => Task.CompletedTask);
 
 			ValidationError[] errors = await sectionService.UpdateSectionAsync(section.DeepCopyTo<QuizEngine.Services.SectionService.Contract.Section>());
