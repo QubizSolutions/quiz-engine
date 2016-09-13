@@ -1,4 +1,4 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
+﻿using Qubiz.QuizEngine.Areas.M.Models;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.SectionService;
 using System;
@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
-    [Admin]
+	[Admin]
 	public class SectionController : ApiController
 	{
 		private readonly ISectionService sectionService;
@@ -21,7 +21,8 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpGet]
 		public async Task<IHttpActionResult> Get()
 		{
-			Section[] sections = await sectionService.GetAllSectionsAsync();
+			Services.SectionService.Contract.Section[] dbSections = await sectionService.GetAllSectionsAsync();
+			Section[] sections = dbSections.DeepCopyTo<Section[]>();
 
 			return Ok(sections);
 		}
@@ -29,8 +30,8 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpGet]
 		public async Task<IHttpActionResult> Get(Guid id)
 		{
-			Section section = await sectionService.GetSectionAsync(id);
-
+			Services.SectionService.Contract.Section dbSection = await sectionService.GetSectionAsync(id);
+			Section section = dbSection.DeepCopyTo<Section>();
 			return Ok(section);
 		}
 
@@ -47,7 +48,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpPost]
 		public async Task<IHttpActionResult> Post(Section section)
 		{
-			ValidationError[] validationErrors = await sectionService.AddSectionAsync(section);
+			ValidationError[] validationErrors = await sectionService.AddSectionAsync(section.DeepCopyTo<Services.SectionService.Contract.Section>());
 			if (validationErrors.Any())
 				return BadRequest();
 
@@ -57,7 +58,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		[HttpPut]
 		public async Task<IHttpActionResult> Put(Section section)
 		{
-			ValidationError[] validationErrors = await sectionService.UpdateSectionAsync(section);
+			ValidationError[] validationErrors = await sectionService.UpdateSectionAsync(section.DeepCopyTo<Services.SectionService.Contract.Section>());
 			if (validationErrors.Any())
 				return BadRequest();
 
