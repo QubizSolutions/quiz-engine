@@ -1,5 +1,4 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
-using Qubiz.QuizEngine.Infrastructure;
+﻿using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Threading.Tasks;
 
@@ -7,14 +6,14 @@ namespace Qubiz.QuizEngine.Services.SectionService
 {
 	public interface ISectionService
 	{
-		Task<Section[]> GetAllSectionsAsync();
+		Task<Contract.Section[]> GetAllSectionsAsync();
 
 		Task<ValidationError[]> DeleteSectionAsync(Guid id);
-		
-		Task<ValidationError[]> AddSectionAsync(Section section);
 
-		Task<ValidationError[]>	UpdateSectionAsync(Section section);
+		Task<ValidationError[]> AddSectionAsync(Contract.Section section);
 
-		Task<Section> GetSectionAsync(Guid id);
+		Task<ValidationError[]> UpdateSectionAsync(Contract.Section section);
+
+		Task<Contract.Section> GetSectionAsync(Guid id);
 	}
 }

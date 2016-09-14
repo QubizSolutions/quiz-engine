@@ -64,7 +64,7 @@ namespace Qubiz.QuizEngine.Database.Repositories
                 {
                 if (sectionRepository == null)
                 {
-                    sectionRepository = new SectionRepository(dbContext, this);
+                    sectionRepository = new SectionRepository(dbContext);
                 }
 
                 return sectionRepository;
