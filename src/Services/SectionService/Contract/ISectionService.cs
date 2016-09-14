@@ -2,18 +2,18 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Qubiz.QuizEngine.Services.SectionService
+namespace Qubiz.QuizEngine.Services.SectionService.Contract
 {
 	public interface ISectionService
 	{
-		Task<Contract.Section[]> GetAllSectionsAsync();
+		Task<Section[]> GetAllSectionsAsync();
 
 		Task<ValidationError[]> DeleteSectionAsync(Guid id);
 
-		Task<ValidationError[]> AddSectionAsync(Contract.Section section);
+		Task<ValidationError[]> AddSectionAsync(Section section);
 
-		Task<ValidationError[]> UpdateSectionAsync(Contract.Section section);
+		Task<ValidationError[]> UpdateSectionAsync(Section section);
 
-		Task<Contract.Section> GetSectionAsync(Guid id);
+		Task<Section> GetSectionAsync(Guid id);
 	}
 }

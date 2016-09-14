@@ -76,7 +76,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Config.cs" />
+    <Compile Include="Database\Config.cs" />
     <Compile Include="Database\FeatureFlagRepositoryTest.cs" />
     <Compile Include="Database\AdminRepositoryTest.cs" />
     <Compile Include="Database\SectionRepositoryTest.cs" />

@@ -1,4 +1,5 @@
-﻿using Qubiz.QuizEngine.Infrastructure;
+﻿using Qubiz.QuizEngine.Database.Repositories.Section.Contract;
+using Qubiz.QuizEngine.Infrastructure;
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
