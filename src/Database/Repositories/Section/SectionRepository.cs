@@ -4,7 +4,7 @@ using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
-namespace Qubiz.QuizEngine.Database.Repositories
+namespace Qubiz.QuizEngine.Database.Repositories.Section
 {
 	public class SectionRepository : ISectionRepository
 	{
