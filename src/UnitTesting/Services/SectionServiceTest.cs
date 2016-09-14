@@ -56,7 +56,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 		}
 
 		[TestMethod]
-		public async Task DeleteSectionAsync_WhenSectionDontExists_ThenReturnsError()
+		public async Task DeleteSectionAsync_WhenSectionDoesNotExist_ThenReturnsNull()
 		{
 			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -86,15 +86,15 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
 			QuizEngine.Services.SectionService.Contract.Section[] sections = await sectionService.GetAllSectionsAsync();
 
-			AssertAreEqual(sectionsList[0].DeepCopyTo<Qubiz.QuizEngine.Services.SectionService.Contract.Section>(), sections[0]);
-			AssertAreEqual(sectionsList[1].DeepCopyTo<Qubiz.QuizEngine.Services.SectionService.Contract.Section>(), sections[1]);
-			AssertAreEqual(sectionsList[2].DeepCopyTo<Qubiz.QuizEngine.Services.SectionService.Contract.Section>(), sections[2]);
+			AssertAreEqual(sectionsList[0], sections[0]);
+			AssertAreEqual(sectionsList[1], sections[1]);
+			AssertAreEqual(sectionsList[2], sections[2]);
 		}
 
 		[TestMethod]
 		public async Task AddSectionAsync_WhenAddingUnexistingSection_ThenReturnNoError()
 		{
-			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
+			Qubiz.QuizEngine.Services.SectionService.Contract.Section section = new Qubiz.QuizEngine.Services.SectionService.Contract.Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
 			unitOfWorkMock.Setup(x => x.SectionRepository).Returns(sectionRepositoryMock.Object);
 
@@ -104,7 +104,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
 			unitOfWorkMock.Setup(x => x.SaveAsync()).Returns(()=>Task.CompletedTask);
 
-			ValidationError[] errors = await sectionService.AddSectionAsync(section.DeepCopyTo<QuizEngine.Services.SectionService.Contract.Section>());
+			ValidationError[] errors = await sectionService.AddSectionAsync(section);
 
 			Assert.AreEqual(0, errors.Length);
 		}
@@ -144,19 +144,20 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 		public async Task UpdateSectionAsync_WhenUpdateUnexistingSection_ThenReturnError()
 		{
 			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
-			Section dbSection = new Section { ID = Guid.NewGuid(), Name = "Error Test" };
+			Section anotherSection = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
 			unitOfWorkMock.Setup(x => x.SectionRepository).Returns(sectionRepositoryMock.Object);
 
-			sectionRepositoryMock.Setup(x => x.GetByNameAsync(section.Name)).Returns(Task.FromResult(dbSection));
+			sectionRepositoryMock.Setup(x => x.GetByNameAsync(section.Name)).Returns(Task.FromResult(anotherSection));
 
 			ValidationError[] errors = await sectionService.UpdateSectionAsync(section.DeepCopyTo<QuizEngine.Services.SectionService.Contract.Section>());
 
+			Assert.AreEqual("Update failed! There is already a Section with this name !", errors[0].Message);
 			Assert.AreEqual(1, errors.Length);
 		}
 
 		[TestMethod]
-		public async Task GetSectionAsync_WhenExistingSection_ThenReturnExistingSection()
+		public async Task GetSectionAsync_WhenSectionExists_ThenReturnExistingSection()
 		{
 			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Section" };
 
@@ -166,16 +167,34 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
 			QuizEngine.Services.SectionService.Contract.Section newSection = await sectionService.GetSectionAsync(section.ID);
 
-			AssertAreEqual(section.DeepCopyTo<QuizEngine.Services.SectionService.Contract.Section>(), newSection);
+			AssertAreEqual(section, newSection);
+		}
+		[TestMethod]
+		public async Task GetSectionAsync_WhenSectionDoesNotExist_ThenReturnNull()
+		{
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
+
+			unitOfWorkMock.Setup(x => x.SectionRepository).Returns(sectionRepositoryMock.Object);
+
+			sectionRepositoryMock.Setup(x => x.GetByIDAsync(section.ID)).Returns(Task.FromResult((Section)null));
+
+			QuizEngine.Services.SectionService.Contract.Section returnedSection = await sectionService.GetSectionAsync(section.ID);
+
+			Assert.IsNull(returnedSection);
 		}
 
-		private void AssertAreEqual(QuizEngine.Services.SectionService.Contract.Section expected, QuizEngine.Services.SectionService.Contract.Section actual)
+		private void AssertAreEqual(Section expected, QuizEngine.Services.SectionService.Contract.Section actual)
 		{
 			Assert.AreEqual(expected.ID, actual.ID);
 			Assert.AreEqual(expected.Name, actual.Name);
 		}
 
 		private bool HaveEqualState(QuizEngine.Database.Repositories.Section.Contract.Section expected, QuizEngine.Database.Repositories.Section.Contract.Section actual)
+		{
+			return expected.ID == actual.ID
+				&& expected.Name == actual.Name;
+		}
+		private bool HaveEqualState(Qubiz.QuizEngine.Services.SectionService.Contract.Section expected, Section actual)
 		{
 			return expected.ID == actual.ID
 				&& expected.Name == actual.Name;

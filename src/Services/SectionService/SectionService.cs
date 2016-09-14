@@ -65,7 +65,7 @@ namespace Qubiz.QuizEngine.Services.SectionService
 			{
 				Database.Repositories.Section.Contract.Section dbSection = await unitOfWork.SectionRepository.GetByNameAsync(section.Name);
 				if (dbSection != null && dbSection.ID != section.ID)
-					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is no Section instance with this ID!" } };
+					return new ValidationError[1] { new ValidationError() { Message = "Update failed! There is already a Section with this name !" } };
 
 				unitOfWork.SectionRepository.Upsert(section.DeepCopyTo<Qubiz.QuizEngine.Database.Repositories.Section.Contract.Section>());
 

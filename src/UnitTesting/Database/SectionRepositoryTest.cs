@@ -36,7 +36,6 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			Section section2 = new Section { ID = Guid.NewGuid(), Name = "Section2" };
 
 			sectionRepository.Upsert(section1);
-			dbContext.SaveChanges();
 			sectionRepository.Upsert(section2);
 			dbContext.SaveChanges();
 
@@ -47,17 +46,17 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public async Task ListAsync_WhenSectionsDontExists_ThenReturnEmptyList()
+		public async Task ListAsync_WhenSectionsDoesNotExist_ThenReturnEmptyList()
 		{
 			Section[] sections = await sectionRepository.ListAsync();
 
-			Assert.IsTrue(sections.Count() == 0);
+			Assert.AreEqual(0, sections.Length);
 		}
 
 		[TestMethod]
 		public async Task GetByIDAsync_WhenSectionExists_ThenReturnsSectionByID()
 		{
-			Section section = SectionProvider();
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
@@ -68,7 +67,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public async Task GetByIDAsync_WhenSectionDontExists_ThenReturnsNull()
+		public async Task GetByIDAsync_WhenSectionDoesNotExist_ThenReturnsNull()
 		{
 			Guid id = Guid.NewGuid();
 
@@ -80,7 +79,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		[TestMethod]
 		public async Task GetByNameAsync_WhenSectionExists_ThenReturnsSectionByName()
 		{
-			Section section = SectionProvider();
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
@@ -91,7 +90,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public async Task GetByNameAsync_WhenSectionDontExists_ThenReturnsNull()
+		public async Task GetByNameAsync_WhenSectionDoesNotExist_ThenReturnsNull()
 		{
 			Section section = await sectionRepository.GetByNameAsync("UnexistingSection");
 
@@ -99,51 +98,50 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public void Delete_WhenSectionExists_ThenDeleteSection()
+		public async Task Delete_WhenSectionExists_ThenDeleteSection()
 		{
-			Section section = SectionProvider();
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 			sectionRepository.Delete(section);
 			dbContext.SaveChanges();
 
-			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
+			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
 
 			Assert.IsNull(dbSection);
 		}
 
 		[TestMethod]
-		public void Delete_WhenSectionDontExists_ThenThrowException()
+		public async Task Delete_WhenSectionDoesNotExist_ThenSectionIsDeleted()
 		{
-			Section section = SectionProvider();
-			try
-			{
-				sectionRepository.Delete(section);
-			}
-			catch (Exception ex)
-			{
-				Assert.IsNotNull(ex);
-			}
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
+
+			sectionRepository.Delete(section);
+			dbContext.SaveChanges();
+
+			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
+
+			Assert.IsNull(dbSection);
 		}
 
 		[TestMethod]
-		public void Upsert_WhenSectionDontExists_ThenAddSection()
+		public async Task Upsert_WhenSectionDoesNotExist_ThenSectionIsAdded()
 		{
-			Section section = SectionProvider();
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
-			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
+			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
 
 			AssertSectionEqual(section, dbSection);
 		}
 
 		[TestMethod]
-		public void Upsert_WhenSectionExists_ThenUpdateSection()
+		public async Task Upsert_WhenSectionExists_ThenSectionIsUpdated()
 		{
-			Section section = SectionProvider();
+			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
@@ -153,14 +151,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
-			Section dbSection = sectionRepository.GetByIDAsync(section.ID).Result;
+			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
 
 			Assert.AreEqual(newName, dbSection.Name);
-		}
-
-		private Section SectionProvider()
-		{
-			return new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 		}
 
 		private void AssertSectionEqual(Section expected, Section actual)

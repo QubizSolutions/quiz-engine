@@ -41,11 +41,8 @@ namespace Qubiz.QuizEngine.Database.Repositories
 		{
 			Entities.Section dbSection = dbSet.Find(section.ID);
 
-			if (context.Entry(dbSection).State == EntityState.Detached)
-			{
-				dbSet.Attach(dbSection);
-			}
-			dbSet.Remove(dbSection);
+			if (dbSection != null)
+				dbSet.Remove(dbSection);
 		}
 
 		public void Upsert(Section.Contract.Section section)
