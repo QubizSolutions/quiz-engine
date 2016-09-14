@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Database;
-using Qubiz.QuizEngine.Database.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
 using Qubiz.QuizEngine.Database.Repositories.Section.Contract;
+using Qubiz.QuizEngine.Database.Repositories.Section;
 
 namespace Qubiz.QuizEngine.UnitTesting.Database
 {

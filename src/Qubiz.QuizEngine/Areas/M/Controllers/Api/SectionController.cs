@@ -1,6 +1,6 @@
 ﻿using Qubiz.QuizEngine.Areas.M.Models;
 using Qubiz.QuizEngine.Infrastructure;
-using Qubiz.QuizEngine.Services.SectionService;
+using Qubiz.QuizEngine.Services.SectionService.Contract;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		{
 			Services.SectionService.Contract.Section[] sections = await sectionService.GetAllSectionsAsync();
 
-			return Ok(sections.DeepCopyTo<Section[]>());
+			return Ok(sections.DeepCopyTo<Models.Section[]>());
 		}
 
 		[HttpGet]
@@ -31,7 +31,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		{
 			Services.SectionService.Contract.Section section = await sectionService.GetSectionAsync(id);
 
-			return Ok(section.DeepCopyTo<Section>());
+			return Ok(section.DeepCopyTo<Models.Section>());
 		}
 
 		[HttpDelete]
@@ -45,7 +45,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		}
 
 		[HttpPost]
-		public async Task<IHttpActionResult> Post(Section section)
+		public async Task<IHttpActionResult> Post(Models.Section section)
 		{
 			ValidationError[] validationErrors = await sectionService.AddSectionAsync(section.DeepCopyTo<Services.SectionService.Contract.Section>());
 			if (validationErrors.Any())
@@ -55,7 +55,7 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 		}
 
 		[HttpPut]
-		public async Task<IHttpActionResult> Put(Section section)
+		public async Task<IHttpActionResult> Put(Models.Section section)
 		{
 			ValidationError[] validationErrors = await sectionService.UpdateSectionAsync(section.DeepCopyTo<Services.SectionService.Contract.Section>());
 			if (validationErrors.Any())
