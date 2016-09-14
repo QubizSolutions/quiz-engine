@@ -98,7 +98,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public async Task Delete_WhenSectionExists_ThenDeleteSection()
+		public async Task Delete_WhenSectionExists_ThenSectionIsDeleted()
 		{
 			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
@@ -113,7 +113,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 		}
 
 		[TestMethod]
-		public async Task Delete_WhenSectionDoesNotExist_ThenSectionIsDeleted()
+		public async Task Delete_WhenSectionDoesNotExist_Success()
 		{
 			Section section = new Section { ID = Guid.NewGuid(), Name = "Test Name" };
 
@@ -145,15 +145,14 @@ namespace Qubiz.QuizEngine.UnitTesting.Database
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
-			var newName = "This is a new Name";
-			section.Name = newName;
+			section.Name = "This is a new Name";
 
 			sectionRepository.Upsert(section);
 			dbContext.SaveChanges();
 
 			Section dbSection = await sectionRepository.GetByIDAsync(section.ID);
 
-			Assert.AreEqual(newName, dbSection.Name);
+			AssertSectionEqual(section, dbSection);
 		}
 
 		private void AssertSectionEqual(Section expected, Section actual)
