@@ -8,6 +8,9 @@ namespace Qubiz.QuizEngine.Infrastructure
 	public static class Mapper
 	{
 		private static HashSet<Type> primitiveTypes = new HashSet<Type>(new List<Type>() { typeof(int), typeof(decimal), typeof(string), typeof(Guid), typeof(DateTime), typeof(Enum), typeof(bool) });
+		private static HashSet<Tuple<Type, Type>> mappingsCache = new HashSet<Tuple<Type, Type>>();
+
+		private static object locker = new object();
 
 		public static TDestination DeepCopyTo<TDestination>(this object source)
 			 where TDestination : class
@@ -39,6 +42,22 @@ namespace Qubiz.QuizEngine.Infrastructure
 		}
 
 		internal static void CreateMap(Type sourceType, Type destinationType)
+		{
+			Tuple<Type, Type> mappingKey = new Tuple<Type, Type>(sourceType, destinationType);
+
+			if (!mappingsCache.Contains(mappingKey))
+			{
+				lock (locker)
+				{
+					if (!mappingsCache.Contains(mappingKey) && mappingsCache.Add(mappingKey))
+					{
+						MappingAction(sourceType, destinationType);
+					}
+				}
+			}
+		}
+
+		private static void MappingAction(Type sourceType, Type destinationType)
 		{
 			Type actualSourceType = sourceType;
 			Type actualDestinationType = destinationType;

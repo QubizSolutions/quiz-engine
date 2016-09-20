@@ -547,6 +547,94 @@ namespace Qubiz.QuizEngine.UnitTesting.Infrastructure
 			Assert.AreEqual(5, destination.SecondClass.SecondClassSecondSubClass.Int);
 			Assert.AreEqual("887", destination.SecondClass.SecondClassSecondSubClass.String);
 		}
+
+		[TestMethod]
+		public void DeepCopyTo_WhenSourceAndDestinationHaveSameTypeWithCircularReference_ThenDestinationIsCopied()
+		{
+			A.CircularReference source = new A.CircularReference()
+			{
+				Bool = true,
+				DateTime = new DateTime(2011, 01, 02),
+				Decimal = 14.10M,
+				Guid = new Guid("8DA4C611-A758-4EB7-A352-8D12FE84DBD9"),
+				Int = 4141,
+				String = "1142",
+
+				CircularReferenceProperty = new A.CircularReference()
+				{
+					Bool = true,
+					DateTime = new DateTime(2012, 01, 02),
+					Decimal = 66.10M,
+					Guid = new Guid("8D24C611-A758-4EB7-A352-8D82FE84DBD9"),
+					Int = 54,
+					String = "8567",
+				}
+			};
+
+			A.CircularReference destination = source.DeepCopyTo<A.CircularReference>();
+
+			Assert.AreNotEqual(source, destination);
+			Assert.AreEqual(true, destination.Bool);
+			Assert.AreEqual(new DateTime(2011, 01, 02), destination.DateTime);
+			Assert.AreEqual(14.10M, destination.Decimal);
+			Assert.AreEqual(new Guid("8DA4C611-A758-4EB7-A352-8D12FE84DBD9"), destination.Guid);
+			Assert.AreEqual(4141, destination.Int);
+			Assert.AreEqual("1142", destination.String);
+
+			Assert.AreNotEqual(source.CircularReferenceProperty, destination.CircularReferenceProperty);
+			Assert.AreEqual(true, destination.CircularReferenceProperty.Bool);
+			Assert.AreEqual(new DateTime(2012, 01, 02), destination.CircularReferenceProperty.DateTime);
+			Assert.AreEqual(66.10M, destination.CircularReferenceProperty.Decimal);
+			Assert.AreEqual(new Guid("8D24C611-A758-4EB7-A352-8D82FE84DBD9"), destination.CircularReferenceProperty.Guid);
+			Assert.AreEqual(54, destination.CircularReferenceProperty.Int);
+			Assert.AreEqual("8567", destination.CircularReferenceProperty.String);
+
+			Assert.IsNull(destination.CircularReferenceProperty.CircularReferenceProperty);
+		}
+
+		[TestMethod]
+		public void DeepCopyTo_WhenSourceAndDestinationHaveDifferentTypeWithCircularReference_ThenDestinationIsCopied()
+		{
+			A.CircularReference source = new A.CircularReference()
+			{
+				Bool = true,
+				DateTime = new DateTime(2011, 01, 02),
+				Decimal = 14.10M,
+				Guid = new Guid("8DA4C611-A758-4EB7-A352-8D12FE84DBD9"),
+				Int = 4141,
+				String = "1142",
+
+				CircularReferenceProperty = new A.CircularReference()
+				{
+					Bool = true,
+					DateTime = new DateTime(2012, 01, 02),
+					Decimal = 66.10M,
+					Guid = new Guid("8D24C611-A758-4EB7-A352-8D82FE84DBD9"),
+					Int = 54,
+					String = "8567",
+				}
+			};
+
+			B.CircularReference destination = source.DeepCopyTo<B.CircularReference>();
+
+			Assert.AreNotEqual(source, destination);
+			Assert.AreEqual(true, destination.Bool);
+			Assert.AreEqual(new DateTime(2011, 01, 02), destination.DateTime);
+			Assert.AreEqual(14.10M, destination.Decimal);
+			Assert.AreEqual(new Guid("8DA4C611-A758-4EB7-A352-8D12FE84DBD9"), destination.Guid);
+			Assert.AreEqual(4141, destination.Int);
+			Assert.AreEqual("1142", destination.String);
+
+			Assert.AreNotEqual(source.CircularReferenceProperty, destination.CircularReferenceProperty);
+			Assert.AreEqual(true, destination.CircularReferenceProperty.Bool);
+			Assert.AreEqual(new DateTime(2012, 01, 02), destination.CircularReferenceProperty.DateTime);
+			Assert.AreEqual(66.10M, destination.CircularReferenceProperty.Decimal);
+			Assert.AreEqual(new Guid("8D24C611-A758-4EB7-A352-8D82FE84DBD9"), destination.CircularReferenceProperty.Guid);
+			Assert.AreEqual(54, destination.CircularReferenceProperty.Int);
+			Assert.AreEqual("8567", destination.CircularReferenceProperty.String);
+
+			Assert.IsNull(destination.CircularReferenceProperty.CircularReferenceProperty);
+		}
 	}
 
 	internal class Cow
@@ -578,7 +666,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Infrastructure
 		public Guid Guid { get; set; }
 
 		public bool Bool { get; set; }
-	}
+	}	
 }
 
 namespace A
@@ -699,6 +787,23 @@ namespace A
 
 		public bool Bool { get; set; }
 	}
+
+	internal class CircularReference
+	{
+		public int Int { get; set; }
+
+		public decimal Decimal { get; set; }
+
+		public string String { get; set; }
+
+		public DateTime DateTime { get; set; }
+
+		public Guid Guid { get; set; }
+
+		public bool Bool { get; set; }
+
+		public CircularReference CircularReferenceProperty { get; set; }
+	}
 }
 
 namespace B
@@ -818,5 +923,22 @@ namespace B
 		public Guid Guid { get; set; }
 
 		public bool Bool { get; set; }
+	}
+
+	internal class CircularReference
+	{
+		public int Int { get; set; }
+
+		public decimal Decimal { get; set; }
+
+		public string String { get; set; }
+
+		public DateTime DateTime { get; set; }
+
+		public Guid Guid { get; set; }
+
+		public bool Bool { get; set; }
+
+		public CircularReference CircularReferenceProperty { get; set; }
 	}
 }
