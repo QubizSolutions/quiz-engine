@@ -47,7 +47,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 				TotalCount = questionItems.Length
 			};
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?itemsPerPage=2&pageNumber=1");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/?itemsPerPage=2&pageNumber=1");
 			questionController.Configuration = new HttpConfiguration();
 
 
@@ -55,11 +55,12 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 
 			IHttpActionResult actionResult = await questionController.Get(2, 1);
 
-			var response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
+			QuestionPaged response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
 
 			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionPaged>), actionResult.GetType());
 			AssertAreEqual(questionsPaged.Items[0], response.Items[0]);
 			AssertAreEqual(questionsPaged.Items[1], response.Items[1]);
+			Assert.AreEqual(questionsPaged.TotalCount, response.TotalCount);
 		}
 
 		[TestMethod]
@@ -67,17 +68,18 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		{
 			QuestionPaged questions = new QuestionPaged();
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?itemsPerPage=2&pageNumber=1");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/?itemsPerPage=2&pageNumber=1");
 			questionController.Configuration = new HttpConfiguration();
 
 			questionServiceMock.Setup(x => x.GetQuestionsByPageAsync(2, 1)).Returns(Task.FromResult(questions.DeepCopyTo<Qubiz.QuizEngine.Services.Models.PagedResult<Qubiz.QuizEngine.Services.Models.QuestionListItem>>()));
 
 			IHttpActionResult actionResult = await questionController.Get(2, 1);
 
-			var response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
+			QuestionPaged response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
 
 			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionPaged>), actionResult.GetType());
 			Assert.AreEqual(0, response.Items.Length);
+			Assert.AreEqual(0, response.TotalCount);
 		}
 
 		[TestMethod]
@@ -94,14 +96,14 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 
 			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?" + question.ID);
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/?" + question.ID);
 			questionController.Configuration = new HttpConfiguration();
 
 			questionServiceMock.Setup(x => x.GetQuestionByID(question.ID)).Returns(Task.FromResult(question.DeepCopyTo<Qubiz.QuizEngine.Services.Models.QuestionDetail>()));
 
 			IHttpActionResult actionResult = await questionController.Get(question.ID);
 
-			var response = (actionResult as OkNegotiatedContentResult<Question>).Content;
+			Question response = (actionResult as OkNegotiatedContentResult<Question>).Content;
 
 			Assert.AreEqual(typeof(OkNegotiatedContentResult<Question>), actionResult.GetType());
 			AssertAreEqual(question, response);
@@ -114,14 +116,14 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		{
 			Guid questionId = Guid.NewGuid();
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?" + questionId);
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/?" + questionId);
 			questionController.Configuration = new HttpConfiguration();
 
 			questionServiceMock.Setup(x => x.GetQuestionByID(questionId)).Returns(Task.FromResult((Qubiz.QuizEngine.Services.Models.QuestionDetail)null));
 
 			IHttpActionResult actionResult = await questionController.Get(questionId);
 
-			var response = (actionResult as OkNegotiatedContentResult<Question>).Content;
+			Question response = (actionResult as OkNegotiatedContentResult<Question>).Content;
 
 			Assert.AreEqual(typeof(OkNegotiatedContentResult<Question>), actionResult.GetType());
 			Assert.IsNull(response);
@@ -139,10 +141,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 			};
 			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Put, "api/Question/Put/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Put, "api/Question/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.UpdateQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.UpdateQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.CompletedTask);
 
 			IHttpActionResult actionResult = await questionController.Put(question.DeepCopyTo<Question>());
 
@@ -161,10 +163,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 			};
 			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Post, "api/Question/Post/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Post, "api/Question/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.AddQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.AddQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.CompletedTask);
 
 			IHttpActionResult actionResult = await questionController.Post(question.DeepCopyTo<Question>());
 
@@ -183,10 +185,10 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 			};
 			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Delete, "api/Question/Delete/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Delete, "api/Question/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.DeleteQuestionAsync(question.ID)).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.DeleteQuestionAsync(question.ID)).Returns(Task.CompletedTask);
 
 			IHttpActionResult actionResult = await questionController.Delete(question.ID);
 
