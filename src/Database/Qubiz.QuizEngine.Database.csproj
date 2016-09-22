@@ -93,8 +93,9 @@
     <Compile Include="Repositories\Question\OptionRepository.cs" />
     <Compile Include="Repositories\Question\IQuestionRepository.cs" />
     <Compile Include="Repositories\Question\QuestionRepository.cs" />
-    <Compile Include="Repositories\Question\ISectionRepository.cs" />
-    <Compile Include="Repositories\Question\SectionRepository.cs" />
+    <Compile Include="Repositories\Section\Contract\ISectionRepository.cs" />
+    <Compile Include="Repositories\Section\SectionRepository.cs" />
+    <Compile Include="Repositories\Section\Contract\Section.cs" />
     <Compile Include="Repositories\Test\ITestQuestionRepository.cs" />
     <Compile Include="Repositories\Test\ITestSectionRepository.cs" />
     <Compile Include="Repositories\Test\ITestRepository.cs" />
