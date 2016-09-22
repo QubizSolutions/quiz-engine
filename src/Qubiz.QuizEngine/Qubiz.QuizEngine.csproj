@@ -165,6 +165,7 @@
     <Compile Include="Areas\M\Controllers\NamespaceHttpControllerSelector.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
+    <Compile Include="Areas\M\Models\Section.cs" />
     <Compile Include="Authorizer.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CacheModels.cs" />
@@ -808,7 +809,6 @@
     <Content Include="Views\Templates\AnswersDetailsPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\M\Models\" />
     <Folder Include="Content\Controllers\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

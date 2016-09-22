@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <!--Dev-->
+  <dev name="qubizQuizEngine" connectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=QubizQuizEngine;persist security info=True; Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+
+  <!--Test-->
+  <test name="qubizQuizEngineTest" connectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=QubizQuizEngineTest;persist security info=True; Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+</configuration>

@@ -171,6 +171,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
 
             Admin admin2 = await adminService.GetAdminAsync(admin1.ID);
+
+            AssertAreAdminsEqual(admin1, admin2);
         }
 
         [TestMethod]

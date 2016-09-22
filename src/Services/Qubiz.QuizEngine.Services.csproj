@@ -55,7 +55,8 @@
     <Compile Include="Models\QuestionListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionService.cs" />
-    <Compile Include="SectionService\ISectionService.cs" />
+    <Compile Include="SectionService\Contract\Section.cs" />
+    <Compile Include="SectionService\Contract\ISectionService.cs" />
     <Compile Include="SectionService\SectionService.cs" />
   </ItemGroup>
   <ItemGroup>
