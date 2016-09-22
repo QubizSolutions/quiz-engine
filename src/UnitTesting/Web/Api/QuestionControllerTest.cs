@@ -177,20 +177,13 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		public async Task Delete_WhenDeletingQuestion_ThenOkStatusCodeIsReturned()
 		{
 			Guid questionID = Guid.NewGuid();
-			Option[] options = new Option[]
-			{
-
-				new Option {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
-				new Option {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
-			};
-			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
 			questionController.Request = new HttpRequestMessage(HttpMethod.Delete, "api/Question/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.DeleteQuestionAsync(question.ID)).Returns(Task.CompletedTask);
+			questionServiceMock.Setup(x => x.DeleteQuestionAsync(questionID)).Returns(Task.CompletedTask);
 
-			IHttpActionResult actionResult = await questionController.Delete(question.ID);
+			IHttpActionResult actionResult = await questionController.Delete(questionID);
 
 			Assert.AreEqual(typeof(OkResult), actionResult.GetType());
 		}
