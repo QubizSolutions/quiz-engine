@@ -110,8 +110,8 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
 
             ValidationError[] validationError = await adminService.AddAdminAsync(admin, originator);
 
-            Assert.AreEqual(validationError.Length, 1);
-            Assert.AreEqual(validationError[0].Message, "Name already exists!");
+            Assert.AreEqual(1, validationError.Length);
+            Assert.AreEqual("Name already exists!", validationError[0].Message);
         }
 
         [TestMethod]
@@ -158,9 +158,9 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task GetAdminAsync_WhenAdminWhitGivenIDExists_ThenAdminWhitGivenIDIsReturned()
+        public async Task GetAdminAsync_WhenAdminExists_ThenAdminIsReturned()
         {
-            Admin admin1 = new Admin
+            Admin dbAdmin = new Admin
             {
                 ID = Guid.NewGuid(),
                 Name = "QUBIZ\\Name1"
@@ -168,11 +168,11 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
             
             unitOfWorkMock.Setup(x => x.AdminRepository).Returns(adminRepositoryMock.Object);
 
-            adminRepositoryMock.Setup(x => x.GetByIDAsync(admin1.ID)).Returns(Task.FromResult(admin1));
+            adminRepositoryMock.Setup(x => x.GetByIDAsync(dbAdmin.ID)).Returns(Task.FromResult(dbAdmin));
 
-            Admin admin2 = await adminService.GetAdminAsync(admin1.ID);
+            Admin result = await adminService.GetAdminAsync(dbAdmin.ID);
 
-            AssertAreAdminsEqual(admin1, admin2);
+            AssertAreAdminsEqual(dbAdmin, result);
         }
 
         [TestMethod]
@@ -244,7 +244,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Services
         }
 
         [TestMethod]
-        public async Task UpdateAdminAsync_WhenTryingToUpdateCurrentAdmin_ThenValidationErrorsAreReturned()
+        public async Task UpdateAdminAsync_WhenTryingToUpdateMyself_ThenValidationErrorsAreReturned()
         {
             Admin admin = new Admin
             {
