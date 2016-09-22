@@ -2,7 +2,7 @@
 
 namespace Qubiz.QuizEngine.Areas.M.Models
 {
-	public class OptionDefinition
+	public class Option
 	{
 		public Guid ID { get; set; }
 

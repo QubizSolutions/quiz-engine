@@ -2,7 +2,7 @@
 
 namespace Qubiz.QuizEngine.Areas.M.Models
 {
-	public class QuestionDefinition
+	public class Question
 	{
 		public Guid ID { get; set; }
 
@@ -15,6 +15,8 @@ namespace Qubiz.QuizEngine.Areas.M.Models
 		public QuestionType Type { get; set; }
 
 		public int Number { get; set; }
+
+		public Option[] Options { get; set; }
 	}
 
 	public enum QuestionType

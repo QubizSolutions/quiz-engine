@@ -165,9 +165,10 @@
     <Compile Include="Areas\M\Controllers\NamespaceHttpControllerSelector.cs" />
     <Compile Include="Areas\M\Controllers\TemplateController.cs" />
     <Compile Include="Areas\M\MAreaRegistration.cs" />
-    <Compile Include="Areas\M\Models\OptionDefinition.cs" />
-    <Compile Include="Areas\M\Models\QuestionDefinition.cs" />
-    <Compile Include="Areas\M\Models\QuestionDetail.cs" />
+    <Compile Include="Areas\M\Models\Option.cs" />
+    <Compile Include="Areas\M\Models\Question.cs" />
+    <Compile Include="Areas\M\Models\QuestionPaged.cs" />
+    <Compile Include="Areas\M\Models\QuestionPagedItem.cs" />
     <Compile Include="Areas\M\Models\Section.cs" />
     <Compile Include="Authorizer.cs" />
     <Compile Include="Bootstrapper.cs" />

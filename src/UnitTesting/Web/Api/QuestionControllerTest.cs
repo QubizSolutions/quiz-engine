@@ -4,11 +4,11 @@ using Qubiz.QuizEngine.Services;
 using Qubiz.QuizEngine.Areas.M.Controllers.Api;
 using Moq;
 using System.Threading.Tasks;
-using Qubiz.QuizEngine.Services.Models;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Qubiz.QuizEngine.Infrastructure;
+using Qubiz.QuizEngine.Areas.M.Models;
 
 namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 {
@@ -22,6 +22,7 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		public void TestInitialize()
 		{
 			questionServiceMock = new Mock<IQuestionService>(MockBehavior.Strict);
+
 			questionController = new QuestionController(questionServiceMock.Object);
 		}
 
@@ -34,48 +35,49 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		[TestMethod]
 		public async Task Get_WhenGettingAllQuestions_ThenReturnListOfQuestions()
 		{
-			QuestionListItem[] questions = new QuestionListItem[]
+			QuestionPagedItem[] questionItems = new QuestionPagedItem[]
 			{
-				new QuestionListItem {ID = Guid.NewGuid(), Number = 1, Section = Guid.NewGuid().ToString()},
-				new QuestionListItem {ID = Guid.NewGuid(), Number = 2, Section = Guid.NewGuid().ToString()},
+				new QuestionPagedItem {ID = Guid.NewGuid(), Number = 1, Section = "Section 1" },
+				new QuestionPagedItem {ID = Guid.NewGuid(), Number = 2, Section = "Section 2" }
 			};
 
-			PagedResult<QuestionListItem> questionList = new PagedResult<QuestionListItem> { Items = questions, TotalCount = questions.Length };
+			QuestionPaged questionsPaged = new QuestionPaged
+			{
+				Items = questionItems,
+				TotalCount = questionItems.Length
+			};
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/Qubiz.QuizEngine/M/api/Question/Get/?itemsPerPage=2&pageNumber=1");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?itemsPerPage=2&pageNumber=1");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.GetQuestionsByPageAsync(2, 1)).Returns(Task.FromResult(questionList));
+
+			questionServiceMock.Setup(x => x.GetQuestionsByPageAsync(2, 1)).Returns(Task.FromResult(questionsPaged.DeepCopyTo<Qubiz.QuizEngine.Services.Models.PagedResult<Qubiz.QuizEngine.Services.Models.QuestionListItem>>()));
 
 			IHttpActionResult actionResult = await questionController.Get(2, 1);
 
-			var response = actionResult as OkNegotiatedContentResult<PagedResult<QuestionListItem>>;
+			var response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
 
-			Assert.AreEqual(typeof(OkNegotiatedContentResult<PagedResult<QuestionListItem>>), actionResult.GetType());
-			Assert.AreEqual(questions[0].ID, response.Content.Items[0].ID);
-			Assert.AreEqual(questions[0].Number, response.Content.Items[0].Number);
-			Assert.AreEqual(questions[0].Section, response.Content.Items[0].Section);
-			Assert.AreEqual(questions[1].ID, response.Content.Items[1].ID);
-			Assert.AreEqual(questions[1].Number, response.Content.Items[1].Number);
-			Assert.AreEqual(questions[1].Section, response.Content.Items[1].Section);
+			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionPaged>), actionResult.GetType());
+			AssertAreEqual(questionsPaged.Items[0], response.Items[0]);
+			AssertAreEqual(questionsPaged.Items[1], response.Items[1]);
 		}
 
 		[TestMethod]
-		public async Task Get_WhenGettingUnexistingQuestions_ThenReturnEmptyList()
+		public async Task Get_WhenNoQuestionsMatchTheSearch_ThenNoQuestionsAreReturned()
 		{
-			PagedResult<QuestionListItem> questions = new PagedResult<QuestionListItem>();
+			QuestionPaged questions = new QuestionPaged();
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/Qubiz.QuizEngine/M/api/Question/Get/?itemsPerPage=2&pageNumber=1");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?itemsPerPage=2&pageNumber=1");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.GetQuestionsByPageAsync(2, 1)).Returns(Task.FromResult(questions));
+			questionServiceMock.Setup(x => x.GetQuestionsByPageAsync(2, 1)).Returns(Task.FromResult(questions.DeepCopyTo<Qubiz.QuizEngine.Services.Models.PagedResult<Qubiz.QuizEngine.Services.Models.QuestionListItem>>()));
 
 			IHttpActionResult actionResult = await questionController.Get(2, 1);
 
-			var response = actionResult as OkNegotiatedContentResult<PagedResult<QuestionListItem>>;
+			var response = (actionResult as OkNegotiatedContentResult<QuestionPaged>).Content;
 
-			Assert.AreEqual(typeof(OkNegotiatedContentResult<PagedResult<QuestionListItem>>), actionResult.GetType());
-			Assert.IsNull(response.Content.Items);
+			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionPaged>), actionResult.GetType());
+			Assert.AreEqual(0, response.Items.Length);
 		}
 
 		[TestMethod]
@@ -83,103 +85,105 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 		{
 			Guid questionID = Guid.NewGuid();
 
-			OptionDefinition[] options = new OptionDefinition[]
+			Option[] options = new Option[]
 			{
 
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
 			};
 
-			QuestionDetail question = new QuestionDetail { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
+			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/Qubiz.QuizEngine/M/api/Question/Get/?" + question.ID);
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?" + question.ID);
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.GetQuestionByID(question.ID)).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.GetQuestionByID(question.ID)).Returns(Task.FromResult(question.DeepCopyTo<Qubiz.QuizEngine.Services.Models.QuestionDetail>()));
 
 			IHttpActionResult actionResult = await questionController.Get(question.ID);
 
-			var response = actionResult as OkNegotiatedContentResult<QuestionDetail>;
+			var response = (actionResult as OkNegotiatedContentResult<Question>).Content;
 
-			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionDetail>), actionResult.GetType());
-			AssertAreEqual(question, response.Content);
+			Assert.AreEqual(typeof(OkNegotiatedContentResult<Question>), actionResult.GetType());
+			AssertAreEqual(question, response);
+			AssertAreEqual(question.Options[0], response.Options[0]);
+			AssertAreEqual(question.Options[1], question.Options[1]);
 		}
 
 		[TestMethod]
-		public async Task Get_WhenGettingUnexistentQuestion_ThenReturnNull()
+		public async Task Get_WhenNoQuestionMatchTheSearch_ThenReturnNull()
 		{
-			Guid newId = Guid.NewGuid();
+			Guid questionId = Guid.NewGuid();
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "localhost/Qubiz.QuizEngine/M/api/Question/Get/?" + newId);
+			questionController.Request = new HttpRequestMessage(HttpMethod.Get, "api/Question/Get/?" + questionId);
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.GetQuestionByID(newId)).Returns(Task.FromResult((QuestionDetail)null));
+			questionServiceMock.Setup(x => x.GetQuestionByID(questionId)).Returns(Task.FromResult((Qubiz.QuizEngine.Services.Models.QuestionDetail)null));
 
-			IHttpActionResult actionResult = await questionController.Get(newId);
+			IHttpActionResult actionResult = await questionController.Get(questionId);
 
-			var response = actionResult as OkNegotiatedContentResult<QuestionDetail>;
+			var response = (actionResult as OkNegotiatedContentResult<Question>).Content;
 
-			Assert.AreEqual(typeof(OkNegotiatedContentResult<QuestionDetail>), actionResult.GetType());
-			Assert.IsNull(response.Content);
+			Assert.AreEqual(typeof(OkNegotiatedContentResult<Question>), actionResult.GetType());
+			Assert.IsNull(response);
 		}
 
 		[TestMethod]
-		public async Task Put_WhenUpdateExistingQuestion_ReturnOk()
+		public async Task Put_WhenUpdatingAnExistingQuestion_ThenOkStatusCodeIsReturned()
 		{
 			Guid questionID = Guid.NewGuid();
-			OptionDefinition[] options = new OptionDefinition[]
+			Option[] options = new Option[]
 			{
 
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
 			};
-			QuestionDetail question = new QuestionDetail { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
+			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Put, "http://localhost/Qubiz.QuizEngine/M/api/Question/Put/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Put, "api/Question/Put/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.UpdateQuestionAsync(It.Is<QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.UpdateQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
 
-			IHttpActionResult actionResult = await questionController.Put(question.DeepCopyTo<Qubiz.QuizEngine.Areas.M.Models.QuestionDetail>());
+			IHttpActionResult actionResult = await questionController.Put(question.DeepCopyTo<Question>());
 
 			Assert.AreEqual(typeof(OkResult), actionResult.GetType());
 		}
 
 		[TestMethod]
-		public async Task Post_WhenAddingQuestion_ThenReturnOk()
+		public async Task Post_WhenAddingQuestion_ThenOkStatusCodeIsReturned()
 		{
 			Guid questionID = Guid.NewGuid();
-			OptionDefinition[] options = new OptionDefinition[]
+			Option[] options = new Option[]
 			{
 
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
 			};
-			QuestionDetail question = new QuestionDetail { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
+			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/Qubiz.QuizEngine/M/api/Question/Post/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Post, "api/Question/Post/");
 			questionController.Configuration = new HttpConfiguration();
 
-			questionServiceMock.Setup(x => x.AddQuestionAsync(It.Is<QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
+			questionServiceMock.Setup(x => x.AddQuestionAsync(It.Is<Qubiz.QuizEngine.Services.Models.QuestionDetail>(s => (HaveEqualState(s, question))))).Returns(Task.FromResult(question));
 
-			IHttpActionResult actionResult = await questionController.Post(question.DeepCopyTo<Qubiz.QuizEngine.Areas.M.Models.QuestionDetail>());
+			IHttpActionResult actionResult = await questionController.Post(question.DeepCopyTo<Question>());
 
 			Assert.AreEqual(typeof(OkResult), actionResult.GetType());
 		}
 
 		[TestMethod]
-		public async Task Delete_WhenDeletingQuestion_ThenReturnOk()
+		public async Task Delete_WhenDeletingQuestion_ThenOkStatusCodeIsReturned()
 		{
 			Guid questionID = Guid.NewGuid();
-			OptionDefinition[] options = new OptionDefinition[]
+			Option[] options = new Option[]
 			{
 
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
-				new OptionDefinition {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test", IsCorrectAnswer = true, Order =  1, QuestionID = questionID},
+				new Option {ID = Guid.NewGuid(), Answer = "This is a test 2", IsCorrectAnswer = false, Order =  2, QuestionID = questionID},
 			};
-			QuestionDetail question = new QuestionDetail { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
+			Question question = new Question { ID = questionID, Complexity = 1, Number = 1, QuestionText = "This is a test", SectionID = Guid.NewGuid(), Type = QuestionType.SingleSelect, Options = options };
 
-			questionController.Request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost/Qubiz.QuizEngine/M/api/Question/Delete/");
+			questionController.Request = new HttpRequestMessage(HttpMethod.Delete, "api/Question/Delete/");
 			questionController.Configuration = new HttpConfiguration();
 
 			questionServiceMock.Setup(x => x.DeleteQuestionAsync(question.ID)).Returns(Task.FromResult(question));
@@ -189,32 +193,32 @@ namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 			Assert.AreEqual(typeof(OkResult), actionResult.GetType());
 		}
 
-		private void AssertAreEqual(QuestionDetail expected, QuestionDetail actual)
+		private void AssertAreEqual(Question expected, Question actual)
 		{
 			Assert.AreEqual(expected.ID, actual.ID);
 			Assert.AreEqual(expected.Number, actual.Number);
 			Assert.AreEqual(expected.QuestionText, actual.QuestionText);
 			Assert.AreEqual(expected.SectionID, actual.SectionID);
 			Assert.AreEqual(expected.Type.ToString(), actual.Type.ToString());
-			CollectionAssertAreEqual(expected.Options, actual.Options);
 		}
 
-		private void CollectionAssertAreEqual(OptionDefinition[] expected, OptionDefinition[] actual)
+		private void AssertAreEqual(QuestionPagedItem expected, QuestionPagedItem actual)
 		{
-			Assert.AreEqual(expected[0].ID, actual[0].ID);
-			Assert.AreEqual(expected[0].Answer, actual[0].Answer);
-			Assert.AreEqual(expected[0].IsCorrectAnswer, actual[0].IsCorrectAnswer);
-			Assert.AreEqual(expected[0].Order, actual[0].Order);
-			Assert.AreEqual(expected[0].QuestionID, actual[0].QuestionID);
-
-			Assert.AreEqual(expected[1].ID, actual[1].ID);
-			Assert.AreEqual(expected[1].Answer, actual[1].Answer);
-			Assert.AreEqual(expected[1].IsCorrectAnswer, actual[1].IsCorrectAnswer);
-			Assert.AreEqual(expected[1].Order, actual[1].Order);
-			Assert.AreEqual(expected[1].QuestionID, actual[1].QuestionID);
+			Assert.AreEqual(expected.ID, actual.ID);
+			Assert.AreEqual(expected.Number, actual.Number);
+			Assert.AreEqual(expected.Section, actual.Section);
 		}
 
-		private bool HaveEqualState(QuestionDetail expected, QuestionDetail actual)
+		private void AssertAreEqual(Option expected, Option actual)
+		{
+			Assert.AreEqual(expected.ID, actual.ID);
+			Assert.AreEqual(expected.IsCorrectAnswer, actual.IsCorrectAnswer);
+			Assert.AreEqual(expected.Order, actual.Order);
+			Assert.AreEqual(expected.QuestionID, actual.QuestionID);
+			Assert.AreEqual(expected.Answer, actual.Answer);
+		}
+
+		private bool HaveEqualState(Qubiz.QuizEngine.Services.Models.QuestionDetail expected, Question actual)
 		{
 			return expected.ID == actual.ID
 				&& expected.Number == actual.Number
