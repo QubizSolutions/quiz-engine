@@ -18,7 +18,7 @@
         function getQuestionsPaged(pageNumber, itemsPerPage) {
             return $http({
                 method: 'GET',
-                url: 'api/Question/GetQuestionsPaged/',
+                url: 'api/Question/',
                 params: {
                     pageNumber: pageNumber,
                     itemsPerPage: itemsPerPage
@@ -27,19 +27,21 @@
         }
 
         function deleteQuestion(question) {
-            var id = question.ID;
-            return $http({
-                method: 'DELETE',
-                url: 'api/Question/DeleteQuestion/' + id
+        	return $http({
+        		method: 'DELETE',
+        		url: 'api/Question/',
+        		params: {
+					id : question.ID
+        		}
             });
         }
 
-        function getQuestionByID(ID){
+        function getQuestionByID(id){
             return $http({
                 method: 'GET',
-                url: 'api/Question/GetQuestion/',
+                url: 'api/Question/',
                 params: {
-                    ID: ID
+                    id: id
                 }
             });
         }
@@ -47,7 +49,7 @@
         function updateQuestion(question) {
             return $http({
                 method: 'PUT',
-                url: 'api/Question/PutQuestion/',
+                url: 'api/Question/',
                 data: question
             });
         }
@@ -55,7 +57,7 @@
         function addQuestion(question) {
             return $http({
                 method: 'POST',
-                url: 'api/Question/PostQuestion/',
+                url: 'api/Question/',
                 data: question
             });
         }
