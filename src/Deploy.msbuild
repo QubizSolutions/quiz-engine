@@ -1,0 +1,59 @@
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)'=='' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        
+        <DeployServiceUrl Condition=" '$(DeployServiceUrl)'=='' "></DeployServiceUrl>
+        <MsDeployUserName Condition=" '$(MsDeployUserName)'=='' "></MsDeployUserName>
+        <MsDeployPassword Condition=" '$(MsDeployPassword)'=='' "></MsDeployPassword>
+        <MsDeploySite Condition=" '$(MsDeploySite)'=='' "></MsDeploySite>
+        
+        <!--Local;Remote-->
+        <PublishMethod Condition=" '$(PublishMethod)'=='' ">Local</PublishMethod>
+        
+        <!--Dev;Staging;Production-->
+        <DeployEnvironment Condition=" '$(DeployEnvironment)' == '' ">Dev</DeployEnvironment>
+
+        <ProjectName>Qubiz.QuizEngine</ProjectName>
+        <ProjectFile>$(ProjectName)\$(ProjectName).csproj</ProjectFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(PublishMethod)' == 'Local'">
+        <MSPublishMethod>InProc</MSPublishMethod>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishMethod)' == 'Remote'">
+        <MSPublishMethod>WMSVC</MSPublishMethod>
+    </PropertyGroup>
+
+    <Target Name="Build" DependsOnTargets="DisplayMessages">
+        <MSBuild Projects="$(ProjectFile)" Targets="Rebuild" Properties="Configuration=$(Configuration);Platform=$(Platform)" ContinueOnError="false" />
+        <MSBuild Projects="$(ProjectFile)"
+				 Properties="Configuration=$(Configuration);
+							Platform=$(Platform);
+							DeployOnBuild=True;
+							DeployTarget=MSDeployPublish;
+							MSDeployPublishMethod=$(MSPublishMethod);
+							CreatePackageOnPublish=True;
+							AllowUntrustedCertificate=True;
+							DeployIisAppPath=$(MsDeploySite);
+							MsDeployServiceUrl=$(DeployServiceUrl);
+							SkipExtraFilesOnServer=True;
+							UserName=$(MsDeployUserName);
+							Password=$(MsDeployPassword);
+							TransformFile=$(MSBuildThisFileDirectory)\Web.$(DeployEnvironment).config;
+							DeployEnvironment=$(DeployEnvironment)"
+			ContinueOnError="false" />
+    </Target>
+
+    <!-- Display messages in console -->
+    <Target Name="DisplayMessages">
+        <Message Text="Solution path = $(MSBuildThisFileDirectory)" />
+        <Message Text="Configuration = $(Configuration)" />
+        <Message Text="Platform = $(Platform)" />
+        <Message Text="ProjectName = $(ProjectName)" />
+        <Message Text="ProjectFile = $(ProjectFile)" />
+        <Message Text="PublishMethod = $(PublishMethod)" />
+        <Message Text="MSPublishMethod = $(MSPublishMethod)" />
+        <Message Text="DeployEnvironment = $(DeployEnvironment)" />
+    </Target>
+</Project>

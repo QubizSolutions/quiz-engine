@@ -48,11 +48,11 @@ namespace Qubiz.QuizEngine.Areas.M.Controllers
                 // This matches the behavior of DefaultHttpControllerSelector.
                 var controllerName = controllerType.Name.Remove(controllerType.Name.Length - DefaultHttpControllerSelector.ControllerSuffix.Length);
 
-                var key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length-2], controllerName);
+                var key = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length-2], controllerName);
 
                 if (segments.Contains("M"))
                 {
-                    key = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length - 3], controllerName);
+                    key = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", segments[segments.Length - 3], controllerName);
                 }
 
                 // Check for duplicate keys.
