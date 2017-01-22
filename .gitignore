@@ -252,3 +252,6 @@ paket-files/
 .idea/
 *.sln.iml
 /src/config.local
+*.Dev.Config
+*.Staging.Config
+*.Release.Config
