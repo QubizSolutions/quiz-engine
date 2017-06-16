@@ -1,5 +1,5 @@
-﻿using Qubiz.QuizEngine.Database.Entities;
-using Qubiz.QuizEngine.Infrastructure;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

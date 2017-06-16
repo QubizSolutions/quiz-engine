@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Runtime.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Runtime.Extensions.4.x.0.1.3-beta\lib\net45\AutoMapper.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CKEditor.NET">
       <HintPath>C:\Users\Bogdan.Cret\Desktop\ckeditoraspnet\bin\Release\CKEditor.NET.dll</HintPath>
     </Reference>
