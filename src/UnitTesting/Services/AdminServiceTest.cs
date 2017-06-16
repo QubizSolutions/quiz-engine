@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AutoMapper.Runtime.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Database.Entities;
@@ -6,7 +7,6 @@ using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.AdminService;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.UnitTesting.Services

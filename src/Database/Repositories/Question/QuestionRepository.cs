@@ -1,9 +1,9 @@
-﻿using Qubiz.QuizEngine.Database.Models;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Qubiz.QuizEngine.Infrastructure;
 
 namespace Qubiz.QuizEngine.Database.Repositories
 {
