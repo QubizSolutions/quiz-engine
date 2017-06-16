@@ -1,18 +1,18 @@
-﻿using System;
+﻿using AutoMapper.Runtime.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Qubiz.QuizEngine.Services;
-using Qubiz.QuizEngine.Areas.M.Controllers.Api;
 using Moq;
-using System.Threading.Tasks;
+using Qubiz.QuizEngine.Areas.M.Controllers.Api;
+using Qubiz.QuizEngine.Areas.M.Models;
+using Qubiz.QuizEngine.Services;
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using Qubiz.QuizEngine.Infrastructure;
-using Qubiz.QuizEngine.Areas.M.Models;
 
 namespace Qubiz.QuizEngine.UnitTesting.Web.Api
 {
-	[TestClass]
+    [TestClass]
 	public class QuestionControllerTest
 	{
 		private Mock<IQuestionService> questionServiceMock;

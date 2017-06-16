@@ -1,5 +1,5 @@
-﻿using Qubiz.QuizEngine.Areas.M.Models;
-using Qubiz.QuizEngine.Infrastructure;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Areas.M.Models;
 using Qubiz.QuizEngine.Services;
 using System;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace Qubiz.QuizEngine.Areas.M.Controllers.Api
 {
-	public class QuestionController : ApiController
+    public class QuestionController : ApiController
 	{
 		private readonly IQuestionService questionService;
 

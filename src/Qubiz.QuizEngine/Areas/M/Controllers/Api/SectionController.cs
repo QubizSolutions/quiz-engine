@@ -1,4 +1,5 @@
-﻿using Qubiz.QuizEngine.Areas.M.Models;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Areas.M.Models;
 using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.SectionService.Contract;
 using System;

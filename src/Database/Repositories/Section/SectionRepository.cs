@@ -1,12 +1,12 @@
-﻿using Qubiz.QuizEngine.Database.Repositories.Section.Contract;
-using Qubiz.QuizEngine.Infrastructure;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Database.Repositories.Section.Contract;
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.Database.Repositories.Section
 {
-	public class SectionRepository : ISectionRepository
+    public class SectionRepository : ISectionRepository
 	{
 		private readonly QuizEngineDataContext context;
 		private readonly DbSet<Entities.Section> dbSet;

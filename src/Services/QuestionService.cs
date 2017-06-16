@@ -1,6 +1,6 @@
-﻿using Qubiz.QuizEngine.Database;
+﻿using AutoMapper.Runtime.Extensions;
+using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Database.Repositories;
-using Qubiz.QuizEngine.Infrastructure;
 using Qubiz.QuizEngine.Services.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Qubiz.QuizEngine.Services
 {
-	public class QuestionService : IQuestionService
+    public class QuestionService : IQuestionService
 	{
 		private readonly IUnitOfWorkFactory unitOfWorkFactory;
 

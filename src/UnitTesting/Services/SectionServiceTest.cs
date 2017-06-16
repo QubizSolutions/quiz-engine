@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AutoMapper.Runtime.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Qubiz.QuizEngine.Database;
 using Qubiz.QuizEngine.Database.Repositories;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Qubiz.QuizEngine.UnitTesting.Services
 {
-	[TestClass]
+    [TestClass]
 	public class SectionServiceTest
 	{
 		private Mock<ISectionRepository> sectionRepositoryMock;

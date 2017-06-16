@@ -1,13 +1,14 @@
-﻿using Qubiz.QuizEngine.Database.Repositories;
+﻿using AutoMapper.Runtime.Extensions;
 using Qubiz.QuizEngine.Database;
+using Qubiz.QuizEngine.Database.Repositories;
 using Qubiz.QuizEngine.Infrastructure;
+using Qubiz.QuizEngine.Services.SectionService.Contract;
 using System;
 using System.Threading.Tasks;
-using Qubiz.QuizEngine.Services.SectionService.Contract;
 
 namespace Qubiz.QuizEngine.Services.SectionService
 {
-	public class SectionService : ISectionService
+    public class SectionService : ISectionService
 	{
 		private readonly IUnitOfWorkFactory unitOfWorkFactory;
 
